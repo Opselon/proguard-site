@@ -2,14 +2,14 @@
     "name": "proguard-site-worker",
     "version": "1.0.0",
     "private": true,
-"scripts": {
-  "build": "node build.mjs",
-  "dev": "npm run build && wrangler dev src/index.mjs --local",
-  "deploy": "npm run build && wrangler deploy src/index.mjs"
-},
+    "scripts": {
+        "build": "node build.mjs",
+        "dev": "npm run build && wrangler dev src/index.mjs --local",
+        "deploy": "npm run build && wrangler deploy src/index.mjs"
+    },
     "devDependencies": {
         "fs-extra": "^11.3.2",
-        "wrangler": "latest"
+        "wrangler": "^3.114.15"
     },
     "license": "MIT"
 }
