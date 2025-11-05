@@ -61,6 +61,10 @@ const renderHeader = ({ model, messages, locale, currentPage }) => {
               <span>${t('global.locale.en', messages)}</span>
             </a>
           </div>
+          <a href="https://pdfhost.io/v/J6FxHuAEBq_ProGuardv1" class="control-button control-button--cta" target="_blank" rel="noopener noreferrer">
+            ${getIcon('download')}
+            <span>Download Catalog</span>
+          </a>
           <a href="/contact" class="control-button control-button--cta">
             ${getIcon('phone')}
             <span>${t('global.nav.contact', messages)}</span>
