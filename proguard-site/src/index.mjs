@@ -46,7 +46,14 @@ export default {
       const faJson = JSON.parse(faJsonStr);
       const enJson = JSON.parse(enJsonStr);
       const acceptLang = request.headers.get('Accept-Language') || '';
-      const preferredLocale = acceptLang.startsWith('fa') ? 'fa' : env.DEFAULT_LOCALE || 'fa';
+      const localeParam = url.searchParams.get('lang') || url.searchParams.get('locale');
+      const normalizedParam = localeParam ? localeParam.toLowerCase() : '';
+      const defaultLocale = env.DEFAULT_LOCALE || 'fa';
+      const preferredLocale = normalizedParam === 'en' ? 'en' : normalizedParam === 'fa'
+        ? 'fa'
+        : acceptLang.startsWith('fa')
+          ? 'fa'
+          : defaultLocale;
       const messages = preferredLocale === 'fa' ? faJson : enJson;
       const themeCookie = request.headers.get('Cookie')?.match(/theme=(light|dark)/);
       const theme = themeCookie ? themeCookie[1] : env.THEME_DEFAULT || 'light';

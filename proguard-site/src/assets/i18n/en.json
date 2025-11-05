@@ -4,50 +4,87 @@
       "direction": "ltr"
     },
     "global": {
-      "title": "Proguard - Modern Coating & Insulation Solutions",
-      "description": "A complete range of waterproofing, thermal, acoustic insulation, and protective industrial coatings.",
+      "title": "Proguard - Advanced Protective Coatings",
+      "description": "Proguard fuses material science, nanotechnology, and modern design to deliver next-generation industrial and architectural coatings.",
       "companyName": "Proguard Coating Company",
       "rightsReserved": "All rights reserved.",
-      "learnMore": "Learn More",
-      "home": "Home Page",
-      "products": "Our Products",
+      "learnMore": "Discover more",
+      "home": "Home",
+      "products": "Products",
+      "nav": {
+        "solutions": "Solutions",
+        "projects": "Flagship Projects",
+        "about": "About Proguard",
+        "contact": "Request Consultation"
+      },
       "search": {
-        "placeholder": "Search products...",
-        "label": "Search for products"
+        "placeholder": "Smart search across products...",
+        "label": "Search products"
       },
       "theme": {
-        "toggle": "Toggle light/dark theme"
+        "toggle": "Toggle industrial theme"
+      },
+      "locale": {
+        "label": "Choose language",
+        "fa": "FA",
+        "en": "EN"
       }
     },
     "hero": {
-      "title": "Innovation, Durability, and Performance in Coatings",
-      "subtitle": "We build a more secure and sustainable future for your construction and industrial projects with specialized solutions.",
-      "cta": "Explore Products"
+      "title": "Engineering coatings. For a resilient tomorrow.",
+      "subtitle": "Leveraging breakthrough chemistry and rigorous QA, we shield your assets from the harshest environments while elevating their architectural appeal.",
+      "cta": "Enter the Proguard universe"
     },
     "product": {
+      "section": {
+        "eyebrow": "Product Portfolio",
+        "title": "Intelligent protection for every climate challenge",
+        "description": "Each Proguard formula is validated through extreme stress testing to guarantee unrivaled resistance to water, fire, impact, and corrosion."
+      },
       "ultraguard": {
         "title": "UltraGuard",
-        "desc": "Advanced waterproofing coating based on modified resins for a seamless, flexible layer."
+        "tagline": "Ultimate shield against humidity.",
+        "desc": "An advanced polymer membrane with outstanding adhesion that seals micro-cracks and blocks water ingress for years.",
+        "illustration": "ultraguard"
       },
       "bioguard": {
-        "title": "BloGuard",
-        "desc": "New generation of crystalline waterproofing material that creates a permanent, internal seal in concrete."
+        "title": "BioGuard",
+        "tagline": "Concrete calm, inside out.",
+        "desc": "Reactive crystals penetrate deep into the matrix, creating an internal waterproof lattice that strengthens the structure.",
+        "illustration": "bioguard"
       },
       "smartguard": {
         "title": "SmartGuard",
-        "desc": "A two-component waterproofing system based on acrylic resin and cementitious powder, resistant to water pressure."
+        "tagline": "Next-gen pressure-proofing system.",
+        "desc": "A dual-component formula that cures into an elastic barrier, resisting both positive and negative hydrostatic loads.",
+        "illustration": "smartguard"
       },
       "fastguard": {
         "title": "FastGuard",
-        "desc": "A rapid-setting cementitious mortar to instantly stop water flow and fix sudden leaks."
+        "tagline": "Leak lockdown in 60 seconds.",
+        "desc": "Ultra-rapid cementitious mortar that flashes into action, stopping active water flow and keeping operations on schedule.",
+        "illustration": "fastguard"
       },
       "richguard": {
         "title": "RichGuard",
-        "desc": "Water-based waterproofing coating with a special acrylic formulation and high elasticity to bridge cracks."
+        "tagline": "Flexible elegance. Lasting brilliance.",
+        "desc": "An acrylic-rich coating with high elongation that bridges cracks while delivering a sleek, uniform finish.",
+        "illustration": "richguard"
       },
       "nanoguard": {
         "title": "NanoGuard",
-        "desc": "A modern, transparent coating based on nanotechnology, creating a superhydrophobic surface for complete protection."
+        "tagline": "Nanotech for self-cleaning surfaces.",
+        "desc": "A transparent, superhydrophobic layer that repels contaminants and preserves the asset’s pristine look.",
+        "illustration": "nanoguard"
       }
+    },
+    "footer": {
+      "cta": "Connect with our specialists to transform your next project.",
+      "address": "Gandhi Ave., No. 23, Unit 8, Tehran, Iran",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "phone": "+98 21 9109 8200",
+      "email": "info@proguardcoatings.com",
+      "contactCta": "Start the conversation"
     }
   }

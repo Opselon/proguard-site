@@ -6,49 +6,59 @@ export const pageModel = {
       ctaKey: 'hero.cta',
       imageKey: 'hero.main',
     },
+    productsSection: {
+      eyebrowKey: 'product.section.eyebrow',
+      titleKey: 'product.section.title',
+      descriptionKey: 'product.section.description',
+    },
     products: [
       {
-        id: 'ultraguard', // ref: page 5
+        id: 'ultraguard',
         titleKey: 'product.ultraguard.title',
+        taglineKey: 'product.ultraguard.tagline',
         descriptionKey: 'product.ultraguard.desc',
-        imageKey: 'product.ultraguard.card',
-        qrLink: 'https://proshuteng.com/ultraguard',
+        illustrationKey: 'product.ultraguard.illustration',
+        qrLink: 'https://www.proguardcoatings.com/waterproofing-solutions/ultraguard',
       },
       {
-        id: 'bioguard', // ref: page 6 (Note: in PDF TOC it's BloGuard)
+        id: 'bioguard',
         titleKey: 'product.bioguard.title',
+        taglineKey: 'product.bioguard.tagline',
         descriptionKey: 'product.bioguard.desc',
-        imageKey: 'product.bioguard.card',
-        qrLink: 'https://proshuteng.com/bioguard',
+        illustrationKey: 'product.bioguard.illustration',
+        qrLink: 'https://www.proguardcoatings.com/waterproofing-solutions/bioguard',
       },
       {
-        id: 'smartguard', // ref: page 7
+        id: 'smartguard',
         titleKey: 'product.smartguard.title',
+        taglineKey: 'product.smartguard.tagline',
         descriptionKey: 'product.smartguard.desc',
-        imageKey: 'product.smartguard.card',
-        qrLink: 'https://proshuteng.com/smartguard',
+        illustrationKey: 'product.smartguard.illustration',
+        qrLink: 'https://www.proguardcoatings.com/waterproofing-solutions/smartguard',
       },
       {
-        id: 'fastguard', // ref: page 8
+        id: 'fastguard',
         titleKey: 'product.fastguard.title',
+        taglineKey: 'product.fastguard.tagline',
         descriptionKey: 'product.fastguard.desc',
-        imageKey: 'product.fastguard.card',
-        qrLink: 'https://proshuteng.com/fastguard',
+        illustrationKey: 'product.fastguard.illustration',
+        qrLink: 'https://www.proguardcoatings.com/waterproofing-solutions/fastguard',
       },
       {
-        id: 'richguard', // ref: page 9
+        id: 'richguard',
         titleKey: 'product.richguard.title',
+        taglineKey: 'product.richguard.tagline',
         descriptionKey: 'product.richguard.desc',
-        imageKey: 'product.richguard.card',
-        qrLink: 'https://proshuteng.com/richguard',
+        illustrationKey: 'product.richguard.illustration',
+        qrLink: 'https://www.proguardcoatings.com/waterproofing-solutions/richguard',
       },
       {
-        id: 'nanoguard', // ref: page 10
+        id: 'nanoguard',
         titleKey: 'product.nanoguard.title',
+        taglineKey: 'product.nanoguard.tagline',
         descriptionKey: 'product.nanoguard.desc',
-        imageKey: 'product.nanoguard.card',
-        qrLink: 'https://proshuteng.com/nanoguard',
+        illustrationKey: 'product.nanoguard.illustration',
+        qrLink: 'https://www.proguardcoatings.com/waterproofing-solutions/nanoguard',
       },
     ],
-    // ... other sections like faq, contact can be added here
   };

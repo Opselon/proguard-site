@@ -5,10 +5,10 @@
  */
 export function applyTheme(themeName, persist = false) {
     document.body.className = themeName === 'dark' ? 'dark-theme' : '';
-    
+
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      const newColor = themeName === 'dark' ? '#0B1220' : '#0B5671';
+      const newColor = themeName === 'dark' ? '#091423' : '#0C5D7A';
       metaThemeColor.setAttribute('content', newColor);
     }
   
