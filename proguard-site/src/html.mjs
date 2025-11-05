@@ -804,7 +804,6 @@ export const renderPage = ({ model, locale, messages, theme, env, page = 'home',
       <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/BVazir/BVazir.css">
       <style>${criticalCss}</style>
       <link rel="stylesheet" href="/assets/style.css" media="print" onload="this.media='all'">
-      <link rel="stylesheet" href="/assets/header.css" media="print" onload="this.media='all'">
       <link rel="preload" href="/assets/client.mjs" as="script" cross-origin>
     </head>
     <body ${bodyAttributes}>
