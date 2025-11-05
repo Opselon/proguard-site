@@ -1,0 +1,15 @@
+name = "proguard-site" # نام Worker شما
+main = "src/index.mjs" # نقطه ورود اصلی
+compatibility_date = "2023-10-30"
+
+[vars]
+DEFAULT_LOCALE = "fa"
+THEME_DEFAULT = "light"
+
+[[durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimiter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RateLimiter"]

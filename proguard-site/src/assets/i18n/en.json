@@ -1,0 +1,53 @@
+{
+    "_meta": {
+      "name": "English",
+      "direction": "ltr"
+    },
+    "global": {
+      "title": "Proguard - Modern Coating & Insulation Solutions",
+      "description": "A complete range of waterproofing, thermal, acoustic insulation, and protective industrial coatings.",
+      "companyName": "Proguard Coating Company",
+      "rightsReserved": "All rights reserved.",
+      "learnMore": "Learn More",
+      "home": "Home Page",
+      "products": "Our Products",
+      "search": {
+        "placeholder": "Search products...",
+        "label": "Search for products"
+      },
+      "theme": {
+        "toggle": "Toggle light/dark theme"
+      }
+    },
+    "hero": {
+      "title": "Innovation, Durability, and Performance in Coatings",
+      "subtitle": "We build a more secure and sustainable future for your construction and industrial projects with specialized solutions.",
+      "cta": "Explore Products"
+    },
+    "product": {
+      "ultraguard": {
+        "title": "UltraGuard",
+        "desc": "Advanced waterproofing coating based on modified resins for a seamless, flexible layer."
+      },
+      "bioguard": {
+        "title": "BloGuard",
+        "desc": "New generation of crystalline waterproofing material that creates a permanent, internal seal in concrete."
+      },
+      "smartguard": {
+        "title": "SmartGuard",
+        "desc": "A two-component waterproofing system based on acrylic resin and cementitious powder, resistant to water pressure."
+      },
+      "fastguard": {
+        "title": "FastGuard",
+        "desc": "A rapid-setting cementitious mortar to instantly stop water flow and fix sudden leaks."
+      },
+      "richguard": {
+        "title": "RichGuard",
+        "desc": "Water-based waterproofing coating with a special acrylic formulation and high elasticity to bridge cracks."
+      },
+      "nanoguard": {
+        "title": "NanoGuard",
+        "desc": "A modern, transparent coating based on nanotechnology, creating a superhydrophobic surface for complete protection."
+      }
+    }
+  }
