@@ -119,15 +119,12 @@ function initStickyHeader() {
   const header = document.querySelector('.site-header');
   if (!header) return;
 
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 80 && currentScroll > lastScroll) {
-      header.classList.add('site-header--condensed');
-    } else if (currentScroll < 80) {
-      header.classList.remove('site-header--condensed');
+    if (window.scrollY > 80) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
     }
-    lastScroll = currentScroll;
   });
 }
 
