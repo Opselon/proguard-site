@@ -65,6 +65,9 @@ const renderHeader = ({ model, messages, locale, currentPage }) => {
             ${getIcon('phone')}
             <span>${t('global.nav.contact', messages)}</span>
           </a>
+          <button id="menu-toggle" class="control-button" type="button" aria-label="${t('global.menu.toggle', messages)}">
+            ${getIcon('menu')}
+          </button>
         </div>
       </div>
     </header>
@@ -801,6 +804,7 @@ export const renderPage = ({ model, locale, messages, theme, env, page = 'home',
       <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/BVazir/BVazir.css">
       <style>${criticalCss}</style>
       <link rel="stylesheet" href="/assets/style.css" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="/assets/header.css" media="print" onload="this.media='all'">
       <link rel="preload" href="/assets/client.mjs" as="script" cross-origin>
     </head>
     <body ${bodyAttributes}>

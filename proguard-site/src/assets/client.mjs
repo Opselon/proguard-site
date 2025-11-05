@@ -135,6 +135,23 @@ function revealBody() {
   document.body.style.visibility = 'visible';
 }
 
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menu-toggle');
+  const siteNav = document.querySelector('.site-nav');
+
+  if (menuToggle && siteNav) {
+    menuToggle.addEventListener('click', () => {
+      siteNav.classList.toggle('is-open');
+    });
+
+    siteNav.addEventListener('click', (event) => {
+      if (event.target.tagName === 'A') {
+        siteNav.classList.remove('is-open');
+      }
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   revealBody();
   initThemeSwitcher();
@@ -143,4 +160,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqToggle();
   initContactForm();
   initStickyHeader();
+  initMobileMenu();
 });
