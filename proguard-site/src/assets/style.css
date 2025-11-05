@@ -118,6 +118,246 @@ section {
 /* 3. Header                                                                   */
 /* -------------------------------------------------------------------------- */
 
+/* Basic header setup */
+.site-header {
+  --header-height: 4.5rem; /* Reduced height */
+  --header-padding: 1rem;
+  --header-bg: transparent;
+  --header-border: 1px solid transparent;
+  position: sticky;
+  top: 0;
+  z-index: 50; /* Ensure it's above other content */
+  background-color: var(--header-bg);
+  border-bottom: var(--header-border);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Scrolled state */
+.site-header.is-scrolled {
+  --header-bg: var(--pg-surface-glass);
+  --header-border: 1px solid var(--pg-border);
+  backdrop-filter: blur(8px);
+}
+
+/* Inner container */
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--header-padding);
+  max-width: 1440px; /* Added max-width for large screens */
+  margin: 0 auto; /* Center the header content */
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Reduced gap */
+  font-size: 1.125rem; /* Adjusted font size */
+  font-weight: 600;
+  color: var(--pg-text);
+  text-decoration: none;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.logo svg {
+  width: 1.75rem; /* Adjusted size */
+  height: 1.75rem;
+}
+
+/* Desktop Navigation */
+.site-nav {
+  display: none; /* Hidden by default */
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .site-nav {
+    display: flex; /* Visible on desktop */
+  }
+}
+
+.site-nav__link {
+  font-size: 0.9375rem; /* Adjusted font size */
+  font-weight: 500;
+  color: var(--pg-text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  padding: 0.5rem 0; /* Add some padding for easier clicking */
+}
+
+.site-nav__link:hover,
+.site-nav__link.is-active {
+  color: var(--pg-primary);
+}
+
+/* Header controls */
+.site-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Reduced gap */
+}
+
+/* Search bar */
+.header-search {
+  position: relative;
+  display: none; /* Hidden on mobile */
+}
+
+@media (min-width: 768px) {
+  .header-search {
+    display: block; /* Visible on tablet and up */
+  }
+}
+
+.header-search__icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: var(--pg-text-muted);
+  pointer-events: none; /* Make icon unclickable */
+}
+
+.header-search input {
+  padding-left: 2.25rem;
+  width: 10rem; /* Adjusted width */
+  height: 2.25rem; /* Adjusted height */
+  border-radius: 99px;
+  border: 1px solid var(--pg-border);
+  background-color: var(--pg-surface);
+  color: var(--pg-text);
+}
+
+/* Locale switcher */
+.locale-switcher {
+  display: none; /* Hidden on mobile */
+}
+
+@media (min-width: 768px) {
+  .locale-switcher {
+    display: flex; /* Visible on tablet and up */
+    gap: 0.25rem;
+  }
+}
+
+.locale-switcher a {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 99px;
+  background-color: transparent;
+  transition: background-color 0.2s;
+  color: var(--pg-text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.locale-switcher a.active {
+  background-color: var(--pg-surface-muted);
+  color: var(--pg-text);
+}
+
+/* Generic control button */
+.control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 99px;
+  border: none;
+  background-color: transparent;
+  color: var(--pg-text-muted);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.control-button:hover {
+  background-color: var(--pg-surface-muted);
+  color: var(--pg-text);
+}
+
+/* CTA button */
+.control-button--cta {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .control-button--cta {
+    display: flex;
+    gap: 0.5rem;
+    width: auto;
+    padding: 0 1rem;
+    height: 2.25rem;
+    background-color: var(--pg-primary);
+    color: #fff;
+    font-size: 0.875rem;
+  }
+
+  .control-button--cta:hover {
+    background-color: var(--pg-primary-bright);
+  }
+}
+
+/* Menu toggle for mobile */
+#menu-toggle {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  #menu-toggle {
+    display: none;
+  }
+}
+
+/* Mobile Navigation */
+@media (max-width: 1023px) {
+  .site-nav {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--pg-surface-glass);
+    border-bottom: 1px solid var(--pg-border);
+    backdrop-filter: blur(8px);
+    display: none; /* Initially hidden */
+  }
+
+  /* Show mobile nav when open */
+  .site-nav.is-open {
+    display: flex;
+    align-items: flex-start; /* Align items to the left */
+  }
+
+  /* Show hidden items in the mobile menu */
+  .site-nav.is-open .header-search,
+  .site-nav.is-open .locale-switcher,
+  .site-nav.is-open .control-button--cta {
+    display: flex;
+    width: 100%; /* Make them full-width */
+    margin-top: 1rem;
+  }
+
+  .site-nav.is-open .header-search input {
+    width: 100%;
+  }
+
+  .site-nav.is-open .locale-switcher {
+    justify-content: center; /* Center the language options */
+  }
+
+  .site-nav.is-open .control-button--cta {
+    justify-content: center;
+  }
+}
+
+
 /* -------------------------------------------------------------------------- */
 /* 4. Buttons                                                                  */
 /* -------------------------------------------------------------------------- */
@@ -1724,238 +1964,5 @@ body.dark-theme .related__link {
 
   .subpage-hero__stat {
     min-width: 0;
-  }
-}
-/* PROGUARD.SITE: src/assets/header.css */
-
-/* Basic header setup */
-.site-header {
-  --header-height: 4.5rem; /* Reduced height */
-  --header-padding: 1rem;
-  --header-bg: transparent;
-  --header-border: 1px solid transparent;
-  position: sticky;
-  top: 0;
-  z-index: 50; /* Ensure it's above other content */
-  background-color: var(--header-bg);
-  border-bottom: var(--header-border);
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-/* Scrolled state */
-.site-header.is-scrolled {
-  --header-bg: var(--color-surface-raised);
-  --header-border: 1px solid var(--color-border);
-}
-
-/* Inner container */
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--header-height);
-  padding: 0 var(--header-padding);
-  max-width: 1440px; /* Added max-width for large screens */
-  margin: 0 auto; /* Center the header content */
-}
-
-/* Logo */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* Reduced gap */
-  font-size: 1.125rem; /* Adjusted font size */
-  font-weight: 600;
-  color: var(--color-text-primary);
-  text-decoration: none;
-  flex-shrink: 0; /* Prevent shrinking */
-}
-
-.logo svg {
-  width: 1.75rem; /* Adjusted size */
-  height: 1.75rem;
-}
-
-/* Desktop Navigation */
-.site-nav {
-  display: none; /* Hidden by default */
-  gap: 1.5rem;
-}
-
-@media (min-width: 1024px) {
-  .site-nav {
-    display: flex; /* Visible on desktop */
-  }
-}
-
-.site-nav__link {
-  font-size: 0.9375rem; /* Adjusted font size */
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  transition: color 0.2s;
-  padding: 0.5rem 0; /* Add some padding for easier clicking */
-}
-
-.site-nav__link:hover,
-.site-nav__link.is-active {
-  color: var(--color-text-primary);
-}
-
-/* Header controls */
-.site-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* Reduced gap */
-}
-
-/* Search bar */
-.header-search {
-  position: relative;
-  display: none; /* Hidden on mobile */
-}
-
-@media (min-width: 768px) {
-  .header-search {
-    display: block; /* Visible on tablet and up */
-  }
-}
-
-.header-search__icon {
-  position: absolute;
-  top: 50%;
-  left: 0.75rem;
-  transform: translateY(-50%);
-  color: var(--color-text-secondary);
-  pointer-events: none; /* Make icon unclickable */
-}
-
-.header-search input {
-  padding-left: 2.25rem;
-  width: 10rem; /* Adjusted width */
-  height: 2.25rem; /* Adjusted height */
-  border-radius: 99px;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-}
-
-/* Locale switcher */
-.locale-switcher {
-  display: none; /* Hidden on mobile */
-}
-
-@media (min-width: 768px) {
-  .locale-switcher {
-    display: flex; /* Visible on tablet and up */
-    gap: 0.25rem;
-  }
-}
-
-.locale-switcher a {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: 99px;
-  background-color: transparent;
-  transition: background-color 0.2s;
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: 0.875rem;
-}
-
-.locale-switcher a.active {
-  background-color: var(--color-surface-active);
-  color: var(--color-text-primary);
-}
-
-/* Generic control button */
-.control-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 99px;
-  border: none;
-  background-color: transparent;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.control-button:hover {
-  background-color: var(--color-surface-hover);
-  color: var(--color-text-primary);
-}
-
-/* CTA button */
-.control-button--cta {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .control-button--cta {
-    display: flex;
-    gap: 0.5rem;
-    width: auto;
-    padding: 0 1rem;
-    height: 2.25rem;
-    background-color: var(--color-primary);
-    color: var(--color-surface);
-    font-size: 0.875rem;
-  }
-
-  .control-button--cta:hover {
-    background-color: var(--color-primary-hover);
-  }
-}
-
-/* Menu toggle for mobile */
-#menu-toggle {
-  display: flex;
-}
-
-@media (min-width: 1024px) {
-  #menu-toggle {
-    display: none;
-  }
-}
-
-/* Mobile Navigation */
-@media (max-width: 1023px) {
-  .site-nav {
-    position: absolute;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: var(--color-surface-raised);
-    border-bottom: 1px solid var(--color-border);
-    display: none; /* Initially hidden */
-  }
-
-  /* Show mobile nav when open */
-  .site-nav.is-open {
-    display: flex;
-    align-items: flex-start; /* Align items to the left */
-  }
-
-  /* Show hidden items in the mobile menu */
-  .site-nav.is-open .header-search,
-  .site-nav.is-open .locale-switcher {
-    display: flex;
-    width: 100%; /* Make them full-width */
-    margin-top: 1rem;
-  }
-
-  .site-nav.is-open .header-search input {
-    width: 100%;
-  }
-
-  .site-nav.is-open .locale-switcher {
-    justify-content: center; /* Center the language options */
   }
 }

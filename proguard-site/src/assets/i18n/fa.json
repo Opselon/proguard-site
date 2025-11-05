@@ -28,6 +28,9 @@
     "theme": {
       "toggle": "تغییر تم"
     },
+    "menu": {
+      "toggle": "تغییر منو"
+    },
     "locale": {
       "label": "انتخاب زبان",
       "fa": "FA",
