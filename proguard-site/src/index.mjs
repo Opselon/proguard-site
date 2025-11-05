@@ -1,4 +1,4 @@
-// File: src/index.mjs - FINAL VERSION (using the build script)
+// File: src/index.mjs - Worker entry that serves the marketing site
 
 import { renderPage } from './html.mjs';
 import { pageModel } from './data.mjs';
@@ -10,10 +10,9 @@ import {
   themeJs,
   i18nIndex,
   faJsonStr,
-  enJsonStr
+  enJsonStr,
 } from './generated-assets.mjs';
 
-// Map the imported content to be served
 const assetMap = new Map([
   ['/assets/client.mjs', { content: clientJs, type: 'application/javascript; charset=utf-8' }],
   ['/assets/style.css', { content: styleCss, type: 'text/css; charset=utf-8' }],
@@ -23,55 +22,122 @@ const assetMap = new Map([
   ['/assets/i18n/en.json', { content: enJsonStr, type: 'application/json; charset=utf-8' }],
 ]);
 
+const pageRoutes = new Map([
+  ['/', 'home'],
+  ['/why-us', 'why-us'],
+  ['/services', 'services'],
+  ['/solutions', 'solutions'],
+  ['/products', 'solutions'],
+  ['/projects', 'projects'],
+  ['/case-studies', 'projects'],
+  ['/faq', 'faq'],
+  ['/contact', 'contact'],
+  ['/about', 'about'],
+]);
+
+const toSlug = (text = '') => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+const productSlugSet = new Set(pageModel.products.map((product) => product.slug || toSlug(product.id)));
+
+function resolveLocale(request, url, env) {
+  const faJson = JSON.parse(faJsonStr);
+  const enJson = JSON.parse(enJsonStr);
+
+  const acceptLang = request.headers.get('Accept-Language') || '';
+  const localeParam = url.searchParams.get('lang') || url.searchParams.get('locale');
+  const normalizedParam = localeParam ? localeParam.toLowerCase() : '';
+  const defaultLocale = env.DEFAULT_LOCALE || 'fa';
+  const preferredLocale = normalizedParam === 'en'
+    ? 'en'
+    : normalizedParam === 'fa'
+      ? 'fa'
+      : acceptLang.startsWith('fa')
+        ? 'fa'
+        : defaultLocale;
+
+  const messages = preferredLocale === 'fa' ? faJson : enJson;
+  return { locale: preferredLocale, messages };
+}
+
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     const url = new URL(request.url);
     const { pathname } = url;
 
-    // 1. Serve static assets
     if (assetMap.has(pathname)) {
       const asset = assetMap.get(pathname);
-      return new Response(asset.content, { headers: { 'Content-Type': asset.type } });
+      return new Response(asset.content, {
+        headers: {
+          'Content-Type': asset.type,
+          'Cache-Control': 'public, max-age=604800',
+        },
+      });
     }
 
-    // 2. Handle API
     if (pathname === '/api/contact' && request.method === 'POST') {
       const rateLimiterId = env.RATE_LIMITER.idFromName(request.headers.get('CF-Connecting-IP'));
       const rateLimiter = env.RATE_LIMITER.get(rateLimiterId);
       return rateLimiter.fetch(request);
     }
 
-    // 3. Render main page
-    if (pathname === '/') {
-      const faJson = JSON.parse(faJsonStr);
-      const enJson = JSON.parse(enJsonStr);
-      const acceptLang = request.headers.get('Accept-Language') || '';
-      const localeParam = url.searchParams.get('lang') || url.searchParams.get('locale');
-      const normalizedParam = localeParam ? localeParam.toLowerCase() : '';
-      const defaultLocale = env.DEFAULT_LOCALE || 'fa';
-      const preferredLocale = normalizedParam === 'en' ? 'en' : normalizedParam === 'fa'
-        ? 'fa'
-        : acceptLang.startsWith('fa')
-          ? 'fa'
-          : defaultLocale;
-      const messages = preferredLocale === 'fa' ? faJson : enJson;
-      const themeCookie = request.headers.get('Cookie')?.match(/theme=(light|dark)/);
-      const theme = themeCookie ? themeCookie[1] : env.THEME_DEFAULT || 'light';
+    const themeCookie = request.headers.get('Cookie')?.match(/theme=(light|dark)/);
+    const theme = themeCookie ? themeCookie[1] : env.THEME_DEFAULT || 'light';
+    const { locale, messages } = resolveLocale(request, url, env);
 
-      const html = renderPage({ model: pageModel, locale: preferredLocale, messages, theme, env });
+    const productMatch = pathname.match(/^\/products\/([a-z0-9-]+)/i);
+    if (productMatch) {
+      const slug = productMatch[1].toLowerCase();
+      if (!productSlugSet.has(slug)) {
+        return new Response('Not Found', { status: 404 });
+      }
+
+      const html = renderPage({
+        model: pageModel,
+        locale,
+        messages,
+        theme,
+        env,
+        page: 'product-detail',
+        productSlug: slug,
+      });
+
       return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     }
-    
-    // 4. Not Found
+
+    const pageKey = pageRoutes.get(pathname);
+    if (pageKey) {
+      const html = renderPage({
+        model: pageModel,
+        locale,
+        messages,
+        theme,
+        env,
+        page: pageKey,
+      });
+
+      return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    }
+
     return new Response('Not Found', { status: 404 });
   },
 };
 
-// Durable Object class
 export class RateLimiter {
-    constructor(state, env) { this.storage = state.storage; }
-    async fetch(request) {
-        // ... (your rate limiter logic)
-        return new Response(JSON.stringify({ success: true }));
+  constructor(state, env) {
+    this.storage = state.storage;
+  }
+
+  async fetch(request) {
+    const timestamp = Date.now();
+    const limit = 5;
+    const window = 60000;
+    let timestamps = await this.storage.get('timestamps') || [];
+    timestamps = timestamps.filter((ts) => timestamp - ts < window);
+    if (timestamps.length >= limit) {
+      return new Response(JSON.stringify({ error: 'Too many requests' }), { status: 429 });
     }
+    timestamps.push(timestamp);
+    await this.storage.put('timestamps', timestamps);
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  }
 }

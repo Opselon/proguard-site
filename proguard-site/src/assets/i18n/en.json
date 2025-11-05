@@ -1,90 +1,810 @@
 {
-    "_meta": {
-      "name": "English",
-      "direction": "ltr"
-    },
-    "global": {
-      "title": "Proguard - Advanced Protective Coatings",
-      "description": "Proguard fuses material science, nanotechnology, and modern design to deliver next-generation industrial and architectural coatings.",
-      "companyName": "Proguard Coating Company",
-      "rightsReserved": "All rights reserved.",
-      "learnMore": "Discover more",
+  "_meta": {
+    "name": "English",
+    "direction": "ltr"
+  },
+  "global": {
+    "title": "ProGuard – Advanced Protective Coatings",
+    "description": "ProGuard combines material science, nanotechnology and precision execution to deliver next-generation protective systems for buildings and industry.",
+    "companyName": "ProGuard Coatings",
+    "rightsReserved": "All rights reserved.",
+    "learnMore": "Discover more",
+    "home": "Home",
+    "products": "Our products",
+    "nav": {
       "home": "Home",
-      "products": "Products",
-      "nav": {
-        "solutions": "Solutions",
-        "projects": "Flagship Projects",
-        "about": "About Proguard",
-        "contact": "Request Consultation"
-      },
-      "search": {
-        "placeholder": "Smart search across products...",
-        "label": "Search products"
-      },
-      "theme": {
-        "toggle": "Toggle industrial theme"
-      },
-      "locale": {
-        "label": "Choose language",
-        "fa": "FA",
-        "en": "EN"
-      }
+      "why": "Why ProGuard",
+      "services": "Services",
+      "solutions": "Solutions",
+      "projects": "Project highlights",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "about": "About ProGuard"
     },
-    "hero": {
-      "title": "Engineering coatings. For a resilient tomorrow.",
-      "subtitle": "Leveraging breakthrough chemistry and rigorous QA, we shield your assets from the harshest environments while elevating their architectural appeal.",
-      "cta": "Enter the Proguard universe"
+    "search": {
+      "placeholder": "Search our systems...",
+      "label": "Product search"
     },
-    "product": {
-      "section": {
-        "eyebrow": "Product Portfolio",
-        "title": "Intelligent protection for every climate challenge",
-        "description": "Each Proguard formula is validated through extreme stress testing to guarantee unrivaled resistance to water, fire, impact, and corrosion."
-      },
-      "ultraguard": {
-        "title": "UltraGuard",
-        "tagline": "Ultimate shield against humidity.",
-        "desc": "An advanced polymer membrane with outstanding adhesion that seals micro-cracks and blocks water ingress for years.",
-        "illustration": "ultraguard"
-      },
-      "bioguard": {
-        "title": "BioGuard",
-        "tagline": "Concrete calm, inside out.",
-        "desc": "Reactive crystals penetrate deep into the matrix, creating an internal waterproof lattice that strengthens the structure.",
-        "illustration": "bioguard"
-      },
-      "smartguard": {
-        "title": "SmartGuard",
-        "tagline": "Next-gen pressure-proofing system.",
-        "desc": "A dual-component formula that cures into an elastic barrier, resisting both positive and negative hydrostatic loads.",
-        "illustration": "smartguard"
-      },
-      "fastguard": {
-        "title": "FastGuard",
-        "tagline": "Leak lockdown in 60 seconds.",
-        "desc": "Ultra-rapid cementitious mortar that flashes into action, stopping active water flow and keeping operations on schedule.",
-        "illustration": "fastguard"
-      },
-      "richguard": {
-        "title": "RichGuard",
-        "tagline": "Flexible elegance. Lasting brilliance.",
-        "desc": "An acrylic-rich coating with high elongation that bridges cracks while delivering a sleek, uniform finish.",
-        "illustration": "richguard"
-      },
-      "nanoguard": {
-        "title": "NanoGuard",
-        "tagline": "Nanotech for self-cleaning surfaces.",
-        "desc": "A transparent, superhydrophobic layer that repels contaminants and preserves the asset’s pristine look.",
-        "illustration": "nanoguard"
-      }
+    "theme": {
+      "toggle": "Toggle theme"
     },
-    "footer": {
-      "cta": "Connect with our specialists to transform your next project.",
-      "address": "Gandhi Ave., No. 23, Unit 8, Tehran, Iran",
-      "phoneLabel": "Phone",
-      "emailLabel": "Email",
-      "phone": "+98 21 9109 8200",
-      "email": "info@proguardcoatings.com",
-      "contactCta": "Start the conversation"
+    "locale": {
+      "label": "Language",
+      "fa": "FA",
+      "en": "EN"
     }
+  },
+  "hero": {
+    "title": "Innovative coatings for uncompromising structures",
+    "subtitle": "From tank waterproofing to façade protection, ProGuard delivers integrated systems that secure performance and aesthetics for every project.",
+    "cta": "Explore products",
+    "secondaryCta": "Project highlights",
+    "badges": [
+      "15 specialised systems",
+      "Nationwide applicator network",
+      "Lab & field validated"
+    ]
+  },
+  "metrics": {
+    "sectionLabel": "Performance indicators",
+    "systems": {
+      "value": "15 systems",
+      "label": "Proprietary waterproofing & coating packages"
+    },
+    "projects": {
+      "value": "480 projects",
+      "label": "Track record in infrastructure and industry"
+    },
+    "coverage": {
+      "value": "12 provinces",
+      "label": "On-site technical support across the country"
+    },
+    "clients": {
+      "value": "95% satisfaction",
+      "label": "Positive feedback from owners & contractors"
+    }
+  },
+  "highlights": {
+    "eyebrow": "Key advantages",
+    "title": "What makes ProGuard systems different",
+    "description": "Every solution blends nano science, precise engineering and on-site expertise so your project performs from day one.",
+    "items": {
+      "nano": {
+        "title": "Nano-active formulations",
+        "description": "Reactive particles weave hydrophobic networks that shield surfaces from moisture and thermal shock."
+      },
+      "engineering": {
+        "title": "Project-specific engineering",
+        "description": "Our engineers deliver tailored specifications and layer build-ups to minimise installation risk."
+      },
+      "support": {
+        "title": "End-to-end field support",
+        "description": "Dedicated crews accompany your team from the first survey through commissioning and QA sign-off."
+      },
+      "certification": {
+        "title": "Verified performance testing",
+        "description": "Continuous chemical, fire and climate testing keeps each system aligned with demanding standards."
+      }
+    }
+  },
+  "why": {
+    "eyebrow": "Why ProGuard",
+    "title": "Material science, system design and precise execution",
+    "description": "Every ProGuard solution is the result of laboratory research, bespoke formulation and large-scale project experience – reducing risk and keeping performance predictable.",
+    "pillars": {
+      "research": {
+        "title": "Research-driven formulas",
+        "description": "Continuously updated polymer and nano formulations optimised in ProGuard’s dedicated laboratory."
+      },
+      "systems": {
+        "title": "System architecture",
+        "description": "Each product is designed as part of a complete system so primers and topcoats deliver maximum synergy."
+      },
+      "certified": {
+        "title": "Certified quality",
+        "description": "Regular testing for waterproofing, chemical, fire and abrasion resistance with international references."
+      },
+      "support": {
+        "title": "Expert support",
+        "description": "On-site training, quality control checklists and engineering back-up for professional applicator teams."
+      }
+    }
+  },
+  "services": {
+    "eyebrow": "360° services",
+    "title": "We stay with your team from concept to commissioning",
+    "description": "Our technical specialists help you choose, implement and monitor the right system for every job.",
+    "categories": {
+      "waterproofing": {
+        "title": "Waterproofing systems",
+        "items": [
+          "Tanks, pools and tunnel sealing",
+          "Roof and terrace waterproofing",
+          "Positive & negative pressure protection",
+          "Primers for surface preparation"
+        ]
+      },
+      "coatings": {
+        "title": "Industrial protection",
+        "items": [
+          "Hybrid polyurea spray linings",
+          "Resin and elastomeric flooring",
+          "Water-based fireproofing and UV topcoats",
+          "Photoluminescent road marking systems"
+        ]
+      },
+      "engineering": {
+        "title": "Engineering & support",
+        "items": [
+          "Site surveys and lab testing",
+          "Project-specific method statements",
+          "Applicator training and supervision",
+          "Post-installation monitoring"
+        ]
+      }
+    },
+    "cta": "Request expert advice"
+  },
+  "process": {
+    "eyebrow": "Execution process",
+    "title": "A four-stage path to project success",
+    "note": "Each milestone includes detailed QA checklists and documentation so the final handover is bulletproof.",
+    "steps": {
+      "discovery": {
+        "title": "Site audit & analysis",
+        "description": "Material sampling, structural assessment and climate review to pinpoint the right system."
+      },
+      "design": {
+        "title": "System design & formulation",
+        "description": "Tailored data sheets, layer sequencing and schedules that respect your constraints."
+      },
+      "execution": {
+        "title": "Execution & supervision",
+        "description": "Certified crews mobilise on site with daily reporting and technical oversight."
+      },
+      "assurance": {
+        "title": "Quality assurance & handover",
+        "description": "Final performance tests, operations training and warranty documentation."
+      }
+    }
+  },
+  "caseStudies": {
+    "eyebrow": "Project highlights",
+    "title": "Trusted by major infrastructure and industrial clients",
+    "description": "From transportation hubs to energy plants and architectural façades, ProGuard systems safeguard critical assets.",
+    "cards": {
+      "metro": {
+        "title": "Tehran Metro network",
+        "subtitle": "Waterproofing shafts and stations",
+        "metric": "32,000 m² dual-stage system",
+        "description": "Combined crystalline primer and flexible membrane to stop hydrostatic seepage under continuous pressure."
+      },
+      "energy": {
+        "title": "Bandar Abbas combined cycle plant",
+        "subtitle": "Protection for cooling channels and tanks",
+        "metric": "120,000 litres applied",
+        "description": "Epoxy and polyurea layers provide long-term chemical and thermal resistance in harsh environments."
+      },
+      "arena": {
+        "title": "Arian sports complex",
+        "subtitle": "Flooring and façade coating",
+        "metric": "18 months performance monitoring",
+        "description": "High-build elastomeric flooring and UV resistant façade coating keep the venue pristine and safe."
+      }
+    }
+  },
+  "credentials": {
+    "eyebrow": "Milestones",
+    "title": "The ProGuard journey",
+    "timeline": {
+      "start": {
+        "year": "2013",
+        "title": "R&D lab established",
+        "description": "Focused on localised formulations and pilot projects to validate performance."
+      },
+      "expansion": {
+        "year": "2017",
+        "title": "Application network expanded",
+        "description": "Trained and equipped professional teams in eight provinces with structured QA programs."
+      },
+      "global": {
+        "year": "2022",
+        "title": "International partnerships",
+        "description": "Selected as a strategic partner for joint ventures with global contractors."
+      }
+    }
+  },
+  "testimonials": {
+    "eyebrow": "Client experience",
+    "title": "Voices from the field",
+    "cards": {
+      "metro": {
+        "quote": "ProGuard’s dual-layer system stopped groundwater ingress in metro shafts so excavation stayed on schedule.",
+        "name": "Eng. Rahami",
+        "role": "Technical director, Tehran Metro"
+      },
+      "industry": {
+        "quote": "The epoxy-polyurea stack surpassed our chemical resistance targets and reduced maintenance downtime.",
+        "name": "Sara Ardalan",
+        "role": "Maintenance lead, combined-cycle power plant"
+      },
+      "architect": {
+        "quote": "UV-stable façade coatings with rich colour choices let us deliver the design vision without compromise.",
+        "name": "Arash Saberi",
+        "role": "Principal architect, mixed-use development"
+      }
+    }
+  },
+  "partners": {
+    "eyebrow": "Strategic partners",
+    "title": "Trusted by leading organisations",
+    "description": "Public agencies and private developers that prioritise durability rely on ProGuard to protect critical assets.",
+    "items": {
+      "metro": {
+        "name": "Tehran Urban Railway Co.",
+        "detail": "Sealing stations and tunnels with crystalline systems"
+      },
+      "energy": {
+        "name": "Persian Gulf Energy Holding",
+        "detail": "Protecting cooling structures and industrial concrete"
+      },
+      "developer": {
+        "name": "Ariana Development Group",
+        "detail": "High-performance façades and rooftop amenities"
+      },
+      "infrastructure": {
+        "name": "Road Maintenance & Transportation Org.",
+        "detail": "Photoluminescent and anti-abrasion surfacing for runways"
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Answers to your technical questions",
+    "items": {
+      "preparation": {
+        "question": "How should the surface be prepared before applying ProGuard systems?",
+        "answer": "Surfaces must be free from grease, dust and weak layers. Our technical team specifies shot-blasting, washing or primers depending on the substrate."
+      },
+      "warranty": {
+        "question": "How do you provide performance warranties?",
+        "answer": "Once installation is verified against our method statement, we issue a warranty certificate and schedule periodic inspections."
+      },
+      "thermal": {
+        "question": "Can thermal and acoustic insulation be applied together?",
+        "answer": "ThermoGuard & SoundGuard delivers both; the closed-cell foam reduces thermal conductivity and blocks up to 18 dB of airborne sound."
+      },
+      "support": {
+        "question": "What post-installation support is available?",
+        "answer": "We offer routine site visits, layer thickness testing and troubleshooting assistance throughout the service life."
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let’s design the right system for your project",
+    "description": "Share your challenge and our specialists will respond quickly with tailored recommendations.",
+    "addressLabel": "Address",
+    "address": "No. 23, Gandhi Ave, Tehran, Iran",
+    "phone": "+98 21 9109 8200",
+    "email": "info@proguardcoatings.com",
+    "form": {
+      "name": "Full name",
+      "phone": "Phone number",
+      "company": "Company or project",
+      "message": "Describe your requirements",
+      "submit": "Send request",
+      "success": "Thank you. Our team will contact you shortly.",
+      "error": "Sending failed. Please try again."
+    }
+  },
+  "product": {
+    "section": {
+      "eyebrow": "Product portfolio",
+      "title": "Intelligent protection for every climate",
+      "description": "Each ProGuard solution is engineered through rigorous testing to outperform in moisture, fire, corrosion and abrasion challenges."
+    },
+    "ultraguard": {
+      "title": "UltraGuard",
+      "tagline": "Single-component acrylic waterproof coating",
+      "desc": "A flexible, high-adhesion membrane that bridges hairline cracks and locks out moisture for years to come.",
+      "illustration": "ultraguard"
+    },
+    "bloguard": {
+      "title": "BloGuard",
+      "tagline": "Crystalline penetrating waterproof powder",
+      "desc": "Active crystals penetrate concrete capillaries to form a permanent barrier against water ingress.",
+      "illustration": "bloguard"
+    },
+    "smartguard": {
+      "title": "SmartGuard",
+      "tagline": "Cementitious-acrylic waterproofing system",
+      "desc": "A two-component system that withstands up to 12 bar of positive or negative pressure while remaining flexible.",
+      "illustration": "smartguard"
+    },
+    "fastguard": {
+      "title": "FastGuard",
+      "tagline": "Rapid-setting hydraulic plug",
+      "desc": "Stops active leaks in under 60 seconds so repair work can continue without interruption.",
+      "illustration": "fastguard"
+    },
+    "richguard": {
+      "title": "RichGuard",
+      "tagline": "High-build acrylic waterproof coating",
+      "desc": "A highly elastic topcoat that bridges thermal cracks and resists UV degradation.",
+      "illustration": "richguard"
+    },
+    "nanoguard": {
+      "title": "NanoGuard",
+      "tagline": "Self-cleaning nano primer",
+      "desc": "A transparent hydrophobic treatment with a 92° contact angle to repel dirt and pollutants.",
+      "illustration": "nanoguard"
+    },
+    "thermosound": {
+      "title": "ThermoGuard & SoundGuard",
+      "tagline": "Thermal and acoustic spray foam",
+      "desc": "Closed-cell spray polyurethane that delivers superior insulation and sound attenuation in a single pass.",
+      "illustration": "thermosound"
+    },
+    "floguard": {
+      "title": "FloGuard",
+      "tagline": "Chemical and abrasion resistant topcoat",
+      "desc": "A durable finishing layer engineered for heavy-duty industrial floors and chemical exposure.",
+      "illustration": "floguard"
+    },
+    "armyguard": {
+      "title": "ArmyGuard",
+      "tagline": "Hybrid polyurea spray lining",
+      "desc": "Fast-curing dual-component protection for impact-prone vehicles, tanks and equipment.",
+      "illustration": "armyguard"
+    },
+    "indax": {
+      "title": "Indax",
+      "tagline": "Two-component elastomeric primer",
+      "desc": "Superior adhesion on concrete and steel, ready for the next layer within two hours.",
+      "illustration": "indax"
+    },
+    "flexcoat": {
+      "title": "FlexCoat",
+      "tagline": "Three-component elastomeric flooring",
+      "desc": "A resilient floor system with high temperature resistance and exceptional elongation.",
+      "illustration": "flexcoat"
+    },
+    "grotex": {
+      "title": "Grotex",
+      "tagline": "Three-component epoxy-elastomer primer",
+      "desc": "Delivers 4.1 MPa adhesion as a robust base for resin and elastomeric toppings.",
+      "illustration": "grotex"
+    },
+    "metalguard": {
+      "title": "MetalGuard",
+      "tagline": "Rust converter and anti-corrosion primer",
+      "desc": "Transforms oxidation into a stable layer and prepares steel for long-lasting coatings.",
+      "illustration": "metalguard"
+    },
+    "fireguard": {
+      "title": "FireGuard",
+      "tagline": "Water-based intumescent coating",
+      "desc": "Provides up to 120 minutes of fire resistance with low-VOC formulation for steel structures.",
+      "illustration": "fireguard"
+    },
+    "luminex": {
+      "title": "Luminex",
+      "tagline": "Photoluminescent traffic coating",
+      "desc": "Stores light energy and glows for hours while withstanding rain and heavy traffic.",
+      "illustration": "luminex"
+    }
+  },
+  "subpages": {
+    "common": {
+      "back": "Back to homepage"
+    },
+    "why": {
+      "hero": {
+        "eyebrow": "Why ProGuard",
+        "badge": "12 years of innovation",
+        "title": "Material science meets field execution",
+        "description": "We control the entire lifecycle – lab research, engineering and on-site delivery – so your project performs in real conditions.",
+        "stats": [
+          { "value": "45+ experts", "label": "R&D and engineering team" },
+          { "value": "24/7", "label": "Support for critical sites" },
+          { "value": "98% satisfaction", "label": "Feedback from major clients" }
+        ],
+        "cta": "Schedule a strategy call",
+        "secondaryCta": "See flagship projects"
+      }
+    },
+    "services": {
+      "hero": {
+        "eyebrow": "Services",
+        "badge": "360° delivery",
+        "title": "Specialist crews for complex builds",
+        "description": "From technical design to quality control, ProGuard services scale to match fast-paced construction programmes.",
+        "stats": [
+          { "value": "18 crews", "label": "Certified applicator teams" },
+          { "value": "5 stages", "label": "Documented QA checkpoints" }
+        ],
+        "cta": "Request a rollout plan",
+        "secondaryCta": "Explore compatible systems"
+      }
+    },
+    "solutions": {
+      "hero": {
+        "eyebrow": "Solutions",
+        "badge": "Digital catalogue",
+        "title": "15 advanced waterproofing and protective systems",
+        "description": "Browse primers, mortars and protective coats engineered for demanding environments.",
+        "stats": [
+          { "value": "15 systems", "label": "Application-ready packages" },
+          { "value": "3 families", "label": "Waterproofing, protection, flooring" }
+        ],
+        "cta": "Get specification support",
+        "secondaryCta": "View project highlights"
+      }
+    },
+    "projects": {
+      "hero": {
+        "eyebrow": "Project highlights",
+        "badge": "Proven track record",
+        "title": "Real-world references across infrastructure",
+        "description": "Transport, energy and civic projects rely on ProGuard systems to stay resilient and safe.",
+        "stats": [
+          { "value": "480 projects", "label": "Delivered successfully" },
+          { "value": "12 provinces", "label": "Execution coverage" }
+        ],
+        "cta": "Start a new engagement",
+        "secondaryCta": "Why choose ProGuard"
+      }
+    },
+    "faq": {
+      "hero": {
+        "eyebrow": "FAQ",
+        "badge": "Fast answers",
+        "title": "Clarity before you mobilise",
+        "description": "We’ve compiled the most common technical questions so your team can plan with confidence.",
+        "stats": [
+          { "value": "< 24 hrs", "label": "Average response time" }
+        ],
+        "cta": "Ask a new question",
+        "secondaryCta": "Discover our services"
+      }
+    },
+    "contact": {
+      "hero": {
+        "eyebrow": "Contact",
+        "badge": "Direct access",
+        "title": "Talk to ProGuard specialists",
+        "description": "Share your project brief and our consultants will call back with tailored recommendations.",
+        "stats": [
+          { "value": "+98 21 9109 8200", "label": "Response centre" },
+          { "value": "6 provinces", "label": "Regional field offices" }
+        ],
+        "cta": "Send your request",
+        "secondaryCta": "Read our FAQ"
+      }
+    },
+    "about": {
+      "hero": {
+        "eyebrow": "About ProGuard",
+        "badge": "Heritage & trust",
+        "title": "A decade of high-performance protection",
+        "description": "Combining material science, specialist crews and certified processes, ProGuard is the partner for mission-critical builds.",
+        "stats": [
+          { "value": "2013", "label": "Founded" },
+          { "value": "5+ awards", "label": "Industry recognition" }
+        ],
+        "cta": "Review our projects",
+        "secondaryCta": "Connect with our team"
+      }
+    }
+  },
+  "detail": {
+    "hero": {
+      "eyebrow": "ProGuard specialty system",
+      "cta": "Request a quotation",
+      "viewAll": "Back to products",
+      "overview": "Product overview",
+      "features": "Key features",
+      "performance": "Performance",
+      "applications": "Suggested applications",
+      "related": "Complementary products",
+      "back": "Back to homepage",
+      "notFound": "Product not found",
+      "notFoundDescription": "Please visit the solutions page to browse additional products."
+    },
+    "ultraguard": {
+      "overview": "UltraGuard is a single-component acrylic membrane that forms a seamless, flexible barrier on concrete and mineral substrates.",
+      "performance": "The cured layer remains UV stable and crack-free across extreme temperatures.",
+      "features": [
+        "Excellent adhesion to concrete, stone and plaster",
+        "Bridges cracks up to 2 mm",
+        "UV and freeze-thaw resistant"
+      ],
+      "applications": [
+        "Roof and terrace waterproofing",
+        "Potable water tanks",
+        "Overcoating cementitious repairs"
+      ],
+      "metrics": {
+        "coverage": "Recommended coverage",
+        "cure": "Surface dry time",
+        "barrier": "Moisture barrier class"
+      }
+    },
+    "bloguard": {
+      "overview": "BloGuard is a crystalline waterproofing slurry that penetrates the concrete matrix to block capillaries.",
+      "performance": "Reactive crystals rehydrate to seal micro-cracks and withstand hydrostatic pressure.",
+      "features": [
+        "Deep capillary penetration",
+        "Positive and negative pressure resistance",
+        "Suitable for new and existing concrete"
+      ],
+      "applications": [
+        "Tunnels and underground structures",
+        "Pools and wastewater treatment",
+        "Industrial floor slabs"
+      ],
+      "metrics": {
+        "depth": "Crystal penetration depth",
+        "reaction": "Initial reaction time",
+        "ph": "pH range"
+      }
+    },
+    "smartguard": {
+      "overview": "SmartGuard combines a cementitious base with acrylic modifiers to create a flexible, pressure-resistant barrier.",
+      "performance": "Withstands up to 12 bar of hydrostatic pressure while tolerating thermal movement.",
+      "features": [
+        "Brush or spray application",
+        "Can be applied to damp surfaces",
+        "Approved for potable water"
+      ],
+      "applications": [
+        "Concrete tanks and reservoirs",
+        "Retaining walls",
+        "Basements and underground parking"
+      ],
+      "metrics": {
+        "system": "Two-component system",
+        "pressure": "Hydrostatic resistance",
+        "ready": "Ready for service"
+      }
+    },
+    "fastguard": {
+      "overview": "FastGuard is a fast-setting hydraulic mortar designed to stop active leaks instantly.",
+      "performance": "Cures in under one minute and performs even in cold or wet conditions.",
+      "features": [
+        "Ultra-fast set with no shrinkage",
+        "High early compressive strength",
+        "Can be applied against flowing water"
+      ],
+      "applications": [
+        "Leak sealing in tanks",
+        "Pipe penetrations",
+        "Emergency water and wastewater repairs"
+      ],
+      "metrics": {
+        "stop": "Leak stop time",
+        "temp": "Minimum application temperature",
+        "strength": "Final compressive strength"
+      }
+    },
+    "richguard": {
+      "overview": "RichGuard is a high-build acrylic coating delivering a smooth, UV-resistant finish.",
+      "performance": "Provides 400% elongation, bridging thermal cracks without loss of adhesion.",
+      "features": [
+        "Washable semi-gloss finish",
+        "Outstanding UV colour stability",
+        "Performs in sub-zero climates"
+      ],
+      "applications": [
+        "Concrete and plaster façades",
+        "Refurbishment of painted surfaces",
+        "Roof parapets"
+      ],
+      "metrics": {
+        "elasticity": "Elongation",
+        "uv": "UV endurance",
+        "colors": "Available colours"
+      }
+    },
+    "nanoguard": {
+      "overview": "NanoGuard is a transparent nano primer that repels contaminants through a high contact angle.",
+      "performance": "Dries within 15 minutes and keeps surfaces clean without altering appearance.",
+      "features": [
+        "Super-hydrophobic behaviour",
+        "Deep penetration without film build",
+        "Resistant to common detergents"
+      ],
+      "applications": [
+        "Stone façades",
+        "Glass and coated metal",
+        "Ceramic finishes in public areas"
+      ],
+      "metrics": {
+        "angle": "Water contact angle",
+        "dry": "Dry to touch",
+        "voc": "VOC content"
+      }
+    },
+    "thermosound": {
+      "overview": "ThermoGuard & SoundGuard is a closed-cell spray foam delivering high thermal and acoustic insulation in one application.",
+      "performance": "Offers a thermal conductivity of 0.021 W/m·K and reduces airborne sound by 18 dB.",
+      "features": [
+        "Adheres to concrete, metal and timber",
+        "Seamless application",
+        "Moisture and mould resistant"
+      ],
+      "applications": [
+        "Industrial roofs",
+        "Modular buildings and partitions",
+        "HVAC ducts and cold rooms"
+      ],
+      "metrics": {
+        "lambda": "Thermal conductivity",
+        "acoustic": "Sound reduction",
+        "tech": "Application technology"
+      }
+    },
+    "floguard": {
+      "overview": "FloGuard is a chemically resistant, hard-wearing topcoat for industrial floors.",
+      "performance": "Provides high compressive strength and withstands aggressive acidic or alkaline environments.",
+      "features": [
+        "Dust-free glossy surface",
+        "Outstanding chemical resistance",
+        "Designed for heavy traffic"
+      ],
+      "applications": [
+        "Pharma and food facilities",
+        "Multi-storey car parks",
+        "Cold stores and marine environments"
+      ],
+      "metrics": {
+        "strength": "Compressive strength",
+        "chemical": "Chemical resistance range",
+        "abrasion": "Abrasion test"
+      }
+    },
+    "armyguard": {
+      "overview": "ArmyGuard is a hybrid polyurea spray lining engineered for extreme impact and abrasion.",
+      "performance": "Cures quickly to a seamless shell that safeguards valuable assets in harsh duty.",
+      "features": [
+        "Exceptional impact resistance",
+        "Superior adhesion to steel and concrete",
+        "Thickness control in each pass"
+      ],
+      "applications": [
+        "Military and industrial vehicles",
+        "Exposed tanks and containers",
+        "Coastal and marine structures"
+      ],
+      "metrics": {
+        "hybrid": "Hybrid composition",
+        "mix": "Mixing ratio",
+        "resistance": "Impact rating"
+      }
+    },
+    "indax": {
+      "overview": "Indax is a two-component elastomeric primer that ensures maximum adhesion before high-performance topcoats.",
+      "performance": "Ready for recoating after two hours and completely solvent-free for safer application.",
+      "features": [
+        "Outstanding adhesion on difficult substrates",
+        "High coverage and low consumption",
+        "Chemical resistance"
+      ],
+      "applications": [
+        "Steel and concrete tanks",
+        "Base for polyurea or polyurethane",
+        "Resin flooring primer"
+      ],
+      "metrics": {
+        "adhesion": "Bond strength",
+        "recoat": "Recoat window",
+        "solvent": "Solvent-free"
+      }
+    },
+    "flexcoat": {
+      "overview": "FlexCoat is a three-component elastomeric flooring system delivering durability and flexibility.",
+      "performance": "Maintains elasticity up to 280% and withstands temperatures up to 120°C.",
+      "features": [
+        "High tensile and flexural strength",
+        "Thermal shock resistance",
+        "Anti-slip, easy-to-clean finish"
+      ],
+      "applications": [
+        "Laboratories and pharma plants",
+        "Automotive manufacturing",
+        "Heavy-duty warehouses"
+      ],
+      "metrics": {
+        "system": "Three-component system",
+        "elasticity": "Elongation",
+        "temp": "Temperature resistance"
+      }
+    },
+    "grotex": {
+      "overview": "Grotex is an epoxy-elastomer primer that creates a highly adhesive base for resin toppings.",
+      "performance": "Ready for the next coat after eight hours while preventing pinholes and bubbles.",
+      "features": [
+        "4.1 MPa adhesion",
+        "Prevents pinholes",
+        "Compatible with epoxy and polyurethane"
+      ],
+      "applications": [
+        "Industrial flooring",
+        "Bridge decks",
+        "Concrete rehabilitation"
+      ],
+      "metrics": {
+        "adhesion": "Bond strength",
+        "cure": "Cure time",
+        "build": "High-build capability"
+      }
+    },
+    "metalguard": {
+      "overview": "MetalGuard converts rust into a stable layer and primes steel for long-term protection.",
+      "performance": "Fast reaction and dual-layer protection minimise future corrosion.",
+      "features": [
+        "Transforms rust into a protective barrier",
+        "Excellent adhesion on aged steel",
+        "Ready for topcoats quickly"
+      ],
+      "applications": [
+        "Structural steel",
+        "Urban furniture",
+        "Marine and coastal assets"
+      ],
+      "metrics": {
+        "convert": "Rust conversion",
+        "react": "Reaction time",
+        "layers": "Protective layers"
+      }
+    },
+    "fireguard": {
+      "overview": "FireGuard is a water-based intumescent coating that expands to protect steel during fire.",
+      "performance": "Certified to EN 13381 delivering up to 120 minutes fire rating.",
+      "features": [
+        "Low-VOC water-based formula",
+        "Excellent adhesion to steel",
+        "Controlled intumescent expansion"
+      ],
+      "applications": [
+        "Industrial steel structures",
+        "Commercial and office buildings",
+        "Warehouses and logistics hubs"
+      ],
+      "metrics": {
+        "rating": "Fire rating",
+        "base": "Product base",
+        "standard": "Certification"
+      }
+    },
+    "luminex": {
+      "overview": "Luminex is a photoluminescent traffic coating that stores light energy and emits it in the dark.",
+      "performance": "Rain and heavy traffic resistant for long-lasting safety guidance.",
+      "features": [
+        "More than 12 hours glow",
+        "Fast drying for outdoor works",
+        "Complies with traffic standards"
+      ],
+      "applications": [
+        "Road and pathway markings",
+        "Bike lanes and emergency routes",
+        "Construction safety zones"
+      ],
+      "metrics": {
+        "glow": "Glow duration",
+        "class": "Traffic class",
+        "weather": "Weather resistance"
+      }
+    }
+  },
+  "footer": {
+    "cta": "Connect with us for a tailored consultation and transform your project.",
+    "address": "No. 23, Gandhi Ave, Tehran, Iran",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "phone": "+98 21 9109 8200",
+    "email": "info@proguardcoatings.com",
+    "contactCta": "Send a request"
   }
+}
