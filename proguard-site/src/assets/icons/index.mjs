@@ -67,6 +67,25 @@ const iconMap = {
       <path d="M16 6c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 2.2c1.3 0 2.5.5 3.5 1.2-.9 1.8-1.7 3.3-3.5 3.3s-2.6-1.5-3.5-3.3a6.1 6.1 0 013.5-1.2zm-6.2 6.8h3.4c.1 2 .6 3.9 1.4 5.5a6.1 6.1 0 01-4.8-5.5zm8.9 5.5c.8-1.6 1.3-3.5 1.4-5.5h3.4a6.1 6.1 0 01-4.8 5.5zm1.4-7.6c-.1-1.4-.4-2.7-.9-3.8a6.2 6.2 0 014.3 3.8h-3.4zm-7.4-3.8c-.5 1.1-.8 2.4-.9 3.8H8.4a6.2 6.2 0 014.3-3.8z" fill="#0E1B27" />
     </svg>
   `,
+  menu: `
+    <svg class="icon-menu" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="6" y="9" width="20" height="2.5" rx="1.2" fill="currentColor" />
+      <rect x="6" y="15" width="20" height="2.5" rx="1.2" fill="currentColor" />
+      <rect x="6" y="21" width="20" height="2.5" rx="1.2" fill="currentColor" />
+    </svg>
+  `,
+  close: `
+    <svg class="icon-close" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M9 9l14 14M23 9L9 23" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+    </svg>
+  `,
+  download: `
+    <svg class="icon-download" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M16 4v16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      <path d="M10 15l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="6" y="24" width="20" height="4" rx="2" fill="currentColor" opacity="0.2" />
+    </svg>
+  `,
   phone: `
     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M11.4 4.2l2.4-.9a2 2 0 012.5 1.2l1.7 4.4a2 2 0 01-.6 2.2l-2.2 1.9a18.5 18.5 0 007.9 7.9l1.9-2.2a2 2 0 012.2-.6l4.4 1.7a2 2 0 011.2 2.5l-.9 2.4a3 3 0 01-3 1.9C15.4 26.6 5.4 16.6 3.2 7a3 3 0 011.9-3z" fill="currentColor"/>

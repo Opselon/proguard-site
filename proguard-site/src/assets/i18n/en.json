@@ -19,7 +19,12 @@
       "projects": "Project highlights",
       "faq": "FAQ",
       "contact": "Contact",
-      "about": "About ProGuard"
+      "about": "About ProGuard",
+      "groups": {
+        "discover": "Explore",
+        "solutions": "Systems & results",
+        "company": "Company & support"
+      }
     },
     "search": {
       "placeholder": "Search our systems...",
@@ -27,6 +32,11 @@
     },
     "theme": {
       "toggle": "Toggle theme"
+    },
+    "menu": {
+      "toggle": "Open menu",
+      "title": "Site navigation",
+      "close": "Close menu"
     },
     "locale": {
       "label": "Language",
@@ -44,6 +54,28 @@
       "Nationwide applicator network",
       "Lab & field validated"
     ]
+  },
+  "catalog": {
+    "eyebrow": "Catalog download",
+    "title": "Download the ProGuard catalog",
+    "description": "Access the Farsi and English brochures packed with system specs, data sheets and flagship projects.",
+    "cta": "Download catalogs",
+    "download": "Download PDF",
+    "note": "Files are PDF format – Winter 2025 update.",
+    "items": {
+      "fa": {
+        "locale": "FA / Persian",
+        "title": "Comprehensive ProGuard Systems Catalog (FA)",
+        "description": "Full specifications, data sheets and application workflows translated for Persian-speaking teams.",
+        "badge": "PDF • 14MB"
+      },
+      "en": {
+        "locale": "EN / English",
+        "title": "ProGuard Systems Catalog (EN)",
+        "description": "International edition detailing solutions, performance metrics and hero projects.",
+        "badge": "PDF • 12MB"
+      }
+    }
   },
   "metrics": {
     "sectionLabel": "Performance indicators",

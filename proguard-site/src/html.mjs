@@ -15,63 +15,146 @@ const normalizeHref = (item) => item.path || item.anchor || '#';
 const renderHeader = ({ model, messages, locale, currentPage }) => {
   const isHome = currentPage === 'home';
   const wordmark = locale === 'fa' ? 'پروگارد' : 'ProGuard';
-  const heroNav = model.navigation
-    .map((item) => {
-      const href = normalizeHref(item);
-      const label = t(item.labelKey, messages);
-      const isActive = Array.isArray(item.pages) && item.pages.includes(currentPage);
-      const scrollTarget = isHome && item.anchor ? item.anchor : '';
-      const classNames = ['site-nav__link'];
-      if (isActive) {
-        classNames.push('is-active');
-      }
-      const scrollAttr = scrollTarget ? ` data-scroll-target="${scrollTarget}"` : '';
-      const ariaCurrent = isActive ? ' aria-current="page"' : '';
-      return `<a href="${href}" class="${classNames.join(' ')}"${scrollAttr}${ariaCurrent}>${label}</a>`;
+  const navItems = new Map(model.navigation.map((item) => [item.id, item]));
+  const navGroupsConfig = [
+    { id: 'discover', itemIds: ['hero', 'why-us', 'services'] },
+    { id: 'solutions', itemIds: ['products', 'case-studies'] },
+    { id: 'company', itemIds: ['about', 'faq', 'contact'] },
+  ];
+
+  const buildNavLink = (item, { leafClass, linkClass }) => {
+    if (!item) return '';
+    const href = normalizeHref(item);
+    const label = t(item.labelKey, messages);
+    const isActive = Array.isArray(item.pages) && item.pages.includes(currentPage);
+    const scrollTarget = isHome && item.anchor ? item.anchor : '';
+    const classNames = [linkClass];
+    if (isActive) {
+      classNames.push('is-active');
+    }
+    const scrollAttr = scrollTarget ? ` data-scroll-target="${scrollTarget}"` : '';
+    const ariaCurrent = isActive ? ' aria-current="page"' : '';
+    return `
+      <li class="${leafClass}">
+        <a href="${href}" class="${classNames.filter(Boolean).join(' ')}"${scrollAttr}${ariaCurrent}>${label}</a>
+      </li>
+    `;
+  };
+
+  const navGroupsDesktop = navGroupsConfig
+    .map((group) => {
+      const links = group.itemIds
+        .map((id) => buildNavLink(navItems.get(id), { leafClass: 'site-menu__item', linkClass: 'site-menu__link' }))
+        .filter(Boolean)
+        .join('');
+      if (!links) return '';
+      const panelId = `desktop-nav-${group.id}`;
+      return `
+        <li class="site-menu__group" data-menu-group>
+          <button class="site-menu__trigger" type="button" aria-expanded="false" aria-controls="${panelId}" data-menu-trigger>
+            <span>${t(`global.nav.groups.${group.id}`, messages)}</span>
+            <span class="site-menu__chevron">${getIcon('chevron')}</span>
+          </button>
+          <div class="site-menu__dropdown" id="${panelId}" role="menu" data-menu-dropdown>
+            <ul class="site-menu__list">${links}</ul>
+          </div>
+        </li>
+      `;
     })
+    .filter(Boolean)
     .join('');
+
+  const navGroupsMobile = navGroupsConfig
+    .map((group, index) => {
+      const links = group.itemIds
+        .map((id) => buildNavLink(navItems.get(id), { leafClass: 'drawer-menu__item', linkClass: 'drawer-menu__link' }))
+        .filter(Boolean)
+        .join('');
+      if (!links) return '';
+      const panelId = `mobile-nav-${group.id}`;
+      const defaultAttr = index === 0 ? ' data-nav-default="true"' : '';
+      return `
+        <li class="drawer-menu__group" data-drawer-group${defaultAttr}>
+          <button class="drawer-menu__trigger" type="button" aria-expanded="false" aria-controls="${panelId}" data-drawer-toggle>
+            <span>${t(`global.nav.groups.${group.id}`, messages)}</span>
+            <span class="drawer-menu__icon">${getIcon('chevron')}</span>
+          </button>
+          <div class="drawer-menu__panel" id="${panelId}" data-drawer-panel hidden>
+            <ul class="drawer-menu__list">${links}</ul>
+          </div>
+        </li>
+      `;
+    })
+    .filter(Boolean)
+    .join('');
+
+  const contactItem = navItems.get('contact');
+  const contactHref = contactItem ? normalizeHref(contactItem) : '/contact';
+  const contactScroll = isHome && contactItem?.anchor ? contactItem.anchor : '';
+  const contactScrollAttr = contactScroll ? ` data-scroll-target="${contactScroll}"` : '';
 
   return `
     <header class="site-header" id="top">
-      <div class="container site-header__inner">
+      <div class="container site-header__bar">
         <a href="/" class="logo" aria-label="${t('global.companyName', messages)}">
           ${getIcon('logo')}
           <span class="logo__wordmark">${wordmark}</span>
         </a>
-        <nav class="site-nav" aria-label="${t('global.products', messages)}">
-          ${heroNav}
+        <nav class="site-menu" aria-label="${t('global.products', messages)}">
+          <ul class="site-menu__groups">${navGroupsDesktop}</ul>
         </nav>
-        <div class="site-controls">
-          <div class="header-search">
-            <label for="product-search" class="visually-hidden">${t('global.search.label', messages)}</label>
-            <input id="product-search" type="search" name="search" placeholder="${t('global.search.placeholder', messages)}" autocomplete="off">
-            <span class="header-search__icon">${getIcon('search')}</span>
-          </div>
+        <div class="site-header__actions">
           <button id="theme-toggle" class="control-button" type="button" aria-label="${t('global.theme.toggle', messages)}">
             ${getIcon('theme-light')}
             ${getIcon('theme-dark')}
           </button>
-          <div class="locale-switcher" aria-label="${t('global.locale.label', messages)}">
-            <a href="/" data-locale="fa" class="${locale === 'fa' ? 'active' : ''}">
-              <span class="locale-switcher__icon">${getIcon('locale')}</span>
-              <span>${t('global.locale.fa', messages)}</span>
-            </a>
-            <a href="/?lang=en" data-locale="en" class="${locale === 'en' ? 'active' : ''}">
-              <span class="locale-switcher__icon">${getIcon('locale')}</span>
-              <span>${t('global.locale.en', messages)}</span>
+          <a href="${contactHref}" class="btn btn--primary btn--compact"${contactScrollAttr}>
+            ${t('services.cta', messages)}
+          </a>
+          <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+            <span class="visually-hidden">${t('global.menu.toggle', messages)}</span>
+            <span class="menu-toggle__icon menu-toggle__icon--open">${getIcon('menu')}</span>
+            <span class="menu-toggle__icon menu-toggle__icon--close">${getIcon('close')}</span>
+          </button>
+        </div>
+      </div>
+      <div class="site-drawer__backdrop" data-menu-backdrop aria-hidden="true"></div>
+      <div class="site-drawer" id="site-navigation" aria-hidden="true" role="dialog" aria-label="${t('global.menu.title', messages)}" hidden>
+        <div class="site-drawer__inner">
+          <div class="site-drawer__top">
+            <span class="site-drawer__brand">${wordmark}</span>
+            <button class="site-drawer__close" type="button" data-drawer-close aria-label="${t('global.menu.close', messages)}">
+              ${getIcon('close')}
+            </button>
+          </div>
+          <div class="site-drawer__search">
+            <label for="product-search" class="visually-hidden">${t('global.search.label', messages)}</label>
+            <input id="product-search" type="search" name="search" placeholder="${t('global.search.placeholder', messages)}" autocomplete="off">
+            <span class="site-drawer__search-icon">${getIcon('search')}</span>
+          </div>
+          <nav class="site-drawer__nav" aria-label="${t('global.products', messages)}">
+            <ul class="drawer-menu">${navGroupsMobile}</ul>
+          </nav>
+          <div class="site-drawer__cta">
+            <a href="/solutions" class="btn btn--primary">${t(model.hero.ctaPrimaryKey, messages)}</a>
+            <a href="/projects" class="btn btn--secondary">${t(model.hero.ctaSecondaryKey, messages)}</a>
+            <a href="#catalog" class="btn btn--ghost" data-scroll-target="#catalog">
+              ${getIcon('download')}
+              <span>${t('catalog.cta', messages)}</span>
             </a>
           </div>
-          <a href="https://pdfhost.io/v/J6FxHuAEBq_ProGuardv1" class="control-button control-button--cta" target="_blank" rel="noopener noreferrer">
-            ${getIcon('download')}
-            <span>Download Catalog</span>
-          </a>
-          <a href="/contact" class="control-button control-button--cta">
-            ${getIcon('phone')}
-            <span>${t('global.nav.contact', messages)}</span>
-          </a>
-          <button id="menu-toggle" class="control-button" type="button" aria-label="${t('global.menu.toggle', messages)}">
-            ${getIcon('menu')}
-          </button>
+          <div class="site-drawer__utility" aria-label="${t('global.locale.label', messages)}">
+            <div class="locale-switcher">
+              <a href="/" data-locale="fa" class="${locale === 'fa' ? 'active' : ''}">
+                <span class="locale-switcher__icon">${getIcon('locale')}</span>
+                <span>${t('global.locale.fa', messages)}</span>
+              </a>
+              <a href="/?lang=en" data-locale="en" class="${locale === 'en' ? 'active' : ''}">
+                <span class="locale-switcher__icon">${getIcon('locale')}</span>
+                <span>${t('global.locale.en', messages)}</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -112,6 +195,57 @@ const renderHero = ({ model, messages, env }) => {
         <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0 120L1440 0V120H0Z"></path>
         </svg>
+      </div>
+    </section>
+  `;
+};
+
+const renderCatalog = ({ model, messages }) => {
+  const catalog = model.catalogDownloads;
+  if (!catalog) return '';
+
+  const eyebrow = catalog.eyebrowKey ? t(catalog.eyebrowKey, messages) : '';
+  const title = catalog.titleKey ? t(catalog.titleKey, messages) : '';
+  const description = catalog.descriptionKey ? t(catalog.descriptionKey, messages) : '';
+  const note = catalog.noteKey ? t(catalog.noteKey, messages) : '';
+  const downloadLabel = catalog.downloadLabelKey ? t(catalog.downloadLabelKey, messages) : t('catalog.download', messages);
+
+  const cards = Array.isArray(catalog.items)
+    ? catalog.items
+        .map((item) => {
+          const href = item.href || '#';
+          const localeLabel = item.localeLabelKey ? t(item.localeLabelKey, messages) : '';
+          const cardTitle = item.titleKey ? t(item.titleKey, messages) : '';
+          const cardDescription = item.descriptionKey ? t(item.descriptionKey, messages) : '';
+          const badge = item.badgeKey ? t(item.badgeKey, messages) : '';
+          return `
+            <article class="catalog-card">
+              <div class="catalog-card__header">
+                ${localeLabel ? `<span class="catalog-card__badge">${localeLabel}</span>` : ''}
+                ${badge ? `<span class="catalog-card__meta">${badge}</span>` : ''}
+              </div>
+              <h3 class="catalog-card__title">${cardTitle}</h3>
+              <p class="catalog-card__description">${cardDescription}</p>
+              <a class="catalog-card__action" href="${href}" target="_blank" rel="noopener noreferrer">
+                ${getIcon('download')}
+                <span>${downloadLabel}</span>
+              </a>
+            </article>
+          `;
+        })
+        .join('')
+    : '';
+
+  return `
+    <section class="catalog" id="catalog">
+      <div class="container catalog__inner">
+        <header class="section-heading catalog__heading">
+          ${eyebrow ? `<span class="section-heading__eyebrow">${eyebrow}</span>` : ''}
+          <h2 class="section-heading__title">${title}</h2>
+          <p class="section-heading__description">${description}</p>
+        </header>
+        <div class="catalog__grid">${cards}</div>
+        ${note ? `<p class="catalog__note">${note}</p>` : ''}
       </div>
     </section>
   `;
@@ -581,6 +715,7 @@ const renderSubpageHero = ({ model, messages, pageKey }) => {
 
 const sectionRegistry = {
   hero: renderHero,
+  catalog: renderCatalog,
   metrics: renderMetrics,
   highlights: renderHighlights,
   why: renderWhyUs,

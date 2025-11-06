@@ -30,6 +30,31 @@ export const pageModel = {
     badgesKeys: ['hero.badges.0', 'hero.badges.1', 'hero.badges.2'],
     imageKey: 'hero.main',
   },
+  catalogDownloads: {
+    eyebrowKey: 'catalog.eyebrow',
+    titleKey: 'catalog.title',
+    descriptionKey: 'catalog.description',
+    downloadLabelKey: 'catalog.download',
+    items: [
+      {
+        id: 'fa',
+        href: 'https://pdfhost.io/v/J6FxHuAEBq_ProGuardv1',
+        localeLabelKey: 'catalog.items.fa.locale',
+        titleKey: 'catalog.items.fa.title',
+        descriptionKey: 'catalog.items.fa.description',
+        badgeKey: 'catalog.items.fa.badge',
+      },
+      {
+        id: 'en',
+        href: 'https://pdfhost.io/v/J6FxHuAEBq_ProGuardv1?lang=en',
+        localeLabelKey: 'catalog.items.en.locale',
+        titleKey: 'catalog.items.en.title',
+        descriptionKey: 'catalog.items.en.description',
+        badgeKey: 'catalog.items.en.badge',
+      },
+    ],
+    noteKey: 'catalog.note',
+  },
   metrics: [
     { icon: 'shield-up', valueKey: 'metrics.systems.value', labelKey: 'metrics.systems.label' },
     { icon: 'projector', valueKey: 'metrics.projects.value', labelKey: 'metrics.projects.label' },
@@ -313,6 +338,7 @@ export const pageModel = {
   pageSections: {
     home: [
       'hero',
+      'catalog',
       'metrics',
       'highlights',
       'why',
