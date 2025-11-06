@@ -8,7 +8,6 @@ import {
   clientJs,
   lazyJs,
   styleCss,
-  blogCss,
   themeJs,
   i18nIndex,
   faJsonStr,
@@ -19,7 +18,6 @@ const assetMap = new Map([
   ['/assets/client.mjs', { content: clientJs, type: 'application/javascript; charset=utf-8' }],
   ['/assets/lazy.mjs', { content: lazyJs, type: 'application/javascript; charset=utf-8' }],
   ['/assets/style.css', { content: styleCss, type: 'text/css; charset=utf-8' }],
-  ['/assets/blog.css', { content: blogCss, type: 'text/css; charset=utf-8' }],
   ['/assets/theme.mjs', { content: themeJs, type: 'application/javascript; charset=utf-8' }],
   ['/assets/i18n/index.mjs', { content: i18nIndex, type: 'application/javascript; charset=utf-8' }],
   ['/assets/i18n/fa.json', { content: faJsonStr, type: 'application/json; charset=utf-8' }],
@@ -37,13 +35,11 @@ const pageRoutes = new Map([
   ['/faq', 'faq'],
   ['/contact', 'contact'],
   ['/about', 'about'],
-  ['/blog', 'blog'],
 ]);
 
 const toSlug = (text = '') => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 const productSlugSet = new Set(pageModel.products.map((product) => product.slug || toSlug(product.id)));
-const blogSlugSet = new Set(pageModel.blog.posts.map((post) => post.slug || toSlug(post.id)));
 
 const supportedLocales = ['fa', 'en'];
 
@@ -83,7 +79,7 @@ Host: ${baseUrl.replace(/^https?:\/\//, '')}
 
 const generateSitemapXml = ({ baseUrl, defaultLocale, locales }) => {
   const isoDate = new Date().toISOString();
-  const paths = new Set([...pageRoutes.keys(), ...Array.from(productSlugSet, (slug) => `/products/${slug}`), ...Array.from(blogSlugSet, (slug) => `/blog/${slug}`)]);
+  const paths = new Set([...pageRoutes.keys(), ...Array.from(productSlugSet, (slug) => `/products/${slug}`)]);
   const urlEntries = Array.from(paths)
     .sort()
     .map((path) => {
@@ -187,9 +183,8 @@ export default {
         return new Response('Not Found', { status: 404 });
       }
 
-      const model = { ...pageModel, lang: locale };
       const html = renderPage({
-        model,
+        model: pageModel,
         locale,
         messages,
         theme,
@@ -204,34 +199,10 @@ export default {
       return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     }
 
-    const blogMatch = pathname.match(/^\/blog\/([a-z0-9-]+)/i);
-    if (blogMatch) {
-      const slug = blogMatch[1].toLowerCase();
-      if (!blogSlugSet.has(slug)) {
-        return new Response('Not Found', { status: 404 });
-      }
-
-      const html = renderPage({
-        model: pageModel,
-        locale,
-        messages,
-        theme,
-        env,
-        page: 'blog-post',
-        blogSlug: slug,
-        canonicalUrl: canonical,
-        baseUrl: baseOrigin,
-        alternateLocales,
-      });
-
-      return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
-    }
-
     const pageKey = pageRoutes.get(pathname);
     if (pageKey) {
-      const model = { ...pageModel, lang: locale };
       const html = renderPage({
-        model,
+        model: pageModel,
         locale,
         messages,
         theme,

@@ -2,7 +2,6 @@
 
 import { getIcon } from './assets/icons/index.mjs';
 import { resolveImageUrl, getProductIllustration } from './assets/images/index.mjs';
-import { renderBlogPage, renderBlogPostPage } from './blog.html.mjs';
 
 const resolveKey = (key, messages) => key.split('.').reduce((o, i) => (o ? o[i] : undefined), messages);
 
@@ -57,7 +56,7 @@ const escapeHtml = (value = '') =>
 
 const toOgLocale = (locale) => (locale === 'fa' ? 'fa_IR' : 'en_US');
 
-const buildPageMeta = ({ model, messages, page, productSlug, blogSlug, defaultTitle, defaultDescription }) => {
+const buildPageMeta = ({ model, messages, page, productSlug, defaultTitle, defaultDescription }) => {
   const companyName = t('global.companyName', messages);
   const baseKeywords = [
     'protective coatings',
@@ -100,20 +99,6 @@ const buildPageMeta = ({ model, messages, page, productSlug, blogSlug, defaultTi
       ogType = 'product';
       schemaType = 'Product';
     }
-  } else if (page === 'blog') {
-    title = `${t('blog.title', messages)} | ${defaultTitle}`;
-    description = t('blog.description', messages);
-    ogType = 'website';
-    schemaType = 'Blog';
-  } else if (page === 'blog-post') {
-    const post = model.blog?.posts.find((p) => p.slug === blogSlug);
-    if (post) {
-      const postTitle = t(post.titleKey, messages);
-      title = `${postTitle} | ${defaultTitle}`;
-      description = t(post.excerptKey, messages);
-      ogType = 'article';
-      schemaType = 'BlogPosting';
-    }
   } else if (page !== 'home') {
     const navItem = model.navigation?.find((item) => Array.isArray(item.pages) && item.pages.includes(page));
     if (navItem) {
@@ -142,7 +127,7 @@ const renderHeader = ({ model, messages, locale, currentPage }) => {
   const navGroupsConfig = [
     { id: 'discover', itemIds: ['hero', 'why-us', 'services'] },
     { id: 'solutions', itemIds: ['products', 'case-studies'] },
-    { id: 'company', itemIds: ['about', 'faq', 'contact', 'blog'] },
+    { id: 'company', itemIds: ['about', 'faq', 'contact'] },
   ];
 
   const buildNavLink = (item, { leafClass, linkClass }) => {
@@ -1027,7 +1012,6 @@ export const renderPage = ({
   env,
   page = 'home',
   productSlug = '',
-  blogSlug = '',
   scrollTarget = '',
   canonicalUrl = '',
   baseUrl = '',
@@ -1066,7 +1050,6 @@ export const renderPage = ({
     messages,
     page,
     productSlug,
-    blogSlug,
     defaultTitle,
     defaultDescription,
   });
@@ -1141,22 +1124,9 @@ export const renderPage = ({
     .replace(/>/g, '\\u003E')
     .replace(/&/g, '\\u0026');
 
-  const mainContent = (() => {
-    if (page === 'product-detail') {
-      return renderProductDetail({ model, messages, env, productSlug });
-    }
-    if (page === 'blog') {
-      return renderBlogPage({ model: model, messages });
-    }
-    if (page === 'blog-post') {
-      const post = model.blog.posts.find((p) => p.slug === blogSlug);
-      if (post) {
-        return renderBlogPostPage({ post, messages });
-      }
-      return `<h1>Not Found</h1><p>The requested blog post could not be found.</p>`;
-    }
-    return renderCompositePage({ model, messages, env, pageKey: model.pageSections?.[page] ? page : 'home' });
-  })();
+  const mainContent = page === 'product-detail'
+    ? renderProductDetail({ model, messages, env, productSlug })
+    : renderCompositePage({ model, messages, env, pageKey: model.pageSections?.[page] ? page : 'home' });
 
   return `
     <!DOCTYPE html>

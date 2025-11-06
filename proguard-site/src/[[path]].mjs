@@ -46,28 +46,6 @@ export async function onRequest(context) {
     const themeCookie = request.headers.get('Cookie')?.match(/theme=(light|dark)/);
     const theme = themeCookie ? themeCookie[1] : env.THEME_DEFAULT || 'light';
 
-    // --- Path Parsing ---
-    let page = 'home';
-    let productSlug = '';
-    let blogSlug = '';
-    const pathSegments = url.pathname.split('/').filter(Boolean);
-
-    if (pathSegments.length > 0) {
-        if (pathSegments[0] === 'products' && pathSegments[1]) {
-            page = 'product-detail';
-            productSlug = pathSegments[1];
-        } else if (pathSegments[0] === 'blog') {
-            if (pathSegments[1]) {
-                page = 'blog-post';
-                blogSlug = pathSegments[1];
-            } else {
-                page = 'blog';
-            }
-        } else if (pageModel.pageSections[pathSegments[0]]) {
-            page = pathSegments[0];
-        }
-    }
-
     // Render the final HTML using our template function
     const html = renderPage({
         model: pageModel,
@@ -75,11 +53,6 @@ export async function onRequest(context) {
         messages,
         theme,
         env,
-        page,
-        productSlug,
-        blogSlug,
-        canonicalUrl: url.href,
-        baseUrl: url.origin,
     });
 
     return new Response(html, {
