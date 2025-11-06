@@ -233,7 +233,11 @@
       "title": "Waterproofing & coating knowledge base",
       "description": "Deep dives, project stories, and actionable checklists for specifying ProGuard systems with confidence.",
       "cta": "Browse all articles",
-      "readMore": "Read article"
+      "readMore": "Read article",
+      "previous": "Previous article",
+      "next": "Next article",
+      "sliderStatus": "{current} of {total}",
+      "slideLabel": "Slide {index} of {total}"
     },
     "page": {
       "eyebrow": "ProGuard knowledge center",

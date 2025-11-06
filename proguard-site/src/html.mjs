@@ -2,6 +2,7 @@
 
 import { getIcon } from './assets/icons/index.mjs';
 import { resolveImageUrl, getProductIllustration } from './assets/images/index.mjs';
+import { resolveArticleImage } from './articles/image-library.mjs';
 
 const resolveKey = (key, messages) => key.split('.').reduce((o, i) => (o ? o[i] : undefined), messages);
 
@@ -961,8 +962,16 @@ const renderArticleCard = ({ article, messages, locale, variant = 'grid' }) => {
   const dateLabel = formatArticleDate(article.publishedAt, locale);
   const readTime = formatReadTime({ minutes: Number(article.readingMinutes), messages });
   const excerpt = typeof article.excerpt === 'string' ? article.excerpt : '';
-  const image = article.imageUrl
-    ? `<img src="${escapeHtml(article.imageUrl)}" alt="${escapeHtml(article.imageAlt || article.title || '')}" loading="lazy">`
+  const { src: coverSrc, isFallback } = resolveArticleImage(article);
+  const coverAlt = article.imageAlt || article.title || 'تصویر مقاله';
+  const mediaAttributes = [`href="${url}"`, 'class="article-card__media"'];
+  if (isFallback) {
+    mediaAttributes.push('data-placeholder="true"');
+  }
+  const direction = locale === 'fa' ? 'rtl' : 'ltr';
+  const featuredTag = Array.isArray(article.tags) && article.tags.length > 0 ? article.tags[0] : '';
+  const badge = featuredTag
+    ? `<span class="article-card__badge">${escapeHtml(featuredTag)}</span>`
     : '';
   const metaItems = [
     dateLabel ? `<span class="article-card__meta-item">${escapeHtml(dateLabel)}</span>` : '',
@@ -970,8 +979,13 @@ const renderArticleCard = ({ article, messages, locale, variant = 'grid' }) => {
   ].filter(Boolean);
 
   return `
-    <article class="article-card article-card--${variant}">
-      <a href="${url}" class="article-card__media">${image}</a>
+    <article class="article-card article-card--${variant}" dir="${direction}">
+      <a ${mediaAttributes.join(' ')}>
+        <div class="article-card__media-inner">
+          <img src="${escapeHtml(coverSrc)}" alt="${escapeHtml(coverAlt)}" loading="lazy">
+        </div>
+        ${badge}
+      </a>
       <div class="article-card__body">
         ${metaItems.length ? `<div class="article-card__meta">${metaItems.join('<span class="article-card__divider">•</span>')}</div>` : ''}
         <h3 class="article-card__title"><a href="${url}">${escapeHtml(article.title)}</a></h3>
@@ -988,6 +1002,37 @@ const renderArticleGrid = ({ articles, messages, locale, className = 'articles__
   return `<div class="${className}">${articles
     .map((article) => renderArticleCard({ article, messages, locale, variant }))
     .join('')}</div>`;
+};
+
+const renderArticleCarousel = ({ articles, messages, locale }) => {
+  if (!Array.isArray(articles) || articles.length === 0) return '';
+  const previousLabel = t('articles.section.previous', messages);
+  const nextLabel = t('articles.section.next', messages);
+  const statusTemplate = t('articles.section.sliderStatus', messages);
+  const slideLabel = t('articles.section.slideLabel', messages);
+  const slides = articles
+    .map((article) => `
+        <div class="article-carousel__slide" data-article-slide>${renderArticleCard({ article, messages, locale, variant: 'slider' })}</div>
+      `)
+    .join('');
+
+  return `
+    <div class="article-carousel" data-article-slider data-status-template="${escapeHtml(statusTemplate)}" data-slide-label-template="${escapeHtml(slideLabel)}">
+      <div class="article-carousel__viewport" dir="ltr" data-article-slider-track>
+${slides}
+      </div>
+      <div class="article-carousel__controls" aria-hidden="true">
+        <button class="article-carousel__nav article-carousel__nav--prev" type="button" data-article-slider-prev aria-label="${escapeHtml(previousLabel)}">
+          <span aria-hidden="true">‹</span>
+        </button>
+        <div class="article-carousel__dots" data-article-slider-pagination></div>
+        <button class="article-carousel__nav article-carousel__nav--next" type="button" data-article-slider-next aria-label="${escapeHtml(nextLabel)}">
+          <span aria-hidden="true">›</span>
+        </button>
+      </div>
+      <div class="article-carousel__status" data-article-slider-status aria-live="polite"></div>
+    </div>
+  `;
 };
 
 function renderArticlesSection({ model, messages, locale }) {
@@ -1013,7 +1058,7 @@ function renderArticlesSection({ model, messages, locale }) {
           </div>
           <a class="articles__cta btn btn--ghost" href="/articles">${ctaLabel}</a>
         </div>
-        ${renderArticleGrid({ articles: featured, messages, locale })}
+        ${renderArticleCarousel({ articles: featured, messages, locale })}
       </div>
     </section>
   `;

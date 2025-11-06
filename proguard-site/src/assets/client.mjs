@@ -72,6 +72,121 @@ function initStickyHeader() {
   });
 }
 
+
+function initArticleSlider() {
+  const slider = document.querySelector('[data-article-slider]');
+  if (!slider) return;
+
+  const track = slider.querySelector('[data-article-slider-track]');
+  if (!track) return;
+
+  const slides = Array.from(track.querySelectorAll('[data-article-slide]'));
+  if (slides.length <= 1) return;
+
+  const prevButton = slider.querySelector('[data-article-slider-prev]');
+  const nextButton = slider.querySelector('[data-article-slider-next]');
+  const pagination = slider.querySelector('[data-article-slider-pagination]');
+  const status = slider.querySelector('[data-article-slider-status]');
+  const statusTemplate = slider.dataset.statusTemplate || '{current} / {total}';
+  const slideLabelTemplate = slider.dataset.slideLabelTemplate || 'Slide {index} of {total}';
+
+  slider.setAttribute('data-slider-active', 'true');
+
+  const formatTemplate = (template, index) => template
+    .replace('{current}', String(index + 1))
+    .replace('{index}', String(index + 1))
+    .replace('{total}', String(slides.length));
+
+  let currentIndex = 0;
+  let metrics = { step: 1 };
+
+  const measure = () => {
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+    const firstSlide = slides[0];
+    const width = firstSlide ? firstSlide.getBoundingClientRect().width : track.clientWidth;
+    const step = width + gap;
+    metrics = {
+      gap,
+      slideWidth: width,
+      step: step > 0 ? step : width || 1,
+    };
+  };
+
+  const updateUi = () => {
+    if (prevButton) {
+      prevButton.disabled = currentIndex <= 0;
+    }
+    if (nextButton) {
+      nextButton.disabled = currentIndex >= slides.length - 1;
+    }
+    if (pagination) {
+      const dots = pagination.querySelectorAll('[data-article-slider-dot]');
+      dots.forEach((dot, index) => {
+        const isActive = index === currentIndex;
+        dot.classList.toggle('is-active', isActive);
+        if (isActive) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+    }
+    if (status) {
+      status.textContent = formatTemplate(statusTemplate, currentIndex);
+    }
+  };
+
+  const setIndex = (index, { smooth = true } = {}) => {
+    currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+    track.scrollTo({ left: currentIndex * metrics.step, behavior: smooth ? 'smooth' : 'auto' });
+    updateUi();
+  };
+
+  if (pagination) {
+    pagination.innerHTML = '';
+    slides.forEach((slide, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'article-carousel__dot';
+      dot.dataset.articleSliderDot = String(index);
+      dot.setAttribute('aria-label', formatTemplate(slideLabelTemplate, index));
+      dot.addEventListener('click', () => setIndex(index));
+      pagination.appendChild(dot);
+    });
+  }
+
+  measure();
+  setIndex(0, { smooth: false });
+
+  let scrollRaf = 0;
+  const handleScroll = () => {
+    if (scrollRaf) {
+      cancelAnimationFrame(scrollRaf);
+    }
+    scrollRaf = window.requestAnimationFrame(() => {
+      const approxIndex = Math.round(track.scrollLeft / metrics.step);
+      if (approxIndex !== currentIndex) {
+        currentIndex = Math.max(0, Math.min(approxIndex, slides.length - 1));
+        updateUi();
+      }
+    });
+  };
+
+  track.addEventListener('scroll', handleScroll, { passive: true });
+
+  const handleResize = () => {
+    measure();
+    setIndex(currentIndex, { smooth: false });
+  };
+
+  window.addEventListener('resize', handleResize);
+  window.addEventListener('orientationchange', handleResize);
+
+  prevButton?.addEventListener('click', () => setIndex(currentIndex - 1));
+  nextButton?.addEventListener('click', () => setIndex(currentIndex + 1));
+}
+
 function revealBody() {
   document.body.style.visibility = 'visible';
 }
@@ -339,5 +454,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetDrawerGroups = initDrawerAccordions();
   initMobileMenu(resetDrawerGroups);
   initDesktopMenu();
+  initArticleSlider();
   lazyLoadModules();
 });
