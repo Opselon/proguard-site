@@ -346,7 +346,13 @@ body.dark-theme .site-menu__dropdown {
   inset-inline-end: 0;
   width: min(420px, 100vw);
   background: var(--pg-surface);
+<<<<<<< ours
+<<<<<<< ours
   background: color-mix(in srgb, var(--pg-surface) 92%, rgba(12, 93, 122, 0.12));
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
   box-shadow: -18px 0 54px rgba(8, 28, 42, 0.22);
   transform: translate3d(105%, 0, 0);
   transition: transform var(--pg-duration) var(--pg-ease), opacity var(--pg-duration) var(--pg-ease);
@@ -355,6 +361,8 @@ body.dark-theme .site-menu__dropdown {
   pointer-events: none;
   opacity: 0;
   overscroll-behavior: contain;
+<<<<<<< ours
+<<<<<<< ours
   backdrop-filter: blur(18px);
 }
 
@@ -366,6 +374,18 @@ body.dark-theme .site-menu__dropdown {
   opacity: 0;
   transition: opacity var(--pg-duration) var(--pg-ease);
   pointer-events: none;
+=======
+=======
+>>>>>>> theirs
+  border-inline-start: 1px solid var(--pg-border);
+}
+
+.site-drawer::before {
+  content: none;
+<<<<<<< ours
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 }
 
 .site-drawer__inner {
@@ -380,6 +400,20 @@ body.dark-theme .site-menu__dropdown {
   height: 100vh;
   scrollbar-width: thin;
   scrollbar-color: rgba(12, 93, 122, 0.3) transparent;
+<<<<<<< ours
+<<<<<<< ours
+=======
+=======
+>>>>>>> theirs
+  background: var(--pg-surface);
+}
+
+body.dark-theme .site-drawer__inner {
+  background: #07111c;
+<<<<<<< ours
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 }
 
 .site-drawer__inner:focus {
@@ -458,8 +492,16 @@ body.dark-theme .site-menu__dropdown {
   position: relative;
   display: flex;
   align-items: center;
+<<<<<<< ours
+<<<<<<< ours
   background: var(--pg-surface-muted);
   background: color-mix(in srgb, var(--pg-surface-muted) 85%, rgba(24, 166, 215, 0.08));
+=======
+  background: #edf3f7;
+>>>>>>> theirs
+=======
+  background: #edf3f7;
+>>>>>>> theirs
   border-radius: var(--pg-radius);
   padding: 0.6rem 0.85rem;
   border: 1px solid rgba(12, 45, 62, 0.12);
@@ -508,8 +550,16 @@ body.dark-theme .site-menu__dropdown {
 .drawer-menu__group {
   border-radius: var(--pg-radius);
   border: 1px solid var(--pg-border);
+<<<<<<< ours
+<<<<<<< ours
   background: var(--pg-surface);
   background: color-mix(in srgb, var(--pg-surface) 90%, rgba(255, 255, 255, 0.65));
+=======
+  background: #f7fafc;
+>>>>>>> theirs
+=======
+  background: #f7fafc;
+>>>>>>> theirs
   padding: 0.75rem 0.9rem;
   transition: border-color var(--pg-duration) var(--pg-ease), box-shadow var(--pg-duration) var(--pg-ease);
 }
@@ -517,16 +567,53 @@ body.dark-theme .site-menu__dropdown {
 .drawer-menu__group.is-open {
   border-color: rgba(12, 93, 122, 0.4);
   box-shadow: 0 18px 42px rgba(8, 28, 42, 0.16);
+<<<<<<< ours
+<<<<<<< ours
 }
 
 body.dark-theme .drawer-menu__group {
   background: rgba(9, 18, 30, 0.92);
   border-color: rgba(82, 112, 142, 0.5);
+=======
+  background: #ffffff;
+}
+
+body.dark-theme .drawer-menu__group {
+=======
+  background: #ffffff;
+}
+
+body.dark-theme .drawer-menu__group {
+>>>>>>> theirs
+  background: #0f1c2b;
+  border-color: rgba(82, 112, 142, 0.5);
+}
+
+body.dark-theme .site-drawer__search {
+  background: #122438;
+  border-color: rgba(82, 112, 142, 0.35);
+>>>>>>> theirs
+}
+
+body.dark-theme .site-drawer__search input::placeholder {
+  color: rgba(202, 223, 241, 0.65);
+}
+
+body.dark-theme .site-drawer__search input::placeholder {
+  color: rgba(202, 223, 241, 0.65);
 }
 
 body.dark-theme .drawer-menu__group.is-open {
   border-color: rgba(109, 220, 255, 0.6);
   box-shadow: 0 22px 46px rgba(0, 0, 0, 0.5);
+<<<<<<< ours
+<<<<<<< ours
+=======
+  background: #0b1929;
+>>>>>>> theirs
+=======
+  background: #0b1929;
+>>>>>>> theirs
 }
 
 .drawer-menu__trigger {
@@ -583,10 +670,29 @@ body.dark-theme .drawer-menu__group.is-open {
   transition: color var(--pg-duration) var(--pg-ease), background-color var(--pg-duration) var(--pg-ease);
 }
 
+body.dark-theme .drawer-menu__link {
+  color: rgba(198, 212, 232, 0.78);
+}
+
 .drawer-menu__link:hover,
 .drawer-menu__link:focus-visible {
   color: var(--pg-text);
   background: rgba(12, 93, 122, 0.16);
+<<<<<<< ours
+<<<<<<< ours
+=======
+=======
+>>>>>>> theirs
+}
+
+body.dark-theme .drawer-menu__link:hover,
+body.dark-theme .drawer-menu__link:focus-visible {
+  color: #ffffff;
+  background: rgba(96, 176, 255, 0.2);
+<<<<<<< ours
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 }
 
 .drawer-menu__link.is-active {
@@ -599,9 +705,25 @@ body.dark-theme .drawer-menu__group.is-open {
   gap: 0.6rem;
   padding: 1rem;
   border-radius: var(--pg-radius-lg);
+<<<<<<< ours
+<<<<<<< ours
   background: var(--pg-surface);
   background: color-mix(in srgb, var(--pg-surface) 85%, rgba(24, 166, 215, 0.08));
   box-shadow: 0 22px 44px rgba(8, 28, 42, 0.18);
+=======
+=======
+>>>>>>> theirs
+  background: #eef3f7;
+  box-shadow: 0 22px 44px rgba(8, 28, 42, 0.18);
+}
+
+body.dark-theme .site-drawer__cta {
+  background: #122438;
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
+<<<<<<< ours
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 }
 
 .site-drawer__cta .btn {
