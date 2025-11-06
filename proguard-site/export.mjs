@@ -16,20 +16,18 @@ async function exportSite() {
   const originalHtml = await response.text();
 
   // 3. اصلاح مسیرهای فایل‌ها برای سازگاری با GitHub Pages
+  // این کار مسیرهای مطلق مانند "/assets/style.css" را به مسیرهای نسبی "./assets/style.css" تبدیل می‌کند
   const finalHtml = originalHtml
-    .replace(/href="\/style.css"/g, 'href="./style.css"')
+    .replace(/href="\/assets\//g, 'href="./assets/')
     .replace(/src="\/assets\//g, 'src="./assets/');
   
   // 4. نوشتن فایل نهایی index.html
   await fs.writeFile(path.join(DIST_DIR, 'index.html'), finalHtml);
   console.log('✅ Generated index.html');
 
-  // 5. کپی کردن تمام فایل‌های استاتیک از مسیرهای صحیح
+  // 5. کپی کردن **تمام** محتویات پوشه assets (که شامل style.css هم می‌شود)
   await fs.copy('src/assets', path.join(DIST_DIR, 'assets'));
-  // --- این خط اصلاح شده است ---
-  await fs.copy('style.css', path.join(DIST_DIR, 'style.css')); 
-  // ---------------------------
-  console.log('✅ Copied all static assets.');
+  console.log('✅ Copied entire assets directory.');
 
   console.log('Static export completed successfully!');
 }
