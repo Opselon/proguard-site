@@ -35,11 +35,13 @@ const pageRoutes = new Map([
   ['/faq', 'faq'],
   ['/contact', 'contact'],
   ['/about', 'about'],
+  ['/articles', 'articles'],
 ]);
 
 const toSlug = (text = '') => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 const productSlugSet = new Set(pageModel.products.map((product) => product.slug || toSlug(product.id)));
+const articleSlugSet = new Set(pageModel.articles?.map((article) => article.slug));
 
 const supportedLocales = ['fa', 'en'];
 
@@ -79,7 +81,11 @@ Host: ${baseUrl.replace(/^https?:\/\//, '')}
 
 const generateSitemapXml = ({ baseUrl, defaultLocale, locales }) => {
   const isoDate = new Date().toISOString();
-  const paths = new Set([...pageRoutes.keys(), ...Array.from(productSlugSet, (slug) => `/products/${slug}`)]);
+  const paths = new Set([
+    ...pageRoutes.keys(),
+    ...Array.from(productSlugSet, (slug) => `/products/${slug}`),
+    ...Array.from(articleSlugSet, (slug) => `/articles/${slug}`),
+  ]);
   const urlEntries = Array.from(paths)
     .sort()
     .map((path) => {
@@ -175,6 +181,29 @@ export default {
       href: buildLocalizedUrl({ baseUrl: baseOrigin, path: url.pathname, locale: lang, defaultLocale, searchParams: url.searchParams }),
       isDefault: lang === defaultLocale,
     }));
+
+    const articleMatch = pathname.match(/^\/articles\/([a-z0-9-]+)/i);
+    if (articleMatch) {
+      const slug = articleMatch[1].toLowerCase();
+      if (!articleSlugSet.has(slug)) {
+        return new Response('Not Found', { status: 404 });
+      }
+
+      const html = renderPage({
+        model: pageModel,
+        locale,
+        messages,
+        theme,
+        env,
+        page: 'article-detail',
+        articleSlug: slug,
+        canonicalUrl: canonical,
+        baseUrl: baseOrigin,
+        alternateLocales,
+      });
+
+      return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    }
 
     const productMatch = pathname.match(/^\/products\/([a-z0-9-]+)/i);
     if (productMatch) {

@@ -56,7 +56,7 @@ const escapeHtml = (value = '') =>
 
 const toOgLocale = (locale) => (locale === 'fa' ? 'fa_IR' : 'en_US');
 
-const buildPageMeta = ({ model, messages, page, productSlug, defaultTitle, defaultDescription }) => {
+const buildPageMeta = ({ model, messages, page, productSlug, articleSlug, defaultTitle, defaultDescription }) => {
   const companyName = t('global.companyName', messages);
   const baseKeywords = [
     'protective coatings',
@@ -77,6 +77,7 @@ const buildPageMeta = ({ model, messages, page, productSlug, defaultTitle, defau
   let ogType = 'website';
   let schemaType = 'WebPage';
   let imageAlt = defaultTitle;
+  let extraKeywords = [];
 
   if (page === 'product-detail') {
     const product = model.products?.find((item) => item.slug === productSlug);
@@ -99,6 +100,25 @@ const buildPageMeta = ({ model, messages, page, productSlug, defaultTitle, defau
       ogType = 'product';
       schemaType = 'Product';
     }
+  } else if (page === 'article-detail') {
+    const article = model.articles?.find((item) => item.slug === articleSlug);
+    if (article) {
+      const articleTitle = typeof article.title === 'string' ? article.title : defaultTitle;
+      title = `${articleTitle} | ${defaultTitle}`;
+      if (typeof article.excerpt === 'string' && article.excerpt.trim().length > 0) {
+        description = article.excerpt;
+      }
+      if (typeof article.imageAlt === 'string' && article.imageAlt.trim().length > 0) {
+        imageAlt = article.imageAlt;
+      } else if (typeof articleTitle === 'string') {
+        imageAlt = articleTitle;
+      }
+      extraKeywords = Array.isArray(article.tags)
+        ? article.tags.filter((tag) => typeof tag === 'string' && tag.trim().length > 0)
+        : [];
+      ogType = 'article';
+      schemaType = 'Article';
+    }
   } else if (page !== 'home') {
     const navItem = model.navigation?.find((item) => Array.isArray(item.pages) && item.pages.includes(page));
     if (navItem) {
@@ -108,7 +128,7 @@ const buildPageMeta = ({ model, messages, page, productSlug, defaultTitle, defau
     }
   }
 
-  const keywords = Array.from(new Set([...baseKeywords, ...productKeywords]));
+  const keywords = Array.from(new Set([...baseKeywords, ...productKeywords, ...extraKeywords]));
 
   return {
     title,
@@ -125,7 +145,7 @@ const renderHeader = ({ model, messages, locale, currentPage }) => {
   const wordmark = locale === 'fa' ? 'پروگارد' : 'ProGuard';
   const navItems = new Map(model.navigation.map((item) => [item.id, item]));
   const navGroupsConfig = [
-    { id: 'discover', itemIds: ['hero', 'why-us', 'services'] },
+    { id: 'discover', itemIds: ['hero', 'why-us', 'services', 'articles'] },
     { id: 'solutions', itemIds: ['products', 'case-studies'] },
     { id: 'company', itemIds: ['about', 'faq', 'contact'] },
   ];
@@ -829,6 +849,8 @@ const sectionRegistry = {
   services: renderServices,
   products: renderProductsSection,
   caseStudies: renderCaseStudies,
+  articles: renderArticlesSection,
+  'articles-full': renderArticlesPage,
   credentials: renderCredentials,
   testimonials: renderTestimonials,
   process: renderProcess,
@@ -837,7 +859,7 @@ const sectionRegistry = {
   contact: renderContact,
 };
 
-const renderSectionByKey = ({ key, model, messages, env }) => {
+const renderSectionByKey = ({ key, model, messages, env, locale }) => {
   if (key.startsWith('subpage-hero:')) {
     const pageKey = key.split(':')[1];
     return renderSubpageHero({ model, messages, pageKey });
@@ -846,13 +868,13 @@ const renderSectionByKey = ({ key, model, messages, env }) => {
   if (!renderer) {
     return '';
   }
-  return renderer({ model, messages, env });
+  return renderer({ model, messages, env, locale });
 };
 
-const renderCompositePage = ({ model, messages, env, pageKey = 'home' }) => {
+const renderCompositePage = ({ model, messages, env, locale, pageKey = 'home' }) => {
   const sections = model.pageSections?.[pageKey] || model.pageSections?.home || [];
   return sections
-    .map((key) => renderSectionByKey({ key, model, messages, env }))
+    .map((key) => renderSectionByKey({ key, model, messages, env, locale }))
     .join('');
 };
 
@@ -904,7 +926,212 @@ const renderRelatedProducts = ({ model, messages, currentSlug }) => {
   `;
 };
 
-const renderProductDetail = ({ model, messages, env, productSlug }) => {
+const formatArticleDate = (dateValue, locale = 'fa') => {
+  if (!dateValue) return '';
+  const parsed = new Date(dateValue);
+  if (Number.isNaN(parsed.getTime())) return dateValue;
+  const resolvedLocale = locale === 'fa' ? 'fa-IR' : locale === 'en' ? 'en-US' : locale;
+  try {
+    return new Intl.DateTimeFormat(resolvedLocale, { year: 'numeric', month: 'long', day: '2-digit' }).format(parsed);
+  } catch (error) {
+    return parsed.toISOString().split('T')[0];
+  }
+};
+
+const formatReadTime = ({ minutes, messages }) => {
+  if (!Number.isFinite(minutes) || minutes <= 0) return '';
+  const template = t('articles.meta.readTime', messages);
+  if (typeof template === 'string') {
+    return template.replace('{minutes}', minutes);
+  }
+  return `${minutes} min`;
+};
+
+const renderArticleTags = (tags, className = 'article-tags') => {
+  if (!Array.isArray(tags) || tags.length === 0) return '';
+  return `<ul class="${className}">${tags
+    .filter((tag) => typeof tag === 'string' && tag.trim().length > 0)
+    .map((tag) => `<li>${escapeHtml(tag)}</li>`)
+    .join('')}</ul>`;
+};
+
+const renderArticleCard = ({ article, messages, locale, variant = 'grid' }) => {
+  if (!article) return '';
+  const url = `/articles/${article.slug}`;
+  const dateLabel = formatArticleDate(article.publishedAt, locale);
+  const readTime = formatReadTime({ minutes: Number(article.readingMinutes), messages });
+  const excerpt = typeof article.excerpt === 'string' ? article.excerpt : '';
+  const image = article.imageUrl
+    ? `<img src="${escapeHtml(article.imageUrl)}" alt="${escapeHtml(article.imageAlt || article.title || '')}" loading="lazy">`
+    : '';
+  const metaItems = [
+    dateLabel ? `<span class="article-card__meta-item">${escapeHtml(dateLabel)}</span>` : '',
+    readTime ? `<span class="article-card__meta-item">${escapeHtml(readTime)}</span>` : '',
+  ].filter(Boolean);
+
+  return `
+    <article class="article-card article-card--${variant}">
+      <a href="${url}" class="article-card__media">${image}</a>
+      <div class="article-card__body">
+        ${metaItems.length ? `<div class="article-card__meta">${metaItems.join('<span class="article-card__divider">•</span>')}</div>` : ''}
+        <h3 class="article-card__title"><a href="${url}">${escapeHtml(article.title)}</a></h3>
+        ${excerpt ? `<p class="article-card__excerpt">${escapeHtml(excerpt)}</p>` : ''}
+        ${renderArticleTags(article.tags, 'article-card__tags')}
+        <a class="article-card__cta" href="${url}">${t('articles.section.readMore', messages)}</a>
+      </div>
+    </article>
+  `;
+};
+
+const renderArticleGrid = ({ articles, messages, locale, className = 'articles__grid', variant = 'grid' }) => {
+  if (!Array.isArray(articles) || articles.length === 0) return '';
+  return `<div class="${className}">${articles
+    .map((article) => renderArticleCard({ article, messages, locale, variant }))
+    .join('')}</div>`;
+};
+
+function renderArticlesSection({ model, messages, locale }) {
+  if (!Array.isArray(model.articles) || model.articles.length === 0) {
+    return '';
+  }
+
+  const config = model.articlesSection || {};
+  const featured = model.articles.slice(0, 3);
+  const eyebrow = t(config.eyebrowKey, messages);
+  const title = t(config.titleKey, messages);
+  const description = t(config.descriptionKey, messages);
+  const ctaLabel = t(config.ctaKey, messages);
+
+  return `
+    <section class="articles" id="articles">
+      <div class="container articles__inner">
+        <div class="articles__header">
+          ${eyebrow ? `<span class="section-eyebrow">${eyebrow}</span>` : ''}
+          <div class="articles__heading">
+            <h2>${title}</h2>
+            ${description ? `<p>${description}</p>` : ''}
+          </div>
+          <a class="articles__cta btn btn--ghost" href="/articles">${ctaLabel}</a>
+        </div>
+        ${renderArticleGrid({ articles: featured, messages, locale })}
+      </div>
+    </section>
+  `;
+}
+
+const getArticlesBySlugs = ({ model, slugs, excludeSlug }) => {
+  if (!Array.isArray(slugs)) return [];
+  return slugs
+    .map((slug) => model.articles?.find((article) => article.slug === slug))
+    .filter((article) => article && article.slug !== excludeSlug);
+};
+
+const getRecentArticles = ({ model, excludeSlug, limit = 3 }) => {
+  if (!Array.isArray(model.articles)) return [];
+  return model.articles.filter((article) => article.slug !== excludeSlug).slice(0, limit);
+};
+
+const renderArticlesPage = ({ model, messages, locale }) => {
+  if (!Array.isArray(model.articles) || model.articles.length === 0) {
+    return '';
+  }
+  const introTitle = t('articles.page.title', messages);
+  const introDescription = t('articles.page.description', messages);
+  return `
+    <section class="articles articles--page">
+      <div class="container articles__inner">
+        <div class="articles__page-header">
+          <span class="section-eyebrow">${t('articles.page.eyebrow', messages)}</span>
+          <h1>${introTitle}</h1>
+          <p>${introDescription}</p>
+        </div>
+        ${renderArticleGrid({ articles: model.articles, messages, locale, className: 'articles__grid articles__grid--page' })}
+      </div>
+    </section>
+  `;
+};
+
+const renderArticleRecommendations = ({ model, messages, locale, currentSlug, productSlug, limit = 3, titleKey }) => {
+  const recommendedSlugs = productSlug
+    ? model.articleRecommendations?.[productSlug] || []
+    : [];
+  let articles = getArticlesBySlugs({ model, slugs: recommendedSlugs, excludeSlug: currentSlug });
+  if (!articles.length) {
+    const fallbackSlugs = model.articleRecommendations?.default || [];
+    articles = getArticlesBySlugs({ model, slugs: fallbackSlugs, excludeSlug: currentSlug });
+  }
+  if (!articles.length) {
+    articles = getRecentArticles({ model, excludeSlug: currentSlug, limit });
+  }
+  if (!articles.length) return '';
+  const heading = t(titleKey, messages);
+  return `
+    <section class="articles-related" aria-labelledby="articles-related-heading">
+      <div class="container">
+        <div class="articles-related__header">
+          <h2 id="articles-related-heading">${heading}</h2>
+          <a href="/articles" class="articles-related__link">${t('articles.section.cta', messages)}</a>
+        </div>
+        ${renderArticleGrid({ articles: articles.slice(0, limit), messages, locale, className: 'articles__grid articles__grid--related', variant: 'related' })}
+      </div>
+    </section>
+  `;
+};
+
+const renderArticleDetail = ({ model, messages, locale, articleSlug }) => {
+  const article = model.articles?.find((item) => item.slug === articleSlug);
+  if (!article) {
+    return `
+      <section class="article-detail article-detail--missing">
+        <div class="container">
+          <h1>${t('articles.detail.notFound', messages)}</h1>
+          <p>${t('articles.detail.notFoundDescription', messages)}</p>
+          <a class="btn btn--primary" href="/articles">${t('articles.detail.back', messages)}</a>
+        </div>
+      </section>
+    `;
+  }
+
+  const dateLabel = formatArticleDate(article.publishedAt, locale);
+  const readTime = formatReadTime({ minutes: Number(article.readingMinutes), messages });
+  const publishedTemplate = t('articles.meta.published', messages);
+  const publishedLabel = dateLabel && typeof publishedTemplate === 'string'
+    ? publishedTemplate.replace('{date}', dateLabel)
+    : dateLabel;
+  const metaItems = [publishedLabel, readTime].filter(Boolean);
+  const backLabel = t('articles.detail.back', messages);
+  return `
+    <article class="article-detail">
+      <div class="container article-detail__header">
+        <a class="article-detail__back" href="/articles">${backLabel}</a>
+        <div class="article-detail__meta">${metaItems
+          .map((item) => `<span class="article-detail__meta-item">${escapeHtml(item)}</span>`)
+          .join('<span class="article-detail__meta-divider">•</span>')}</div>
+        <h1 class="article-detail__title">${escapeHtml(article.title)}</h1>
+        ${article.excerpt ? `<p class="article-detail__excerpt">${escapeHtml(article.excerpt)}</p>` : ''}
+        ${renderArticleTags(article.tags, 'article-detail__tags')}
+      </div>
+      ${article.imageUrl
+        ? `<figure class="article-detail__media"><img src="${escapeHtml(article.imageUrl)}" alt="${escapeHtml(article.imageAlt || article.title || '')}" loading="lazy"></figure>`
+        : ''}
+      <div class="container article-detail__content">${article.content}</div>
+    </article>
+    ${renderArticleRecommendations({ model, messages, locale, currentSlug: article.slug, productSlug: article.productSlug, titleKey: 'articles.detail.relatedTitle' })}
+  `;
+};
+
+const renderProductArticleRecommendations = ({ model, messages, locale, productSlug }) => {
+  const markup = renderArticleRecommendations({
+    model,
+    messages,
+    locale,
+    productSlug,
+    titleKey: 'detail.hero.articleRecommendations',
+  });
+  return markup ? `<div class="product-articles">${markup}</div>` : '';
+};
+
+const renderProductDetail = ({ model, messages, env, productSlug, locale }) => {
   const product = model.products.find((item) => item.slug === productSlug);
   const detail = model.productDetails[productSlug];
   if (!product || !detail) {
@@ -926,6 +1153,7 @@ const renderProductDetail = ({ model, messages, env, productSlug }) => {
   const features = t(detail.featuresKey, messages);
   const applications = t(detail.applicationsKey, messages);
   const illustration = getProductIllustration(detail.illustrationKey);
+  const resolvedLocale = locale || messages._meta?.locale || 'fa';
 
   return `
     <section class="product-detail" id="product">
@@ -963,6 +1191,7 @@ const renderProductDetail = ({ model, messages, env, productSlug }) => {
           ${renderDetailList(applications, 'product-detail__list--applications')}
         </article>
       </div>
+      ${renderProductArticleRecommendations({ model, messages, locale: resolvedLocale, productSlug })}
     </section>
     ${renderRelatedProducts({ model, messages, currentSlug: productSlug })}
   `;
@@ -1012,6 +1241,7 @@ export const renderPage = ({
   env,
   page = 'home',
   productSlug = '',
+  articleSlug = '',
   scrollTarget = '',
   canonicalUrl = '',
   baseUrl = '',
@@ -1024,9 +1254,16 @@ export const renderPage = ({
   }
   if (page === 'product-detail') {
     bodyClasses.push('product-detail-page');
+  } else if (page === 'article-detail') {
+    bodyClasses.push('article-detail-page');
   } else if (page !== 'home') {
     bodyClasses.push('subpage');
   }
+
+  const resolvedLocale = locale || messages._meta?.locale || 'fa';
+  const currentArticle = page === 'article-detail'
+    ? model.articles?.find((item) => item.slug === articleSlug)
+    : null;
 
   const bodyAttributes = [
     bodyClasses.length ? `class="${bodyClasses.join(' ')}"` : '',
@@ -1050,20 +1287,26 @@ export const renderPage = ({
     messages,
     page,
     productSlug,
+    articleSlug,
     defaultTitle,
     defaultDescription,
   });
   const sanitizedBase = typeof baseUrl === 'string' ? baseUrl.replace(/\/$/, '') : '';
   const canonical = canonicalUrl || (sanitizedBase ? `${sanitizedBase}${page === 'home' ? '/' : ''}` : '');
-  const heroSocial = resolveImageUrl(model.hero.imageKey, { format: 'webp' }, env);
-  const socialImageAbsolute = heroSocial.startsWith('http://') || heroSocial.startsWith('https://') || heroSocial.startsWith('data:')
+  const fallbackHero = resolveImageUrl(model.hero.imageKey, { format: 'webp' }, env);
+  const heroSocial = page === 'article-detail' && currentArticle?.imageUrl
+    ? currentArticle.imageUrl
+    : fallbackHero;
+  const socialImageAbsolute = heroSocial && (heroSocial.startsWith('http://') || heroSocial.startsWith('https://') || heroSocial.startsWith('data:'))
     ? heroSocial
-    : sanitizedBase
-      ? `${sanitizedBase}${heroSocial}`
-      : heroSocial;
-  const socialImageType = heroSocial.toLowerCase().endsWith('.webp')
+    : heroSocial
+      ? sanitizedBase
+        ? `${sanitizedBase}${heroSocial}`
+        : heroSocial
+      : '';
+  const socialImageType = heroSocial && heroSocial.toLowerCase().endsWith('.webp')
     ? 'image/webp'
-    : heroSocial.toLowerCase().endsWith('.jpg') || heroSocial.toLowerCase().endsWith('.jpeg')
+    : heroSocial && (heroSocial.toLowerCase().endsWith('.jpg') || heroSocial.toLowerCase().endsWith('.jpeg'))
       ? 'image/jpeg'
       : 'image/png';
   const metaTitle = typeof meta.title === 'string' ? meta.title : defaultTitle;
@@ -1097,7 +1340,7 @@ export const renderPage = ({
     name: trimmedTitle,
     description: trimmedDescription,
     url: canonical || undefined,
-    inLanguage: locale,
+    inLanguage: resolvedLocale,
     dateModified: isoTimestamp,
     image: socialImageAbsolute ? [socialImageAbsolute] : undefined,
     publisher: {
@@ -1119,18 +1362,30 @@ export const renderPage = ({
       : undefined,
   });
 
+  if (page === 'article-detail' && currentArticle) {
+    structuredData.headline = currentArticle.title;
+    structuredData.datePublished = currentArticle.publishedAt || undefined;
+    structuredData.dateModified = currentArticle.publishedAt || isoTimestamp;
+    structuredData.author = { '@type': 'Organization', name: companyName };
+    structuredData.keywords = Array.isArray(currentArticle.tags) && currentArticle.tags.length
+      ? currentArticle.tags
+      : undefined;
+  }
+
   const ldJson = JSON.stringify(structuredData, null, 2)
     .replace(/</g, '\\u003C')
     .replace(/>/g, '\\u003E')
     .replace(/&/g, '\\u0026');
 
   const mainContent = page === 'product-detail'
-    ? renderProductDetail({ model, messages, env, productSlug })
-    : renderCompositePage({ model, messages, env, pageKey: model.pageSections?.[page] ? page : 'home' });
+    ? renderProductDetail({ model, messages, env, productSlug, locale: resolvedLocale })
+    : page === 'article-detail'
+      ? renderArticleDetail({ model, messages, locale: resolvedLocale, articleSlug })
+      : renderCompositePage({ model, messages, env, locale: resolvedLocale, pageKey: model.pageSections?.[page] ? page : 'home' });
 
   return `
     <!DOCTYPE html>
-    <html lang="${locale}" dir="${direction}">
+    <html lang="${resolvedLocale}" dir="${direction}">
     <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">

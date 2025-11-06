@@ -1,4 +1,6 @@
 // Data model for the ProGuard marketing experience
+import { articles } from './articles.generated.mjs';
+
 export const pageModel = {
   navigation: [
     { id: 'hero', anchor: '#hero', path: '/', labelKey: 'global.nav.home', pages: ['home'] },
@@ -17,6 +19,13 @@ export const pageModel = {
       path: '/projects',
       labelKey: 'global.nav.projects',
       pages: ['home', 'projects'],
+    },
+    {
+      id: 'articles',
+      anchor: '#articles',
+      path: '/articles',
+      labelKey: 'global.nav.articles',
+      pages: ['home', 'articles', 'article-detail'],
     },
     { id: 'about', anchor: '#credentials', path: '/about', labelKey: 'global.nav.about', pages: ['home', 'about'] },
     { id: 'faq', anchor: '#faq', path: '/faq', labelKey: 'global.nav.faq', pages: ['home', 'faq'] },
@@ -161,6 +170,12 @@ export const pageModel = {
       },
     ],
   },
+  articlesSection: {
+    eyebrowKey: 'articles.section.eyebrow',
+    titleKey: 'articles.section.title',
+    descriptionKey: 'articles.section.description',
+    ctaKey: 'articles.section.cta',
+  },
   credentials: {
     eyebrowKey: 'credentials.eyebrow',
     titleKey: 'credentials.title',
@@ -296,6 +311,19 @@ export const pageModel = {
       cta: { labelKey: 'subpages.projects.hero.cta', href: '/contact' },
       secondaryCta: { labelKey: 'subpages.projects.hero.secondaryCta', href: '/why-us' },
     },
+    articles: {
+      icon: 'docs',
+      eyebrowKey: 'subpages.articles.hero.eyebrow',
+      badgeKey: 'subpages.articles.hero.badge',
+      titleKey: 'subpages.articles.hero.title',
+      descriptionKey: 'subpages.articles.hero.description',
+      stats: [
+        { valueKey: 'subpages.articles.hero.stats.0.value', labelKey: 'subpages.articles.hero.stats.0.label' },
+        { valueKey: 'subpages.articles.hero.stats.1.value', labelKey: 'subpages.articles.hero.stats.1.label' },
+      ],
+      cta: { labelKey: 'subpages.articles.hero.cta', href: '/contact' },
+      secondaryCta: { labelKey: 'subpages.articles.hero.secondaryCta', href: '/solutions' },
+    },
     faq: {
       icon: 'support',
       eyebrowKey: 'subpages.faq.hero.eyebrow',
@@ -345,6 +373,7 @@ export const pageModel = {
       'services',
       'products',
       'caseStudies',
+      'articles',
       'credentials',
       'testimonials',
       'process',
@@ -356,9 +385,18 @@ export const pageModel = {
     services: ['subpage-hero:services', 'services', 'process', 'caseStudies', 'partners', 'contact'],
     solutions: ['subpage-hero:solutions', 'products', 'highlights', 'faq', 'contact'],
     projects: ['subpage-hero:projects', 'caseStudies', 'credentials', 'partners', 'contact'],
+    articles: ['subpage-hero:articles', 'articles-full', 'contact'],
     faq: ['subpage-hero:faq', 'faq', 'process', 'contact'],
     contact: ['subpage-hero:contact', 'contact'],
     about: ['subpage-hero:about', 'credentials', 'highlights', 'partners', 'testimonials', 'contact'],
+  },
+  articles,
+  articleRecommendations: {
+    ultraguard: ['ultraguard-moisture-barrier', 'guard-poly-green-building', 'coastal-infrastructure-waterproofing'],
+    smartguard: ['smartguard-hydrostatic-defense', 'waterproofing-system-selection'],
+    fastguard: ['fastguard-emergency-leak-stop', 'waterproofing-system-selection'],
+    richguard: ['richguard-uv-protection', 'ultraguard-moisture-barrier'],
+    default: ['waterproofing-system-selection', 'coastal-infrastructure-waterproofing'],
   },
   productsSection: {
     eyebrowKey: 'product.section.eyebrow',

@@ -1,7 +1,8 @@
 {
   "_meta": {
     "name": "English",
-    "direction": "ltr"
+    "direction": "ltr",
+    "locale": "en"
   },
   "global": {
     "title": "ProGuard – Advanced Protective Coatings",
@@ -17,6 +18,7 @@
       "services": "Services",
       "solutions": "Solutions",
       "projects": "Project highlights",
+      "articles": "Articles",
       "faq": "FAQ",
       "contact": "Contact",
       "about": "About ProGuard",
@@ -223,6 +225,30 @@
         "metric": "18 months performance monitoring",
         "description": "High-build elastomeric flooring and UV resistant façade coating keep the venue pristine and safe."
       }
+    }
+  },
+  "articles": {
+    "section": {
+      "eyebrow": "Insights",
+      "title": "Waterproofing & coating knowledge base",
+      "description": "Deep dives, project stories, and actionable checklists for specifying ProGuard systems with confidence.",
+      "cta": "Browse all articles",
+      "readMore": "Read article"
+    },
+    "page": {
+      "eyebrow": "ProGuard knowledge center",
+      "title": "Library of expert guides and case insights",
+      "description": "Explore detailed how-tos, specification tips, and maintenance strategies for moisture and corrosion control."
+    },
+    "meta": {
+      "readTime": "{minutes}-minute read",
+      "published": "Published on {date}"
+    },
+    "detail": {
+      "back": "Back to articles",
+      "relatedTitle": "Related reading for this topic",
+      "notFound": "Article not found",
+      "notFoundDescription": "The content may have moved. Discover other ProGuard insights to continue your research."
     }
   },
   "credentials": {
@@ -488,6 +514,20 @@
         "secondaryCta": "Why choose ProGuard"
       }
     },
+    "articles": {
+      "hero": {
+        "eyebrow": "Articles",
+        "badge": "Updated weekly",
+        "title": "Expert guidance for moisture and corrosion control",
+        "description": "Practical guides, field-tested case studies and maintenance tips to accelerate your specification process.",
+        "stats": [
+          { "value": "7+ articles", "label": "Ready to read" },
+          { "value": "4 focus areas", "label": "Waterproofing, façades, maintenance, risk" }
+        ],
+        "cta": "Talk to a specialist",
+        "secondaryCta": "View related products"
+      }
+    },
     "faq": {
       "hero": {
         "eyebrow": "FAQ",
@@ -540,6 +580,7 @@
       "performance": "Performance",
       "applications": "Suggested applications",
       "related": "Complementary products",
+      "articleRecommendations": "Recommended reading for this system",
       "back": "Back to homepage",
       "notFound": "Product not found",
       "notFoundDescription": "Please visit the solutions page to browse additional products."
