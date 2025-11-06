@@ -1,13 +1,10 @@
-# نام Workflow
-name: Build and Deploy to GitHub Pages
+# نام Workflow: ساخت و انتشار اپلیکیشن ری‌اکت
+name: Build and Deploy React App to GitHub Pages
 
-# تریگرها: چه زمانی این فلو اجرا شود
 on:
-  # اجرا روی هر push به شاخه master
   push:
     branches:
       - master
-  # امکان اجرای دستی از تب Actions
   workflow_dispatch:
 
 # دسترسی‌های لازم برای Workflow
@@ -16,43 +13,52 @@ permissions:
   pages: write
   id-token: write
 
-# جلوگیری از اجرای همزمان چند فلو
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
-# تعریف کارها (Jobs)
 jobs:
-  deploy:
-    # تعریف محیط دیپلوی برای GitHub Pages
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    # تعریف محیط دیپلوی
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
-    # اجرا روی آخرین نسخه اوبونتو
-    runs-on: ubuntu-latest
-    
+      
     steps:
       # مرحله ۱: دانلود سورس کد ریپازیتوری
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # مرحله ۲ (عیب‌یابی): نمایش ساختار فایل‌ها برای اطمینان
-      - name: List files to verify structure
-        run: ls -R
+      # مرحله ۲: نصب Node.js برای اجرای دستورات npm
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # استفاده از نسخه پایدار Node.js
+          cache: 'npm'
+          cache-dependency-path: 'proguard-site/package-lock.json'
 
-      # مرحله ۳: آماده‌سازی برای GitHub Pages
+      # مرحله ۳: نصب پکیج‌های پروژه (Dependencies)
+      # working-directory بسیار مهم است چون package.json در پوشه داخلی است
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./proguard-site
+
+      # مرحله ۴: ساخت نسخه نهایی پروژه (Build)
+      # این دستور پوشه dist را ایجاد می‌کند
+      - name: Build project
+        run: npm run build
+        working-directory: ./proguard-site
+
+      # مرحله ۵: آماده‌سازی برای GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # مرحله ۴: آپلود کردن آرتیفکت وب‌سایت
-      # این مهم‌ترین بخش است: به گیت‌هاب می‌گوییم فایل‌های سایت ما داخل پوشه proguard-site هستند
+      # مرحله ۶: آپلود کردن آرتیفکت (فقط پوشه بیلد شده)
+      # مسیر path باید به پوشه خروجی build یعنی dist اشاره کند
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './proguard-site'
+          path: ./proguard-site/dist
 
-      # مرحله ۵: انتشار فایل‌ها روی GitHub Pages
+      # مرحله ۷: انتشار نهایی روی GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
