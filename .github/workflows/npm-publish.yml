@@ -1,4 +1,4 @@
-name: Build and Deploy Vite App to GitHub Pages
+name: Export and Deploy to GitHub Pages
 on:
   push:
     branches:
@@ -24,12 +24,11 @@ jobs:
       - name: Install dependencies
         run: npm install
         working-directory: ./proguard-site
-      - name: Build website
-        run: npm run build
+      - name: Export static website
+        run: npm run export
         working-directory: ./proguard-site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./proguard-site/dist
       - uses: actions/deploy-pages@v4
-        id: deployment
