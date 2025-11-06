@@ -1,51 +1,58 @@
-# نام Workflow که در تب Actions نمایش داده می‌شود
-name: Deploy ProGuard Site to GitHub Pages
+# نام Workflow
+name: Build and Deploy to GitHub Pages
 
-# تریگرها: چه زمانی این فلو اجرا شود؟
+# تریگرها: چه زمانی این فلو اجرا شود
 on:
-  # 1. هر بار که کدی به شاخه master پوش شود
+  # اجرا روی هر push به شاخه master
   push:
     branches:
       - master
-  # 2. به شما اجازه می‌دهد این فلو را به صورت دستی از تب Actions اجرا کنید
+  # امکان اجرای دستی از تب Actions
   workflow_dispatch:
 
-# دسترسی‌های لازم برای اینکه Action بتواند در ریپازیتوری شما تغییرات ایجاد کند
+# دسترسی‌های لازم برای Workflow
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# تنظیم برای جلوگیری از اجرای همزمان چند فلو روی یک کامیت
+# جلوگیری از اجرای همزمان چند فلو
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
-# کارها (Jobs) که باید انجام شوند
+# تعریف کارها (Jobs)
 jobs:
-  # یک کار به نام deploy
   deploy:
+    # تعریف محیط دیپلوی برای GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest # اجرا روی یک ماشین مجازی با سیستم‌عامل اوبونتو
+    
+    # اجرا روی آخرین نسخه اوبونتو
+    runs-on: ubuntu-latest
+    
     steps:
-      # مرحله 1: کد ریپازیتوری را دانلود می‌کند
-      - name: Checkout
+      # مرحله ۱: دانلود سورس کد ریپازیتوری
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # مرحله 2: محیط را برای ساخت GitHub Pages آماده می‌کند
+      # مرحله ۲ (عیب‌یابی): نمایش ساختار فایل‌ها برای اطمینان
+      - name: List files to verify structure
+        run: ls -R
+
+      # مرحله ۳: آماده‌سازی برای GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # مرحله 3: فایل‌های وب‌سایت را به عنوان یک "آرتیفکت" برای دیپلوی آپلود می‌کند
-      # مهم: مسیر path باید دقیقا به پوشه‌ای اشاره کند که فایل index.html شما در آن قرار دارد
+      # مرحله ۴: آپلود کردن آرتیفکت وب‌سایت
+      # این مهم‌ترین بخش است: به گیت‌هاب می‌گوییم فایل‌های سایت ما داخل پوشه proguard-site هستند
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './proguard-site'
 
-      # مرحله 4: آرتیفکت آپلود شده را روی GitHub Pages منتشر می‌کند
+      # مرحله ۵: انتشار فایل‌ها روی GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
