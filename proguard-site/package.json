@@ -3,16 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "//": "--- Scripts for Cloudflare Worker ---",
-    "build:worker": "node build.mjs",
-    "dev:worker": "npm run build:worker && wrangler dev src/index.mjs --local",
-    "deploy": "npm run build:worker && wrangler deploy src/index.mjs",
-
-    "//": "--- Scripts for React/Vite Website ---",
     "dev": "vite",
     "build": "vite build",
-    "build:pages": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:worker": "node build.mjs",
+    "dev:worker": "npm run build:worker && wrangler dev src/index.mjs --local",
+    "deploy": "npm run build:worker && wrangler deploy src/index.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",
