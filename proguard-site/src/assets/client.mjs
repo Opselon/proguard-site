@@ -124,6 +124,9 @@ function initMobileMenu(onOpen) {
    */
   const closeDrawer = (immediate = false) => {
     window.clearTimeout(closeTimer);
+    if (drawer.contains(document.activeElement)) {
+      menuToggle.focus({ preventScroll: true });
+    }
     toggleSharedState(false);
 
     const finishClose = () => {
@@ -292,19 +295,37 @@ function initDesktopMenu() {
   });
 }
 
+const lazyModuleUrl = new URL('./lazy.mjs', import.meta.url).href;
+let lazyModulePromise = null;
+
+function loadLazyModule() {
+  if (!lazyModulePromise) {
+    lazyModulePromise = import(lazyModuleUrl).catch((error) => {
+      console.error('Failed to load lazy module', error);
+      lazyModulePromise = null;
+      return null;
+    });
+  }
+  return lazyModulePromise;
+}
+
 function lazyLoadModules() {
   const lazySections = document.querySelectorAll('#faq, #contact');
+  if (lazySections.length === 0) return;
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver((entries, observerInstance) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        import('./lazy.mjs');
-        observer.unobserve(entry.target);
+        loadLazyModule();
+        observerInstance.unobserve(entry.target);
       }
     });
+  }, {
+    rootMargin: '120px 0px',
+    threshold: 0.15,
   });
 
-  lazySections.forEach(section => {
+  lazySections.forEach((section) => {
     observer.observe(section);
   });
 }

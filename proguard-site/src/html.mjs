@@ -1169,13 +1169,14 @@ export const renderPage = ({
       <meta name="generator" content="ProGuard Experience 2025">
       <meta name="apple-mobile-web-app-title" content="${escapeHtml(companyName)}">
       <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="mobile-web-app-capable" content="yes">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/BVazir/BVazir.css">
       <style>${criticalCss}</style>
       <link rel="stylesheet" href="/assets/style.css" media="print" onload="this.media='all'">
-      <link rel="preload" href="/assets/client.mjs" as="script" cross-origin>
+      <link rel="modulepreload" href="/assets/client.mjs" crossorigin="anonymous">
+      <link rel="modulepreload" href="/assets/lazy.mjs" crossorigin="anonymous">
       <script type="application/ld+json">${ldJson}</script>
     </head>
     <body ${bodyAttributes}>
