@@ -6,6 +6,9 @@ compatibility_date = "2023-10-30"
 DEFAULT_LOCALE = "fa"
 THEME_DEFAULT = "light"
 
+[site]
+bucket = "./dist"
+
 [[durable_objects.bindings]]
 name = "RATE_LIMITER"
 class_name = "RateLimiter"
