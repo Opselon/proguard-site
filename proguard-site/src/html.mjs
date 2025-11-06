@@ -12,6 +12,114 @@ const t = (key, messages) => {
 
 const normalizeHref = (item) => item.path || item.anchor || '#';
 
+const cleanObject = (object) => {
+  if (!object || typeof object !== 'object') return object;
+  Object.entries(object).forEach(([key, value]) => {
+    if (value === undefined || value === null) {
+      delete object[key];
+      return;
+    }
+    if (Array.isArray(value)) {
+      const filtered = value.filter((item) => {
+        if (item === undefined || item === null) return false;
+        if (typeof item === 'object') {
+          const cleaned = cleanObject({ ...item });
+          return Object.keys(cleaned).length > 0;
+        }
+        return true;
+      });
+      if (filtered.length > 0) {
+        object[key] = filtered.map((item) => (typeof item === 'object' ? cleanObject({ ...item }) : item));
+      } else {
+        delete object[key];
+      }
+      return;
+    }
+    if (typeof value === 'object') {
+      const cleaned = cleanObject({ ...value });
+      if (Object.keys(cleaned).length === 0) {
+        delete object[key];
+      } else {
+        object[key] = cleaned;
+      }
+    }
+  });
+  return object;
+};
+
+const escapeHtml = (value = '') =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+const toOgLocale = (locale) => (locale === 'fa' ? 'fa_IR' : 'en_US');
+
+const buildPageMeta = ({ model, messages, page, productSlug, defaultTitle, defaultDescription }) => {
+  const companyName = t('global.companyName', messages);
+  const baseKeywords = [
+    'protective coatings',
+    'waterproofing systems',
+    'industrial nanocoatings',
+    'construction chemistry',
+    companyName,
+  ];
+
+  const productKeywords = Array.isArray(model.products)
+    ? model.products
+        .map((product) => t(product.titleKey, messages))
+        .filter((keyword) => typeof keyword === 'string' && keyword.trim().length > 0)
+    : [];
+
+  let title = defaultTitle;
+  let description = typeof defaultDescription === 'string' ? defaultDescription : defaultTitle;
+  let ogType = 'website';
+  let schemaType = 'WebPage';
+  let imageAlt = defaultTitle;
+
+  if (page === 'product-detail') {
+    const product = model.products?.find((item) => item.slug === productSlug);
+    const detail = model.productDetails?.[productSlug];
+    if (product) {
+      const productTitle = t(product.titleKey, messages);
+      const tagline = t(product.taglineKey, messages);
+      const overview = detail ? t(detail.overviewKey, messages) : tagline;
+      title = `${productTitle} | ${defaultTitle}`;
+      if (typeof overview === 'string' && overview.trim().length > 0) {
+        description = overview;
+      } else if (typeof tagline === 'string') {
+        description = tagline;
+      }
+      if (typeof tagline === 'string' && tagline.trim().length > 0) {
+        imageAlt = tagline;
+      } else if (typeof productTitle === 'string') {
+        imageAlt = productTitle;
+      }
+      ogType = 'product';
+      schemaType = 'Product';
+    }
+  } else if (page !== 'home') {
+    const navItem = model.navigation?.find((item) => Array.isArray(item.pages) && item.pages.includes(page));
+    if (navItem) {
+      const label = t(navItem.labelKey, messages);
+      title = `${label} | ${defaultTitle}`;
+      description = `${label} – ${defaultDescription}`;
+    }
+  }
+
+  const keywords = Array.from(new Set([...baseKeywords, ...productKeywords]));
+
+  return {
+    title,
+    description,
+    keywords,
+    ogType,
+    schemaType,
+    imageAlt,
+  };
+};
+
 const renderHeader = ({ model, messages, locale, currentPage }) => {
   const isHome = currentPage === 'home';
   const wordmark = locale === 'fa' ? 'پروگارد' : 'ProGuard';
@@ -119,8 +227,8 @@ const renderHeader = ({ model, messages, locale, currentPage }) => {
         </div>
       </div>
       <div class="site-drawer__backdrop" data-menu-backdrop aria-hidden="true"></div>
-      <div class="site-drawer" id="site-navigation" aria-hidden="true" role="dialog" aria-label="${t('global.menu.title', messages)}" hidden>
-        <div class="site-drawer__inner">
+      <div class="site-drawer" id="site-navigation" aria-hidden="true" role="dialog" aria-modal="true" aria-label="${t('global.menu.title', messages)}" hidden>
+        <div class="site-drawer__inner" tabindex="-1">
           <div class="site-drawer__top">
             <span class="site-drawer__brand">${wordmark}</span>
             <button class="site-drawer__close" type="button" data-drawer-close aria-label="${t('global.menu.close', messages)}">
@@ -897,7 +1005,19 @@ const renderFooter = ({ messages, model }) => {
   `;
 };
 
-export const renderPage = ({ model, locale, messages, theme, env, page = 'home', productSlug = '', scrollTarget = '' }) => {
+export const renderPage = ({
+  model,
+  locale,
+  messages,
+  theme,
+  env,
+  page = 'home',
+  productSlug = '',
+  scrollTarget = '',
+  canonicalUrl = '',
+  baseUrl = '',
+  alternateLocales = [],
+}) => {
   const direction = messages._meta.direction;
   const bodyClasses = [];
   if (theme === 'dark') {
@@ -923,6 +1043,88 @@ export const renderPage = ({ model, locale, messages, theme, env, page = 'home',
     html[dir="rtl"] body { font-family: 'B Vazir', 'Vazirmatn', 'IRANSans', 'Tahoma', sans-serif; }
   `;
 
+  const defaultTitle = t('global.title', messages);
+  const defaultDescription = t('global.description', messages);
+  const companyName = t('global.companyName', messages);
+  const meta = buildPageMeta({
+    model,
+    messages,
+    page,
+    productSlug,
+    defaultTitle,
+    defaultDescription,
+  });
+  const sanitizedBase = typeof baseUrl === 'string' ? baseUrl.replace(/\/$/, '') : '';
+  const canonical = canonicalUrl || (sanitizedBase ? `${sanitizedBase}${page === 'home' ? '/' : ''}` : '');
+  const heroSocial = resolveImageUrl(model.hero.imageKey, { format: 'webp' }, env);
+  const socialImageAbsolute = heroSocial.startsWith('http://') || heroSocial.startsWith('https://') || heroSocial.startsWith('data:')
+    ? heroSocial
+    : sanitizedBase
+      ? `${sanitizedBase}${heroSocial}`
+      : heroSocial;
+  const socialImageType = heroSocial.toLowerCase().endsWith('.webp')
+    ? 'image/webp'
+    : heroSocial.toLowerCase().endsWith('.jpg') || heroSocial.toLowerCase().endsWith('.jpeg')
+      ? 'image/jpeg'
+      : 'image/png';
+  const metaTitle = typeof meta.title === 'string' ? meta.title : defaultTitle;
+  const metaDescription = typeof meta.description === 'string' ? meta.description : defaultDescription;
+  const trimmedTitle = metaTitle.trim();
+  const trimmedDescription = metaDescription.replace(/\s+/g, ' ').trim();
+  const keywordList = Array.isArray(meta.keywords) && meta.keywords.length > 0
+    ? meta.keywords
+    : [companyName, 'ProGuard systems', 'advanced protective coatings'];
+  const keywords = keywordList.join(', ');
+  const robotsContent = 'index, follow';
+  const openGraphLocale = toOgLocale(locale);
+  const alternateLinkMarkup = alternateLocales.length
+    ? alternateLocales
+        .map(({ locale: altLocale, href }) => `<link rel="alternate" hreflang="${altLocale}" href="${escapeHtml(href)}">`)
+        .join('\n      ')
+    : '';
+  const defaultAlternate = alternateLocales.find((item) => item.isDefault);
+  const xDefaultMarkup = defaultAlternate
+    ? `<link rel="alternate" hreflang="x-default" href="${escapeHtml(defaultAlternate.href)}">`
+    : '';
+  const ogAlternateMarkup = alternateLocales
+    .filter((item) => item.locale !== locale)
+    .map((item) => `<meta property="og:locale:alternate" content="${toOgLocale(item.locale)}">`)
+    .join('\n      ');
+  const isoTimestamp = new Date().toISOString();
+
+  const structuredData = cleanObject({
+    '@context': 'https://schema.org',
+    '@type': meta.schemaType,
+    name: trimmedTitle,
+    description: trimmedDescription,
+    url: canonical || undefined,
+    inLanguage: locale,
+    dateModified: isoTimestamp,
+    image: socialImageAbsolute ? [socialImageAbsolute] : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: companyName,
+      url: sanitizedBase || canonical || undefined,
+      logo: socialImageAbsolute && !socialImageAbsolute.startsWith('data:')
+        ? { '@type': 'ImageObject', url: socialImageAbsolute }
+        : undefined,
+    },
+    brand: meta.schemaType === 'Product' ? { '@type': 'Brand', name: companyName } : undefined,
+    productID: meta.schemaType === 'Product' ? productSlug : undefined,
+    isPartOf: meta.schemaType !== 'Product'
+      ? {
+          '@type': 'WebSite',
+          name: defaultTitle,
+          url: sanitizedBase || canonical || undefined,
+        }
+      : undefined,
+  });
+
+  const ldJson = JSON.stringify(structuredData, null, 2)
+    .replace(/</g, '\\u003C')
+    .replace(/>/g, '\\u003E')
+    .replace(/&/g, '\\u0026');
+
   const mainContent = page === 'product-detail'
     ? renderProductDetail({ model, messages, env, productSlug })
     : renderCompositePage({ model, messages, env, pageKey: model.pageSections?.[page] ? page : 'home' });
@@ -932,11 +1134,42 @@ export const renderPage = ({ model, locale, messages, theme, env, page = 'home',
     <html lang="${locale}" dir="${direction}">
     <head>
       <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${t('global.title', messages)}</title>
-      <meta name="description" content="${t('global.description', messages)}">
+      <title>${escapeHtml(trimmedTitle)}</title>
+      <meta name="description" content="${escapeHtml(trimmedDescription)}">
+      <meta name="keywords" content="${escapeHtml(keywords)}">
+      <meta name="robots" content="${robotsContent}">
+      <meta name="application-name" content="${escapeHtml(companyName)}">
+      <meta name="author" content="${escapeHtml(companyName)}">
       <meta name="theme-color" content="${theme === 'light' ? '#0C5D7A' : '#091423'}">
       <meta name="color-scheme" content="light dark">
+      <meta name="format-detection" content="telephone=no">
+      ${canonical ? `<link rel="canonical" href="${escapeHtml(canonical)}">` : ''}
+      ${alternateLinkMarkup ? `${alternateLinkMarkup}` : ''}
+      ${xDefaultMarkup ? `${xDefaultMarkup}` : ''}
+      <meta property="og:type" content="${escapeHtml(meta.ogType)}">
+      <meta property="og:title" content="${escapeHtml(trimmedTitle)}">
+      <meta property="og:description" content="${escapeHtml(trimmedDescription)}">
+      ${canonical ? `<meta property="og:url" content="${escapeHtml(canonical)}">` : ''}
+      <meta property="og:site_name" content="${escapeHtml(companyName)}">
+      <meta property="og:locale" content="${openGraphLocale}">
+      ${ogAlternateMarkup ? `${ogAlternateMarkup}` : ''}
+      ${socialImageAbsolute
+        ? `<meta property="og:image" content="${escapeHtml(socialImageAbsolute)}">
+      <meta property="og:image:secure_url" content="${escapeHtml(socialImageAbsolute)}">
+      <meta property="og:image:type" content="${socialImageType}">
+      <meta property="og:image:alt" content="${escapeHtml(meta.imageAlt || trimmedTitle)}">`
+        : ''}
+      <meta property="og:updated_time" content="${isoTimestamp}">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="${escapeHtml(trimmedTitle)}">
+      <meta name="twitter:description" content="${escapeHtml(trimmedDescription)}">
+      ${canonical ? `<meta name="twitter:url" content="${escapeHtml(canonical)}">` : ''}
+      ${socialImageAbsolute ? `<meta name="twitter:image" content="${escapeHtml(socialImageAbsolute)}">` : ''}
+      <meta name="generator" content="ProGuard Experience 2025">
+      <meta name="apple-mobile-web-app-title" content="${escapeHtml(companyName)}">
+      <meta name="apple-mobile-web-app-capable" content="yes">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -944,6 +1177,7 @@ export const renderPage = ({ model, locale, messages, theme, env, page = 'home',
       <style>${criticalCss}</style>
       <link rel="stylesheet" href="/assets/style.css" media="print" onload="this.media='all'">
       <link rel="preload" href="/assets/client.mjs" as="script" cross-origin>
+      <script type="application/ld+json">${ldJson}</script>
     </head>
     <body ${bodyAttributes}>
       <div id="app">
