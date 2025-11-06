@@ -13,4 +13,27 @@
         "wrangler": "^3.114.15"
     },
     "license": "MIT"
+  "name": "proguard-site-and-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "// --- Website Export for GitHub Pages ---": "",
+    "export": "tsx export.mjs",
+
+    "// --- Cloudflare Worker Scripts ---": "",
+    "build:worker": "node build.mjs",
+    "dev:worker": "npm run build:worker && wrangler dev src/index.mjs --local",
+    "deploy": "npm run build:worker && wrangler deploy src/index.mjs"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "fs-extra": "^11.3.2",
+    "tsx": "^4.7.1",
+    "wrangler": "^3.114.15"
+  },
+  "license": "MIT"
 }
