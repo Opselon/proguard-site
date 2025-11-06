@@ -1,15 +1,28 @@
 {
-    "name": "proguard-site-worker",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "build": "node build.mjs",
-        "dev": "npm run build && wrangler dev src/index.mjs --local",
-        "deploy": "npm run build && wrangler deploy src/index.mjs"
-    },
-    "devDependencies": {
-        "fs-extra": "^11.3.2",
-        "wrangler": "^3.114.15"
-    },
-    "license": "MIT"
+  "name": "proguard-site-and-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "//": "--- Scripts for Cloudflare Worker ---",
+    "build:worker": "node build.mjs",
+    "dev:worker": "npm run build:worker && wrangler dev src/index.mjs --local",
+    "deploy": "npm run build:worker && wrangler deploy src/index.mjs",
+
+    "//": "--- Scripts for React/Vite Website ---",
+    "dev": "vite",
+    "build": "vite build",
+    "build:pages": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "fs-extra": "^11.3.2",
+    "vite": "^4.4.5",
+    "wrangler": "^3.114.15"
+  },
+  "license": "MIT"
 }
