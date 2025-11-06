@@ -82,7 +82,6 @@ function initMobileMenu(onOpen) {
   const header = document.querySelector('.site-header');
   const navBackdrop = document.querySelector('[data-menu-backdrop]');
   const closeButton = drawer ? drawer.querySelector('[data-drawer-close]') : null;
-  const drawerScrollContainer = drawer ? drawer.querySelector('.site-drawer__inner') : null;
   const mq = window.matchMedia('(min-width: 1024px)');
 
   if (!menuToggle || !drawer || !header) return;
@@ -95,7 +94,6 @@ function initMobileMenu(onOpen) {
   const toggleSharedState = (shouldOpen) => {
     header.classList.toggle('is-drawer-open', shouldOpen);
     document.body.classList.toggle('is-menu-open', shouldOpen);
-    document.documentElement.classList.toggle('is-menu-open', shouldOpen);
     menuToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
     drawer.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
     if (navBackdrop) {
@@ -109,10 +107,6 @@ function initMobileMenu(onOpen) {
     toggleSharedState(true);
     requestAnimationFrame(() => {
       drawer.classList.add('is-open');
-      if (drawerScrollContainer) {
-        drawerScrollContainer.scrollTo({ top: 0, behavior: 'auto' });
-        drawerScrollContainer.focus({ preventScroll: true });
-      }
     });
     if (typeof onOpen === 'function') {
       onOpen();

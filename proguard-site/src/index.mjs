@@ -39,61 +39,6 @@ const toSlug = (text = '') => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').rep
 
 const productSlugSet = new Set(pageModel.products.map((product) => product.slug || toSlug(product.id)));
 
-const supportedLocales = ['fa', 'en'];
-
-const normalizeBaseUrl = (env, url) => {
-  const configured = typeof env?.SITE_URL === 'string' ? env.SITE_URL.trim() : '';
-  if (configured) {
-    const trimmed = configured.replace(/\/$/, '');
-    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
-      return trimmed;
-    }
-    return `https://${trimmed}`;
-  }
-  const origin = `${url.protocol}//${url.host}`;
-  return origin.replace(/\/$/, '');
-};
-
-const buildLocalizedUrl = ({ baseUrl, path, locale, defaultLocale, searchParams }) => {
-  const params = searchParams instanceof URLSearchParams
-    ? new URLSearchParams(searchParams.toString())
-    : new URLSearchParams(searchParams || '');
-  params.delete('locale');
-  if (locale === defaultLocale) {
-    params.delete('lang');
-  } else {
-    params.set('lang', locale);
-  }
-  const query = params.toString();
-  return `${baseUrl}${path}${query ? `?${query}` : ''}`;
-};
-
-const generateRobotsTxt = (baseUrl) => `User-agent: *
-Allow: /
-Disallow: /api/
-Sitemap: ${baseUrl}/sitemap.xml
-Host: ${baseUrl.replace(/^https?:\/\//, '')}
-`;
-
-const generateSitemapXml = ({ baseUrl, defaultLocale, locales }) => {
-  const isoDate = new Date().toISOString();
-  const paths = new Set([...pageRoutes.keys(), ...Array.from(productSlugSet, (slug) => `/products/${slug}`)]);
-  const urlEntries = Array.from(paths)
-    .sort()
-    .map((path) => {
-      const defaultLoc = buildLocalizedUrl({ baseUrl, path, locale: defaultLocale, defaultLocale, searchParams: '' });
-      const localeLinks = locales
-        .map((locale) => `      <xhtml:link rel="alternate" hreflang="${locale}" href="${buildLocalizedUrl({ baseUrl, path, locale, defaultLocale, searchParams: '' })}" />`)
-        .join('\n');
-      const xDefault = `      <xhtml:link rel="alternate" hreflang="x-default" href="${defaultLoc}" />`;
-      const priority = path === '/' ? '1.0' : '0.7';
-      return `  <url>\n    <loc>${defaultLoc}</loc>\n${localeLinks}\n${xDefault}\n    <lastmod>${isoDate}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
-    })
-    .join('\n');
-
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urlEntries}\n</urlset>`;
-};
-
 function resolveLocale(request, url, env) {
   const faJson = JSON.parse(faJsonStr);
   const enJson = JSON.parse(enJsonStr);
@@ -118,9 +63,6 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const { pathname } = url;
-    const baseOrigin = normalizeBaseUrl(env, url);
-    const defaultLocale = env.DEFAULT_LOCALE || 'fa';
-    const locales = Array.from(new Set([defaultLocale, ...supportedLocales]));
 
     if (assetMap.has(pathname)) {
       const asset = assetMap.get(pathname);
@@ -128,26 +70,6 @@ export default {
         headers: {
           'Content-Type': asset.type,
           'Cache-Control': 'public, max-age=604800',
-        },
-      });
-    }
-
-    if (pathname === '/robots.txt') {
-      const robotsTxt = generateRobotsTxt(baseOrigin);
-      return new Response(robotsTxt, {
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400',
-        },
-      });
-    }
-
-    if (pathname === '/sitemap.xml') {
-      const sitemapXml = generateSitemapXml({ baseUrl: baseOrigin, defaultLocale, locales });
-      return new Response(sitemapXml, {
-        headers: {
-          'Content-Type': 'application/xml; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400',
         },
       });
     }
@@ -161,18 +83,6 @@ export default {
     const themeCookie = request.headers.get('Cookie')?.match(/theme=(light|dark)/);
     const theme = themeCookie ? themeCookie[1] : env.THEME_DEFAULT || 'light';
     const { locale, messages } = resolveLocale(request, url, env);
-    const canonical = buildLocalizedUrl({
-      baseUrl: baseOrigin,
-      path: url.pathname,
-      locale,
-      defaultLocale,
-      searchParams: url.searchParams,
-    });
-    const alternateLocales = locales.map((lang) => ({
-      locale: lang,
-      href: buildLocalizedUrl({ baseUrl: baseOrigin, path: url.pathname, locale: lang, defaultLocale, searchParams: url.searchParams }),
-      isDefault: lang === defaultLocale,
-    }));
 
     const productMatch = pathname.match(/^\/products\/([a-z0-9-]+)/i);
     if (productMatch) {
@@ -189,9 +99,6 @@ export default {
         env,
         page: 'product-detail',
         productSlug: slug,
-        canonicalUrl: canonical,
-        baseUrl: baseOrigin,
-        alternateLocales,
       });
 
       return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
@@ -206,9 +113,6 @@ export default {
         theme,
         env,
         page: pageKey,
-        canonicalUrl: canonical,
-        baseUrl: baseOrigin,
-        alternateLocales,
       });
 
       return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
