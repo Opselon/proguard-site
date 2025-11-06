@@ -6,6 +6,7 @@ import { pageModel } from './data.mjs';
 // Import assets from the auto-generated file. NO MORE `?raw`!
 import {
   clientJs,
+  lazyJs,
   styleCss,
   themeJs,
   i18nIndex,
@@ -15,6 +16,7 @@ import {
 
 const assetMap = new Map([
   ['/assets/client.mjs', { content: clientJs, type: 'application/javascript; charset=utf-8' }],
+  ['/assets/lazy.mjs', { content: lazyJs, type: 'application/javascript; charset=utf-8' }],
   ['/assets/style.css', { content: styleCss, type: 'text/css; charset=utf-8' }],
   ['/assets/theme.mjs', { content: themeJs, type: 'application/javascript; charset=utf-8' }],
   ['/assets/i18n/index.mjs', { content: i18nIndex, type: 'application/javascript; charset=utf-8' }],

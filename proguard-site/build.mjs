@@ -12,6 +12,7 @@ async function buildAssets() {
   // لیستی از فایل‌هایی که می‌خواهیم محتوایشان را بخوانیم
   const assetPaths = {
     clientJs: path.join(assetsDir, 'client.mjs'),
+    lazyJs: path.join(assetsDir, 'lazy.mjs'),
     styleCss: path.join(assetsDir, 'style.css'),
     themeJs: path.join(assetsDir, 'theme.mjs'),
     i18nIndex: path.join(assetsDir, 'i18n', 'index.mjs'),
