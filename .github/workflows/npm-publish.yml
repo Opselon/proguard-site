@@ -1,0 +1,51 @@
+# نام Workflow که در تب Actions نمایش داده می‌شود
+name: Deploy ProGuard Site to GitHub Pages
+
+# تریگرها: چه زمانی این فلو اجرا شود؟
+on:
+  # 1. هر بار که کدی به شاخه master پوش شود
+  push:
+    branches:
+      - master
+  # 2. به شما اجازه می‌دهد این فلو را به صورت دستی از تب Actions اجرا کنید
+  workflow_dispatch:
+
+# دسترسی‌های لازم برای اینکه Action بتواند در ریپازیتوری شما تغییرات ایجاد کند
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# تنظیم برای جلوگیری از اجرای همزمان چند فلو روی یک کامیت
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+# کارها (Jobs) که باید انجام شوند
+jobs:
+  # یک کار به نام deploy
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest # اجرا روی یک ماشین مجازی با سیستم‌عامل اوبونتو
+    steps:
+      # مرحله 1: کد ریپازیتوری را دانلود می‌کند
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # مرحله 2: محیط را برای ساخت GitHub Pages آماده می‌کند
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # مرحله 3: فایل‌های وب‌سایت را به عنوان یک "آرتیفکت" برای دیپلوی آپلود می‌کند
+      # مهم: مسیر path باید دقیقا به پوشه‌ای اشاره کند که فایل index.html شما در آن قرار دارد
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './proguard-site'
+
+      # مرحله 4: آرتیفکت آپلود شده را روی GitHub Pages منتشر می‌کند
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
