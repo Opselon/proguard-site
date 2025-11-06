@@ -55,7 +55,13 @@ function initContactForm() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+const initLazyFeatures = () => {
   initFaqToggle();
   initContactForm();
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLazyFeatures, { once: true });
+} else {
+  initLazyFeatures();
+}
