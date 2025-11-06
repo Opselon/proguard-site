@@ -180,9 +180,8 @@ const renderHeader = ({ model, messages, locale, currentPage }) => {
         .join('');
       if (!links) return '';
       const panelId = `mobile-nav-${group.id}`;
-      const defaultAttr = index === 0 ? ' data-nav-default="true"' : '';
       return `
-        <li class="drawer-menu__group" data-drawer-group${defaultAttr}>
+        <li class="drawer-menu__group" data-drawer-group>
           <button class="drawer-menu__trigger" type="button" aria-expanded="false" aria-controls="${panelId}" data-drawer-toggle>
             <span>${t(`global.nav.groups.${group.id}`, messages)}</span>
             <span class="drawer-menu__icon">${getIcon('chevron')}</span>

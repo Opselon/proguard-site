@@ -218,7 +218,7 @@ function initDrawerAccordions() {
   };
 
   const openDefault = () => {
-    const defaultGroup = groups.find((group) => group.dataset.navDefault === 'true') || groups[0];
+    const defaultGroup = groups.find((group) => group.dataset.navDefault === 'true');
     groups.forEach((group) => {
       setGroupState(group, group === defaultGroup);
     });

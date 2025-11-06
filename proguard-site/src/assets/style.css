@@ -13,6 +13,7 @@
   --pg-surface: #ffffff;
   --pg-surface-glass: rgba(255, 255, 255, 0.8);
   --pg-surface-muted: rgba(245, 248, 250, 0.75);
+  --pg-surface-raised: #eef3f7;
   --pg-background: #f1f4f6;
   --pg-background-pattern: radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.65) 0%, transparent 45%),
     radial-gradient(circle at 88% 12%, rgba(255, 255, 255, 0.45) 0%, transparent 40%),
@@ -38,6 +39,7 @@ body.dark-theme {
   --pg-surface: #0b121e;
   --pg-surface-glass: rgba(9, 18, 35, 0.86);
   --pg-surface-muted: rgba(12, 24, 42, 0.7);
+  --pg-surface-raised: #101c2c;
   --pg-background: #050910;
   --pg-background-pattern: radial-gradient(circle at 15% 20%, rgba(53, 183, 255, 0.18) 0%, transparent 45%),
     radial-gradient(circle at 85% 15%, rgba(255, 133, 83, 0.18) 0%, transparent 45%),
@@ -174,12 +176,13 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 999px;
-  border: 1px solid rgba(12, 25, 33, 0.1);
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 14px;
+  border: 1px solid var(--pg-border);
   background: var(--pg-surface);
   color: var(--pg-text);
+  box-shadow: 0 10px 24px rgba(8, 28, 42, 0.12);
   cursor: pointer;
   transition: transform var(--pg-duration) var(--pg-ease),
     box-shadow var(--pg-duration) var(--pg-ease),
@@ -206,7 +209,7 @@ section {
 .menu-toggle:hover,
 .menu-toggle:focus-visible {
   transform: translateY(-1px);
-  box-shadow: 0 14px 26px rgba(12, 93, 122, 0.16);
+  box-shadow: 0 16px 28px rgba(8, 28, 42, 0.18);
 }
 
 .menu-toggle:focus-visible {
@@ -332,8 +335,7 @@ body.dark-theme .site-menu__dropdown {
 .site-drawer__backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(6, 20, 32, 0.45);
-  backdrop-filter: blur(2px);
+  background: rgba(6, 20, 32, 0.78);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--pg-duration) var(--pg-ease), visibility var(--pg-duration) var(--pg-ease);
@@ -344,16 +346,10 @@ body.dark-theme .site-menu__dropdown {
   position: fixed;
   inset-block: 0;
   inset-inline-end: 0;
-  width: min(420px, 100vw);
+  width: min(360px, 90vw);
   background: var(--pg-surface);
-<<<<<<< ours
-<<<<<<< ours
-  background: color-mix(in srgb, var(--pg-surface) 92%, rgba(12, 93, 122, 0.12));
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-  box-shadow: -18px 0 54px rgba(8, 28, 42, 0.22);
+  border-inline-start: 1px solid var(--pg-border);
+  box-shadow: -16px 0 36px rgba(8, 28, 42, 0.2);
   transform: translate3d(105%, 0, 0);
   transition: transform var(--pg-duration) var(--pg-ease), opacity var(--pg-duration) var(--pg-ease);
   z-index: 95;
@@ -361,59 +357,29 @@ body.dark-theme .site-menu__dropdown {
   pointer-events: none;
   opacity: 0;
   overscroll-behavior: contain;
-<<<<<<< ours
-<<<<<<< ours
-  backdrop-filter: blur(18px);
-}
-
-.site-drawer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, rgba(12, 93, 122, 0.14) 0%, rgba(24, 166, 215, 0.06) 45%, rgba(255, 107, 44, 0.08) 100%);
-  opacity: 0;
-  transition: opacity var(--pg-duration) var(--pg-ease);
-  pointer-events: none;
-=======
-=======
->>>>>>> theirs
-  border-inline-start: 1px solid var(--pg-border);
 }
 
 .site-drawer::before {
   content: none;
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 }
 
 .site-drawer__inner {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0.9rem;
   width: 100%;
-  padding: 1.6rem 1.75rem 2rem;
+  padding: 1.4rem 1.5rem 1.8rem;
   position: relative;
   z-index: 1;
   overflow-y: auto;
   height: 100vh;
   scrollbar-width: thin;
   scrollbar-color: rgba(12, 93, 122, 0.3) transparent;
-<<<<<<< ours
-<<<<<<< ours
-=======
-=======
->>>>>>> theirs
   background: var(--pg-surface);
 }
 
 body.dark-theme .site-drawer__inner {
-  background: #07111c;
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
+  background: var(--pg-surface);
 }
 
 .site-drawer__inner:focus {
@@ -440,10 +406,6 @@ body.dark-theme .site-drawer__inner {
   opacity: 1;
 }
 
-.site-drawer.is-open::before {
-  opacity: 1;
-}
-
 .site-header.is-drawer-open .site-drawer__backdrop {
   opacity: 1;
   visibility: visible;
@@ -451,8 +413,8 @@ body.dark-theme .site-drawer__inner {
 
 .site-header.is-drawer-open,
 .site-header.is-scrolled {
-  background: var(--pg-surface-glass);
-  backdrop-filter: blur(16px);
+  background: var(--pg-surface);
+  backdrop-filter: none;
   border-bottom: 1px solid var(--pg-border);
   box-shadow: 0 12px 24px rgba(8, 28, 42, 0.12);
 }
@@ -473,11 +435,11 @@ body.dark-theme .site-drawer__inner {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 999px;
-  border: 1px solid rgba(12, 25, 33, 0.1);
-  background: transparent;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--pg-border);
+  background: var(--pg-surface);
   color: inherit;
   cursor: pointer;
   transition: background-color var(--pg-duration) var(--pg-ease);
@@ -485,27 +447,17 @@ body.dark-theme .site-drawer__inner {
 
 .site-drawer__close:hover,
 .site-drawer__close:focus-visible {
-  background: rgba(12, 93, 122, 0.12);
+  background: var(--pg-surface-raised);
 }
 
 .site-drawer__search {
   position: relative;
   display: flex;
   align-items: center;
-<<<<<<< ours
-<<<<<<< ours
-  background: var(--pg-surface-muted);
-  background: color-mix(in srgb, var(--pg-surface-muted) 85%, rgba(24, 166, 215, 0.08));
-=======
-  background: #edf3f7;
->>>>>>> theirs
-=======
-  background: #edf3f7;
->>>>>>> theirs
+  background: var(--pg-surface-raised);
   border-radius: var(--pg-radius);
-  padding: 0.6rem 0.85rem;
-  border: 1px solid rgba(12, 45, 62, 0.12);
-  box-shadow: var(--pg-shadow-inner);
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--pg-border);
 }
 
 .site-drawer__search input {
@@ -514,7 +466,7 @@ body.dark-theme .site-drawer__inner {
   background: transparent;
   font: inherit;
   color: var(--pg-text);
-  padding-inline-end: 2.75rem;
+  padding-inline-end: 2.5rem;
 }
 
 .site-drawer__search input:focus {
@@ -535,7 +487,7 @@ body.dark-theme .site-drawer__inner {
 .site-drawer__nav {
   flex: 1;
   overflow-y: auto;
-  padding-block: 0.35rem 0.75rem;
+  padding-block: 0.25rem 0.6rem;
 }
 
 .drawer-menu {
@@ -544,76 +496,41 @@ body.dark-theme .site-drawer__inner {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 .drawer-menu__group {
   border-radius: var(--pg-radius);
   border: 1px solid var(--pg-border);
-<<<<<<< ours
-<<<<<<< ours
-  background: var(--pg-surface);
-  background: color-mix(in srgb, var(--pg-surface) 90%, rgba(255, 255, 255, 0.65));
-=======
-  background: #f7fafc;
->>>>>>> theirs
-=======
-  background: #f7fafc;
->>>>>>> theirs
-  padding: 0.75rem 0.9rem;
-  transition: border-color var(--pg-duration) var(--pg-ease), box-shadow var(--pg-duration) var(--pg-ease);
+  background: var(--pg-surface-raised);
+  padding: 0.65rem 0.75rem;
+  transition: border-color var(--pg-duration) var(--pg-ease), box-shadow var(--pg-duration) var(--pg-ease), background-color var(--pg-duration) var(--pg-ease);
 }
 
 .drawer-menu__group.is-open {
   border-color: rgba(12, 93, 122, 0.4);
-  box-shadow: 0 18px 42px rgba(8, 28, 42, 0.16);
-<<<<<<< ours
-<<<<<<< ours
-}
-
-body.dark-theme .drawer-menu__group {
-  background: rgba(9, 18, 30, 0.92);
-  border-color: rgba(82, 112, 142, 0.5);
-=======
-  background: #ffffff;
-}
-
-body.dark-theme .drawer-menu__group {
-=======
-  background: #ffffff;
-}
-
-body.dark-theme .drawer-menu__group {
->>>>>>> theirs
-  background: #0f1c2b;
-  border-color: rgba(82, 112, 142, 0.5);
+  box-shadow: 0 12px 28px rgba(8, 28, 42, 0.18);
+  background: var(--pg-surface);
 }
 
 body.dark-theme .site-drawer__search {
-  background: #122438;
-  border-color: rgba(82, 112, 142, 0.35);
->>>>>>> theirs
+  background: var(--pg-surface-raised);
+  border-color: var(--pg-border);
 }
 
 body.dark-theme .site-drawer__search input::placeholder {
   color: rgba(202, 223, 241, 0.65);
 }
 
-body.dark-theme .site-drawer__search input::placeholder {
-  color: rgba(202, 223, 241, 0.65);
+body.dark-theme .drawer-menu__group {
+  background: var(--pg-surface-raised);
+  border-color: var(--pg-border);
 }
 
 body.dark-theme .drawer-menu__group.is-open {
-  border-color: rgba(109, 220, 255, 0.6);
-  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.5);
-<<<<<<< ours
-<<<<<<< ours
-=======
-  background: #0b1929;
->>>>>>> theirs
-=======
-  background: #0b1929;
->>>>>>> theirs
+  border-color: rgba(109, 220, 255, 0.5);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+  background: var(--pg-surface);
 }
 
 .drawer-menu__trigger {
@@ -643,7 +560,7 @@ body.dark-theme .drawer-menu__group.is-open {
 }
 
 .drawer-menu__panel {
-  padding-top: 0.6rem;
+  padding-top: 0.45rem;
 }
 
 .drawer-menu__panel[hidden] {
@@ -656,13 +573,13 @@ body.dark-theme .drawer-menu__group.is-open {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.2rem;
 }
 
 .drawer-menu__link {
   display: block;
-  padding: 0.55rem 0.65rem;
-  border-radius: 0.7rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--pg-text-muted);
@@ -677,22 +594,13 @@ body.dark-theme .drawer-menu__link {
 .drawer-menu__link:hover,
 .drawer-menu__link:focus-visible {
   color: var(--pg-text);
-  background: rgba(12, 93, 122, 0.16);
-<<<<<<< ours
-<<<<<<< ours
-=======
-=======
->>>>>>> theirs
+  background: rgba(12, 93, 122, 0.14);
 }
 
 body.dark-theme .drawer-menu__link:hover,
 body.dark-theme .drawer-menu__link:focus-visible {
   color: #ffffff;
   background: rgba(96, 176, 255, 0.2);
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 }
 
 .drawer-menu__link.is-active {
@@ -702,32 +610,25 @@ body.dark-theme .drawer-menu__link:focus-visible {
 .site-drawer__cta {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  padding: 1rem;
-  border-radius: var(--pg-radius-lg);
-<<<<<<< ours
-<<<<<<< ours
-  background: var(--pg-surface);
-  background: color-mix(in srgb, var(--pg-surface) 85%, rgba(24, 166, 215, 0.08));
-  box-shadow: 0 22px 44px rgba(8, 28, 42, 0.18);
-=======
-=======
->>>>>>> theirs
-  background: #eef3f7;
-  box-shadow: 0 22px 44px rgba(8, 28, 42, 0.18);
+  gap: 0.5rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: var(--pg-radius);
+  background: var(--pg-surface-raised);
+  border: 1px solid var(--pg-border);
+  box-shadow: none;
 }
 
 body.dark-theme .site-drawer__cta {
-  background: #122438;
-  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
+  background: var(--pg-surface-raised);
+  border-color: var(--pg-border);
+  box-shadow: none;
 }
 
 .site-drawer__cta .btn {
   width: 100%;
+  border-radius: var(--pg-radius);
+  padding: 0.75rem 1.4rem;
+  font-size: 0.95rem;
 }
 
 .site-drawer__utility {
@@ -747,8 +648,8 @@ body.dark-theme .site-drawer__cta {
   }
 
   .site-drawer__inner {
-    padding: 1.25rem 1.3rem 1.6rem;
-    gap: 1.1rem;
+    padding: 1.15rem 1.2rem 1.5rem;
+    gap: 0.85rem;
   }
 
   .site-drawer__cta .btn {
@@ -763,7 +664,7 @@ body.dark-theme .site-drawer__cta {
   }
 
   .site-drawer__cta {
-    padding: 0.85rem;
+    padding: 0.75rem 0.8rem;
   }
 }
 
@@ -875,7 +776,7 @@ body.is-menu-open {
 
 @media (min-width: 640px) {
   .site-drawer {
-    width: min(400px, 86vw);
+    width: min(360px, 80vw);
     border-top-left-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
   }
