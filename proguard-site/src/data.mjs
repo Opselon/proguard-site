@@ -530,9 +530,9 @@ export const pageModel = {
     smartguard: {
       illustrationKey: 'product.smartguard.illustration',
       metrics: [
-        { icon: 'layers', value: '2-Part', labelKey: 'detail.smartguard.metrics.system' },
+        { icon: 'layers', value: 'Mix 4:1', labelKey: 'detail.smartguard.metrics.system' },
         { icon: 'shield-check', value: '12 bar', labelKey: 'detail.smartguard.metrics.pressure' },
-        { icon: 'clock', value: '24h', labelKey: 'detail.smartguard.metrics.ready' },
+        { icon: 'clock', value: '40 min', labelKey: 'detail.smartguard.metrics.ready' },
       ],
       overviewKey: 'detail.smartguard.overview',
       performanceKey: 'detail.smartguard.performance',
@@ -543,8 +543,8 @@ export const pageModel = {
       illustrationKey: 'product.fastguard.illustration',
       metrics: [
         { icon: 'stopwatch', value: '60s', labelKey: 'detail.fastguard.metrics.stop' },
-        { icon: 'temperature', value: '-20°C', labelKey: 'detail.fastguard.metrics.temp' },
-        { icon: 'hammer', value: '70 MPa', labelKey: 'detail.fastguard.metrics.strength' },
+        { icon: 'temperature', value: '≥5°C', labelKey: 'detail.fastguard.metrics.temp' },
+        { icon: 'hammer', value: '16 MPa', labelKey: 'detail.fastguard.metrics.strength' },
       ],
       overviewKey: 'detail.fastguard.overview',
       performanceKey: 'detail.fastguard.performance',

@@ -345,67 +345,67 @@
     "bloguard": {
       "title": "BloGuard",
       "tagline": "Crystalline penetrating waterproof powder",
-      "desc": "Active crystals penetrate concrete capillaries to form a permanent barrier against water ingress.",
+      "desc": "Penetrating crystalline system that activates on contact with moisture to grow insoluble crystals and permanently seal capillaries.",
       "illustration": "bloguard"
     },
     "smartguard": {
       "title": "SmartGuard",
       "tagline": "Cementitious-acrylic waterproofing system",
-      "desc": "A two-component system that withstands up to 12 bar of positive or negative pressure while remaining flexible.",
+      "desc": "Engineered two-component membrane with high adhesion that withstands intense hydrostatic pressure.",
       "illustration": "smartguard"
     },
     "fastguard": {
       "title": "FastGuard",
       "tagline": "Rapid-setting hydraulic plug",
-      "desc": "Stops active leaks in under 60 seconds so repair work can continue without interruption.",
+      "desc": "Ultra-fast repair mortar for active leaks that sets in under a minute so interventions stay on schedule.",
       "illustration": "fastguard"
     },
     "richguard": {
       "title": "RichGuard",
       "tagline": "High-build acrylic waterproof coating",
-      "desc": "A highly elastic topcoat that bridges thermal cracks and resists UV degradation.",
+      "desc": "High-viscosity acrylic coating that forms an elastic, UV-resistant layer on a wide range of substrates.",
       "illustration": "richguard"
     },
     "nanoguard": {
       "title": "NanoGuard",
-      "tagline": "Self-cleaning nano primer",
-      "desc": "A transparent hydrophobic treatment with a 92° contact angle to repel dirt and pollutants.",
+      "tagline": "Breathable nano barrier for self-cleaning surfaces",
+      "desc": "Invisible nano-ceramic treatment that blocks water and grime while keeping stone, glass, and concrete looking new.",
       "illustration": "nanoguard"
     },
     "thermosound": {
       "title": "ThermoGuard & SoundGuard",
-      "tagline": "Thermal and acoustic spray foam",
-      "desc": "Closed-cell spray polyurethane that delivers superior insulation and sound attenuation in a single pass.",
+      "tagline": "Dual-purpose thermal and acoustic spray foam",
+      "desc": "High-density closed-cell foam that stabilises indoor climates, eliminates condensation, and cuts airborne noise in one application.",
       "illustration": "thermosound"
     },
     "floguard": {
       "title": "FloGuard",
-      "tagline": "Chemical and abrasion resistant topcoat",
-      "desc": "A durable finishing layer engineered for heavy-duty industrial floors and chemical exposure.",
+      "tagline": "Heavy-duty chemical and traffic resistant topcoat",
+      "desc": "Tough polyurethane-modified flooring finish engineered for forklifts, washdowns, and aggressive process chemicals.",
       "illustration": "floguard"
     },
     "armyguard": {
       "title": "ArmyGuard",
-      "tagline": "Hybrid polyurea spray lining",
-      "desc": "Fast-curing dual-component protection for impact-prone vehicles, tanks and equipment.",
+      "tagline": "Instant-cure hybrid polyurea armor coating",
+      "desc": "High-build elastomer that seals steel and concrete against abrasion, impact, and corrosion within seconds of spray application.",
       "illustration": "armyguard"
     },
     "indax": {
       "title": "Indax",
-      "tagline": "Two-component elastomeric primer",
-      "desc": "Superior adhesion on concrete and steel, ready for the next layer within two hours.",
+      "tagline": "Solvent-free adhesion primer for extreme duty",
+      "desc": "Two-component elastomeric primer that keys into dense substrates and creates a chemically resistant base for polyurea and epoxy systems.",
       "illustration": "indax"
     },
     "flexcoat": {
       "title": "FlexCoat",
-      "tagline": "Three-component elastomeric flooring",
-      "desc": "A resilient floor system with high temperature resistance and exceptional elongation.",
+      "tagline": "Elastic three-component polyurethane flooring",
+      "desc": "Flexible, seamless system that couples 280% elongation with high load capacity for dynamic industrial environments.",
       "illustration": "flexcoat"
     },
     "grotex": {
       "title": "Grotex",
-      "tagline": "Three-component epoxy-elastomer primer",
-      "desc": "Delivers 4.1 MPa adhesion as a robust base for resin and elastomeric toppings.",
+      "tagline": "High-adhesion epoxy elastomer underlayment",
+      "desc": "Self-levelling base coat that locks onto concrete, eliminates pinholes, and prepares slabs for premium resin toppings.",
       "illustration": "grotex"
     },
     "metalguard": {
@@ -564,17 +564,19 @@
       }
     },
     "bloguard": {
-      "overview": "BloGuard is a crystalline waterproofing slurry that penetrates the concrete matrix to block capillaries.",
-      "performance": "Reactive crystals rehydrate to seal micro-cracks and withstand hydrostatic pressure.",
+      "overview": "BloGuard is a cementitious crystalline waterproofing powder formulated with active minerals. It is mixed with water and applied as a slurry or dry shake to new or hardened concrete to seal it from within.",
+      "performance": "Insoluble crystals travel up to 4 mm into the matrix, self-healing hairline cracks and cold joints whenever water is present while resisting both positive and negative hydrostatic pressure.",
       "features": [
-        "Deep capillary penetration",
-        "Positive and negative pressure resistance",
-        "Suitable for new and existing concrete"
+        "Maintains concrete compressive strength and remains safe for potable-water contact",
+        "Applicable on horizontal or vertical surfaces as a slurry or dry shake",
+        "High durability against freeze–thaw cycles and thermal shock",
+        "Crystalline growth reactivates throughout the service life whenever moisture returns"
       ],
       "applications": [
-        "Tunnels and underground structures",
-        "Pools and wastewater treatment",
-        "Industrial floor slabs"
+        "Waterproofing new or existing concrete exposed to hydrostatic pressure",
+        "Sealing cold joints and hairline cracks in below-grade structures",
+        "Tunnels, water conveyance channels, and transportation infrastructure",
+        "Potable water tanks, reservoirs, and municipal treatment plants"
       ],
       "metrics": {
         "depth": "Crystal penetration depth",
@@ -583,36 +585,40 @@
       }
     },
     "smartguard": {
-      "overview": "SmartGuard combines a cementitious base with acrylic modifiers to create a flexible, pressure-resistant barrier.",
-      "performance": "Withstands up to 12 bar of hydrostatic pressure while tolerating thermal movement.",
+      "overview": "SmartGuard is a two-component cementitious-acrylic waterproofing system that forms a continuous elastic membrane with outstanding adhesion on mineral substrates.",
+      "performance": "The cured film withstands up to 12 bar of positive and negative hydrostatic pressure and endures repeated thermal and moisture cycling without cracking.",
       "features": [
-        "Brush or spray application",
-        "Can be applied to damp surfaces",
-        "Approved for potable water"
+        "Creates a flexible, high-adhesion layer on concrete, plaster, and masonry",
+        "Stable under positive and negative hydrostatic loads",
+        "Applies to damp or dry surfaces without blistering or cracking",
+        "Potable-water compliant formulation for hygienic environments"
       ],
       "applications": [
-        "Concrete tanks and reservoirs",
-        "Retaining walls",
-        "Basements and underground parking"
+        "Potable and wastewater tanks plus treatment facilities",
+        "Retaining walls, foundations, and below-grade parking structures",
+        "Tunnels, channels, and concrete works exposed to constant moisture",
+        "Green roofs and landscaped podium waterproofing assemblies"
       ],
       "metrics": {
         "system": "Two-component system",
         "pressure": "Hydrostatic resistance",
-        "ready": "Ready for service"
+        "ready": "Pot life"
       }
     },
     "fastguard": {
-      "overview": "FastGuard is a fast-setting hydraulic mortar designed to stop active leaks instantly.",
-      "performance": "Cures in under one minute and performs even in cold or wet conditions.",
+      "overview": "FastGuard is a modified cementitious rapid-setting waterproofing mortar engineered to stop active leaks.",
+      "performance": "The ultra-fast blend sets in under 60 seconds, bonds even in flowing water, and achieves high compressive strength within 24 hours to reopen structures quickly.",
       "features": [
-        "Ultra-fast set with no shrinkage",
-        "High early compressive strength",
-        "Can be applied against flowing water"
+        "Instant setting with zero shrinkage after cure",
+        "Excellent adhesion to wet concrete and mineral substrates",
+        "Suitable for plugging active leaks and high-pressure seepage",
+        "High early strength allows fast return to service"
       ],
       "applications": [
-        "Leak sealing in tanks",
-        "Pipe penetrations",
-        "Emergency water and wastewater repairs"
+        "Plugging leaking holes and joints in tanks and walls",
+        "Sealing pipe penetrations and fittings under flow",
+        "Emergency waterproofing of tunnels, shafts, and underground structures",
+        "Preparing penetrations before installing permanent waterproofing systems"
       ],
       "metrics": {
         "stop": "Leak stop time",
@@ -621,17 +627,19 @@
       }
     },
     "richguard": {
-      "overview": "RichGuard is a high-build acrylic coating delivering a smooth, UV-resistant finish.",
-      "performance": "Provides 400% elongation, bridging thermal cracks without loss of adhesion.",
+      "overview": "RichGuard is a high-build waterborne acrylic coating that delivers a uniform, washable, and sun-resistant finish.",
+      "performance": "Its 400% elongation bridges thermal cracks up to 2 mm while remaining stable against UV exposure and temperature swings.",
       "features": [
-        "Washable semi-gloss finish",
-        "Outstanding UV colour stability",
-        "Performs in sub-zero climates"
+        "High elasticity bridges thermal cracks up to 2 mm",
+        "Outstanding UV and color stability for long-term appearance",
+        "Breathable, washable finish that keeps surfaces clean",
+        "Reliable adhesion to concrete, plaster, brick, and previously painted substrates"
       ],
       "applications": [
-        "Concrete and plaster façades",
-        "Refurbishment of painted surfaces",
-        "Roof parapets"
+        "Building facades and exterior walls across hot and cold climates",
+        "Coastal structures and areas with intense solar exposure",
+        "Lightweight roof and terrace waterproofing assemblies",
+        "Refurbishing aged or cracked surfaces without invasive demolition"
       ],
       "metrics": {
         "elasticity": "Elongation",
@@ -640,17 +648,19 @@
       }
     },
     "nanoguard": {
-      "overview": "NanoGuard is a transparent nano primer that repels contaminants through a high contact angle.",
-      "performance": "Dries within 15 minutes and keeps surfaces clean without altering appearance.",
+      "overview": "NanoGuard is an ultra-thin nano-ceramic impregnation that seeps deep into mineral pores to build a breathable hydrophobic lattice.",
+      "performance": "The treatment repels water, oils, and airborne pollutants, resists UV, carbonation, and freeze-thaw cycles, and inhibits algae and mould without altering the surface appearance.",
       "features": [
-        "Super-hydrophobic behaviour",
-        "Deep penetration without film build",
-        "Resistant to common detergents"
+        "Creates a 120° water contact angle for extreme beading",
+        "Penetrates up to 8 mm without leaving a visible film",
+        "Blocks chloride ingress and freeze-thaw damage",
+        "Inhibits algae, mould, and soot build-up on façades"
       ],
       "applications": [
-        "Stone façades",
-        "Glass and coated metal",
-        "Ceramic finishes in public areas"
+        "Natural stone, travertine, and architectural concrete façades",
+        "Glass curtain walls, anodized aluminium, and coated steel",
+        "Historic masonry, brick, and precast exposed to urban pollution",
+        "Ceramic, grout, and sanitary areas that demand easy cleaning"
       ],
       "metrics": {
         "angle": "Water contact angle",
@@ -659,17 +669,19 @@
       }
     },
     "thermosound": {
-      "overview": "ThermoGuard & SoundGuard is a closed-cell spray foam delivering high thermal and acoustic insulation in one application.",
-      "performance": "Offers a thermal conductivity of 0.021 W/m·K and reduces airborne sound by 18 dB.",
+      "overview": "ThermoGuard & SoundGuard is a high-density closed-cell spray foam that delivers Class I thermal insulation and acoustic damping in a single mobilization.",
+      "performance": "Achieves λ=0.021 W/m·K and up to 18 dB airborne sound reduction while creating a vapour-tight skin that stops condensation and heat gain.",
       "features": [
-        "Adheres to concrete, metal and timber",
-        "Seamless application",
-        "Moisture and mould resistant"
+        "Expands to a seamless monolithic envelope with no joints",
+        "Adheres to concrete, metal decking, timber, and composites",
+        "Moisture, mould, and pest resistant closed-cell structure",
+        "Rapid return-to-service with touch-free cure in minutes"
       ],
       "applications": [
-        "Industrial roofs",
-        "Modular buildings and partitions",
-        "HVAC ducts and cold rooms"
+        "Industrial roofs, warehouses, and logistics hubs",
+        "Modular buildings, cold rooms, and clean production areas",
+        "Acoustic treatment for cinemas, studios, and mechanical rooms",
+        "HVAC ducts, tanks, and irregular geometries that require full coverage"
       ],
       "metrics": {
         "lambda": "Thermal conductivity",
@@ -678,17 +690,19 @@
       }
     },
     "floguard": {
-      "overview": "FloGuard is a chemically resistant, hard-wearing topcoat for industrial floors.",
-      "performance": "Provides high compressive strength and withstands aggressive acidic or alkaline environments.",
+      "overview": "FloGuard is a polyurethane-modified epoxy topcoat engineered for high-traffic industrial floors exposed to chemicals and heavy equipment.",
+      "performance": "Delivers compressive strength above 75 MPa, a Taber abrasion loss under 80 mg, and broad resistance to acids, alkalis, oils, and solvents.",
       "features": [
-        "Dust-free glossy surface",
-        "Outstanding chemical resistance",
-        "Designed for heavy traffic"
+        "High-gloss, dust-free finish with optional anti-slip textures",
+        "Withstands hot water washdowns and chemical spills",
+        "UV- and tyre-mark resistant formulation for long service life",
+        "Low-permeability film that seals the concrete substrate"
       ],
       "applications": [
-        "Pharma and food facilities",
-        "Multi-storey car parks",
-        "Cold stores and marine environments"
+        "Food and pharmaceutical processing plants",
+        "Automotive assembly, hangars, and multi-storey car parks",
+        "Cold storage, logistics centres, and distribution warehouses",
+        "Laboratories and clean rooms requiring hygienic flooring"
       ],
       "metrics": {
         "strength": "Compressive strength",
@@ -697,17 +711,19 @@
       }
     },
     "armyguard": {
-      "overview": "ArmyGuard is a hybrid polyurea spray lining engineered for extreme impact and abrasion.",
-      "performance": "Cures quickly to a seamless shell that safeguards valuable assets in harsh duty.",
+      "overview": "ArmyGuard is an instant-cure hybrid polyurea/polyurethane coating that forms a rugged elastomeric shield over critical assets.",
+      "performance": "Cures within 60 seconds to deliver >17 MPa tensile strength, 380% elongation, and outstanding impact, abrasion, and chemical resistance.",
       "features": [
-        "Exceptional impact resistance",
-        "Superior adhesion to steel and concrete",
-        "Thickness control in each pass"
+        "Builds thicknesses from 1.5 to 5 mm in a single mobilization",
+        "Excellent adhesion to blasted steel, concrete, aluminium, and GRP",
+        "Non-permeable membrane that resists corrosion and salt spray",
+        "UV-stabilised formulation with colour topcoat compatibility"
       ],
       "applications": [
-        "Military and industrial vehicles",
-        "Exposed tanks and containers",
-        "Coastal and marine structures"
+        "Military and commercial vehicle bodies and bed liners",
+        "Exposed pipelines, tanks, and structural steelwork",
+        "Helipads, ramps, and decks subject to high impact",
+        "Coastal, marine, and desert installations needing durable armour"
       ],
       "metrics": {
         "hybrid": "Hybrid composition",
@@ -716,17 +732,19 @@
       }
     },
     "indax": {
-      "overview": "Indax is a two-component elastomeric primer that ensures maximum adhesion before high-performance topcoats.",
-      "performance": "Ready for recoating after two hours and completely solvent-free for safer application.",
+      "overview": "Indax is a solvent-free two-component elastomeric primer designed to anchor high-performance polyurea, polyurethane, and epoxy systems.",
+      "performance": "Provides adhesion values above 4 MPa on concrete and steel, tolerates 8% substrate moisture, and is ready for recoating within 2–6 hours.",
       "features": [
-        "Outstanding adhesion on difficult substrates",
-        "High coverage and low consumption",
-        "Chemical resistance"
+        "Low-viscosity formulation that wets dense and porous substrates",
+        "Chemical resistance to fuels, salts, and industrial effluents",
+        "Bridges hairline cracks and seals porous concrete surfaces",
+        "Zero VOC composition for enclosed or hygiene-critical areas"
       ],
       "applications": [
-        "Steel and concrete tanks",
-        "Base for polyurea or polyurethane",
-        "Resin flooring primer"
+        "Steel and concrete tanks, reservoirs, and clarifiers",
+        "Secondary containment bunds and wastewater facilities",
+        "Primer for polyurea spray systems and heavy-duty floor toppings",
+        "Marine, offshore, and coastal assets exposed to salt spray"
       ],
       "metrics": {
         "adhesion": "Bond strength",
@@ -735,17 +753,19 @@
       }
     },
     "flexcoat": {
-      "overview": "FlexCoat is a three-component elastomeric flooring system delivering durability and flexibility.",
-      "performance": "Maintains elasticity up to 280% and withstands temperatures up to 120°C.",
+      "overview": "FlexCoat is a three-component polyurethane elastomer flooring system that combines flexibility with industrial-grade durability.",
+      "performance": "Maintains 280% elongation, >12 MPa tensile strength, and resists thermal shock from -40°C to +120°C while damping vibration and impact.",
       "features": [
-        "High tensile and flexural strength",
-        "Thermal shock resistance",
-        "Anti-slip, easy-to-clean finish"
+        "Seamless membrane that absorbs vibration and dynamic loads",
+        "Anti-slip, easy-to-clean surface with hygienic topcoat options",
+        "Resists oils, acids, alkalis, and frequent washdowns",
+        "Compatible with cove details, ramps, and complex geometries"
       ],
       "applications": [
-        "Laboratories and pharma plants",
-        "Automotive manufacturing",
-        "Heavy-duty warehouses"
+        "Laboratories, clean rooms, and pharmaceutical facilities",
+        "Beverage, dairy, and commercial kitchens with wet processes",
+        "Automotive plants, assembly lines, and test tracks",
+        "Warehouses and mezzanines requiring resilient flooring"
       ],
       "metrics": {
         "system": "Three-component system",
@@ -754,17 +774,19 @@
       }
     },
     "grotex": {
-      "overview": "Grotex is an epoxy-elastomer primer that creates a highly adhesive base for resin toppings.",
-      "performance": "Ready for the next coat after eight hours while preventing pinholes and bubbles.",
+      "overview": "Grotex is a high-build epoxy elastomer underlayment that primes concrete slabs before premium resin or elastomer finishes.",
+      "performance": "Self-levels to 1–3 mm, cures for recoating in 8 hours, and delivers 4.1 MPa bond strength while blocking pinholes, bubbles, and rising moisture.",
       "features": [
-        "4.1 MPa adhesion",
-        "Prevents pinholes",
-        "Compatible with epoxy and polyurethane"
+        "Balances flexibility and strength to absorb slab movement",
+        "Fills surface porosity and seals against osmotic blistering",
+        "Compatible with epoxy, polyurethane, and polyaspartic topcoats",
+        "Low shrinkage formulation for smooth high-gloss finishes"
       ],
       "applications": [
-        "Industrial flooring",
-        "Bridge decks",
-        "Concrete rehabilitation"
+        "Industrial floors subject to heavy machinery and vibration",
+        "Parking structures, bridge decks, and elevated slabs",
+        "CNC rooms and precision manufacturing that demand smooth bases",
+        "Concrete rehabilitation prior to elastomeric waterproofing"
       ],
       "metrics": {
         "adhesion": "Bond strength",
